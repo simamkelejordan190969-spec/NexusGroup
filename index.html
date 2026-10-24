@@ -1,0 +1,1788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NEXUS GROUP | Trading Journal</title>
+<style>:root{
+  --bg:#0f1218;--text:#e8ecf3;--accent:#5b8cff;--on-accent:#ffffff;--green:#2ecc8f;--red:#ff5d6c;
+  --font:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --card:color-mix(in srgb,var(--bg) 90%,var(--text) 10%);
+  --line:color-mix(in srgb,var(--bg) 82%,var(--text) 18%);
+  --muted:color-mix(in srgb,var(--text) 62%,var(--bg));
+  --hover:color-mix(in srgb,var(--bg) 85%,var(--text) 15%);
+  --ease:cubic-bezier(.22,1,.36,1);
+  --s:1;--bg-image:none;
+}:root[data-bgstyle="gradient"]{
+  --bg-image:
+    radial-gradient(1000px 520px at 15% -10%,color-mix(in srgb,var(--accent) 22%,transparent),transparent),
+    radial-gradient(900px 500px at 100% 100%,color-mix(in srgb,var(--accent) 14%,transparent),transparent);
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background-color:var(--bg);background-image:var(--bg-image);background-attachment:fixed;color:var(--text);font-family:var(--font);font-size:1rem;line-height:1.5}
+button{position:relative;font:inherit}
+h2{font-size:1rem;margin:0 0 12px;color:var(--muted);font-weight:600}
+h3{margin:0;font-size:1rem}
+p{margin:0 0 8px}.pos{color:var(--green)}.neg{color:var(--red)}.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:16px}.empty{color:var(--muted);text-align:center;padding:20px}.hint,.nx-note{color:var(--muted);font-size:.85rem;margin:0}.msg{margin:0;color:var(--green);opacity:0;transition:opacity.25s}.msg.show{opacity:1}
+
+/* ---------- Forms ---------- */.grid-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;align-items:end}.wide{grid-column:span 2}.full{grid-column:1/-1}
+label{display:flex;flex-direction:column;font-size:.8rem;color:var(--muted);gap:4px}
+label.chk{flex-direction:row;align-items:center;gap:8px;color:var(--text);font-size:.95rem}
+input,select,textarea{background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font:inherit;transition:border-color.2s,box-shadow.2s}
+textarea{resize:vertical;min-height:60px}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 30%,transparent)}
+input[type="color"]{padding:2px;height:38px;cursor:pointer}
+input[type="range"]{padding:0;accent-color:var(--accent)}
+input[type="checkbox"]{accent-color:var(--accent)}.form-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.rr{display:flex;flex-direction:column;font-size:.8rem;color:var(--muted)}.rr output{font-size:1.1rem;font-weight:700;color:var(--text)}
+
+/* ---------- Buttons ---------- */.btn{border:0;border-radius:8px;padding:9px 16px;font-weight:600;color:var(--on-accent);background:var(--accent);cursor:pointer;
+  transition:transform calc(.18s*var(--s)) var(--ease),box-shadow calc(.18s*var(--s)) var(--ease),background.2s}.btn:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.3)}.btn:active{transform:translateY(0) scale(.95);box-shadow:none}.btn:focus-visible,.dock-item:focus-visible,.cal-day:focus-visible,.pick-item:focus-visible,.seg button:focus-visible,.brand:focus-visible{outline:2px solid var(--text);outline-offset:2px}.btn:disabled{opacity:.55;cursor:not-allowed;transform:none;box-shadow:none}.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--text)}.btn.ghost:hover{background:var(--hover)}.btn.danger{background:transparent;color:var(--red);padding:4px 10px;border:1px solid transparent}.btn.danger:hover{background:color-mix(in srgb,var(--red) 14%,transparent);box-shadow:none}.btn.icon{padding:6px 12px;font-size:1.1rem;line-height:1}.btn.big{padding:12px 28px;font-size:1.05rem;border-radius:999px}.btn.shake{animation:shake.4s}
+html[data-glow="on"].btn:not(.ghost):not(.danger):hover{box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 28%,transparent),0 6px 22px color-mix(in srgb,var(--accent) 50%,transparent)}.rip{position:absolute;inset:0;overflow:hidden;border-radius:inherit;pointer-events:none}.ripple{position:absolute;border-radius:50%;background:currentColor;opacity:.3;transform:scale(0);pointer-events:none;animation:ripple calc(.6s*var(--s)) ease-out forwards}
+
+/* ---------- Gate (PIN) ---------- */.nx-gate{position:fixed;inset:0;z-index:300;display:grid;place-items:center;padding:24px;background-color:var(--bg);
+  background-image:radial-gradient(900px 520px at 50% 40%,color-mix(in srgb,var(--accent) 22%,transparent),transparent)}.nx-gate.out{animation:zoomThrough.5s var(--ease) forwards;pointer-events:none}.nx-gate-box{display:grid;gap:14px;width:min(360px,100%);padding:28px;text-align:center;background:var(--card);border:1px solid var(--line);border-radius:16px}.nx-gate-box h2{margin:0;letter-spacing:.14em;color:var(--text);font-size:1.3rem}.nx-gate-box label{text-align:left}.nx-gate-box.shake{animation:shake.5s}.nx-err{margin:0;min-height:1.3em;color:var(--red);font-size:.9rem}
+
+/* ---------- Landing ---------- */
+#landing{position:fixed;inset:0;z-index:200;display:grid;place-items:center;text-align:center;padding:24px;overflow:hidden;background-color:var(--bg);
+  background-image:radial-gradient(900px 520px at 50% 42%,color-mix(in srgb,var(--accent) 24%,transparent),transparent)}.landing-inner{position:relative;z-index:1}.eyebrow{margin:0 0 10px;color:var(--muted);letter-spacing:.3em;text-transform:uppercase;font-size:.8rem}.brand-title{margin:0;font-size:clamp(2.4rem,10vw,5.5rem);font-weight:800;letter-spacing:.14em;padding-left:.14em;line-height:1.1}.tag{margin:14px 0 28px;color:var(--muted);font-size:1.05rem}.rings{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}.rings i{grid-area:1/1;width:min(70vmin,520px);aspect-ratio:1;border-radius:50%;opacity:0;border:1px solid color-mix(in srgb,var(--accent) 55%,transparent)}.play.brand-title{animation:pop 1.4s var(--ease) both,breathe 6s ease-in-out 1.4s infinite}.play.fade{animation:fadeUp.8s var(--ease).9s both}.play.rings i{animation:ring 4s ease-out infinite}.play.rings i:nth-child(2){animation-delay:1.3s}.play.rings i:nth-child(3){animation-delay:2.6s}
+#landing.leaving{animation:zoomThrough.7s var(--ease) forwards;pointer-events:none}
+#shell.reveal{animation:zoomIn.6s var(--ease)}
+
+/* ---------- Shell and dock ---------- */
+#shell{min-height:100vh;display:flex}
+#shell.v{flex-direction:row}
+#shell[data-dock="right"]{flex-direction:row-reverse}
+#shell.h{flex-direction:column}
+#shell[data-dock="bottom"]{flex-direction:column-reverse}.content{flex:1;min-width:0}.dock{background:var(--card);border:1px solid var(--line);display:flex;gap:6px;z-index:40}
+#shell.v.dock{flex-direction:column;position:sticky;top:0;align-self:flex-start;height:100vh;width:220px;padding:14px 10px;border-width:0 1px 0 0;transition:width calc(.3s*var(--s)) var(--ease)}
+#shell[data-dock="right"].dock{border-width:0 0 0 1px}
+#shell.h.dock{flex-direction:row;align-items:center;position:sticky;padding:6px 10px;overflow-x:auto}
+#shell[data-dock="top"].dock{top:0;border-width:0 0 1px 0}
+#shell[data-dock="bottom"].dock{bottom:0;border-width:1px 0 0 0}.dock-list{display:flex;gap:4px;margin:0;padding:0;list-style:none}
+#shell.v.dock-list{flex-direction:column;flex:1;min-height:0;overflow-y:auto}
+#shell.h.dock-list{flex-direction:row;flex:1}.brand{background:none;border:0;color:var(--text);font-weight:800;letter-spacing:.12em;font-size:1.05rem;cursor:pointer;padding:8px 10px;border-radius:8px;text-align:left;white-space:nowrap;
+  transition:transform calc(.18s*var(--s)) var(--ease),background.2s}.brand:hover{background:var(--hover);transform:scale(1.04)}.brand:active{transform:scale(.96)}.brand small{display:block;font-weight:500;letter-spacing:.02em;font-size:.72rem;color:var(--muted)}.dock-item{display:flex;align-items:center;gap:12px;width:100%;padding:10px 12px;border:0;border-radius:10px;background:none;color:var(--muted);
+  font-weight:600;cursor:pointer;text-align:left;white-space:nowrap;
+  transition:background.2s,color.2s,transform calc(.18s*var(--s)) var(--ease),box-shadow.3s}.dock-item:hover{background:var(--hover);color:var(--text);transform:translateX(2px)}.dock-item:active{transform:scale(.96)}.dock-item[aria-current="page"]{background:color-mix(in srgb,var(--accent) 20%,transparent);color:var(--text)}
+html[data-glow="on"].dock-item[aria-current="page"]{box-shadow:0 0 0 1px color-mix(in srgb,var(--accent) 55%,transparent),0 0 18px color-mix(in srgb,var(--accent) 40%,transparent);animation:glow calc(.7s*var(--s)) ease-out}.ico svg{width:20px;height:20px;display:block;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.dock-foot{display:flex}
+#shell.v.dock-foot{flex-direction:column}
+#shell.h.dock-foot{flex-direction:row}.soon{margin-left:auto;font-size:.65rem;padding:1px 6px;border-radius:999px;background:var(--accent);color:var(--on-accent)}
+#shell.v.collapsed.dock{width:68px}
+#shell.v.collapsed.lbl,#shell.v.collapsed.brand small,#shell.v.collapsed.soon,#shell.v.collapsed.brand span{display:none}
+#shell.v.collapsed.dock-item,#shell.v.collapsed.brand{justify-content:center;padding-left:0;padding-right:0;text-align:center}
+#shell.h #collapseBtn{display:none}.topbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:16px 20px}.topbar h1{margin:0 auto 0 0;font-size:1.35rem}.topbar label{flex-direction:row;align-items:center;gap:8px}
+main{max-width:1100px;margin:0 auto;padding:0 20px 48px}.view.viewIn,.viewIn{animation:viewIn calc(.4s*var(--s)) var(--ease)}.dash-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+
+/* ---------- Segmented switch ---------- */.seg{position:relative;display:inline-grid;grid-template-columns:repeat(var(--n,2),1fr);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px}.seg button{z-index:1;background:none;border:0;color:var(--muted);padding:6px 18px;font-weight:600;cursor:pointer;border-radius:999px;transition:color.25s}.seg button[aria-pressed="true"]{color:var(--on-accent)}.seg-thumb{position:absolute;top:3px;bottom:3px;left:3px;width:calc((100% - 6px)/var(--n,2));background:var(--accent);border-radius:999px;
+  transform:translateX(calc(var(--i,0)*100%));transition:transform calc(.35s*var(--s)) var(--ease)}
+
+/* ---------- Stats, lists ---------- */.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}.stat span{display:block;color:var(--muted);font-size:.8rem}.stat strong{font-size:1.4rem;font-variant-numeric:tabular-nums}.latest{list-style:none;margin:0;padding:0}.latest li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line)}.latest li:last-child{border-bottom:0}.latest li.empty{justify-content:center}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.chips{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:8px 0;padding:0}.chip{padding:2px 10px;border:1px solid var(--line);border-radius:999px;font-size:.8rem;background:var(--bg)}.chip.pos{color:var(--green)}.chip.neg{color:var(--red)}.badge{padding:2px 10px;border-radius:999px;font-size:.75rem;font-weight:600;border:1px solid var(--line);color:var(--muted);white-space:nowrap}.badge.st-taken{color:var(--green);border-color:currentColor}.badge.st-planned{color:var(--accent);border-color:currentColor}.badge.st-skipped{color:var(--muted)}.badge.st-no{color:var(--red);border-color:currentColor}
+
+/* ---------- Table ---------- */.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+th{color:var(--muted);font-weight:600;font-size:.8rem}
+td.notes{white-space:normal;max-width:240px;color:var(--muted)}
+tbody tr{transition:background.2s}
+tbody tr:hover{background:var(--hover)}
+tr.enter{animation:rowIn calc(.5s*var(--s)) var(--ease)}
+tr.leaving,.leaving.rev-card{animation:rowOut calc(.35s*var(--s)) var(--ease) forwards}
+
+/* ---------- Chart ---------- */
+svg.chart{width:100%;height:auto;display:block}.line{fill:none;stroke:var(--accent);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;animation:draw calc(1.1s*var(--s)) var(--ease) forwards}.area{fill:color-mix(in srgb,var(--accent) 14%,transparent);opacity:0;animation:fade.8s.5s forwards}.base{stroke:var(--line);stroke-dasharray:4 4}.axis{fill:var(--muted);font-size:11px}.pt{fill:transparent;cursor:pointer}.pt:hover{fill:var(--accent)}
+
+/* ---------- Calendar ---------- */.cal-head{display:flex;align-items:center;gap:8px;margin-bottom:12px}.cal-head h2{margin:0 auto 0 0;color:var(--text);font-size:1.15rem}.cal-sum{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:12px}.cal-wrap{overflow-x:auto}.cal-grid{display:grid;grid-template-columns:repeat(7,minmax(62px,1fr)) minmax(72px,.8fr);gap:6px;min-width:560px}.cal-dow div{text-align:center;color:var(--muted);font-size:.75rem;padding:4px 0}.cal-day{display:flex;flex-direction:column;align-items:flex-start;gap:1px;min-height:76px;padding:6px 8px;text-align:left;
+  background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:10px;cursor:pointer;
+  transition:transform calc(.18s*var(--s)) var(--ease),border-color.2s,background.2s}.cal-day:hover{transform:translateY(-2px);border-color:var(--accent)}.cal-day.num{font-size:.8rem;color:var(--muted)}.cal-day.pl{font-weight:700;font-size:.9rem}.cal-day.cnt{font-size:.68rem;color:var(--muted)}.cal-day.out{opacity:.4}.cal-day.today{outline:2px solid color-mix(in srgb,var(--accent) 70%,transparent);outline-offset:-2px}.cal-day.win{background:color-mix(in srgb,var(--green) 14%,var(--bg))}.cal-day.loss{background:color-mix(in srgb,var(--red) 14%,var(--bg))}.cal-day.flat{background:var(--hover)}.cal-day[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 35%,transparent)}.cal-day.dot{position:absolute;top:7px;right:7px;width:8px;height:8px;border-radius:50%;background:var(--accent)}.cal-wk{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;background:var(--card);border:1px dashed var(--line);border-radius:10px;padding:4px}.cal-wk small{color:var(--muted);font-size:.7rem}.cal-grid.fromRight{animation:slideR calc(.4s*var(--s)) var(--ease)}.cal-grid.fromLeft{animation:slideL calc(.4s*var(--s)) var(--ease)}
+
+/* ---------- Review, plans, accounts ---------- */.rev-top{display:flex;gap:16px;align-items:flex-end;flex-wrap:wrap;margin-bottom:12px}.period{font-weight:700;margin:0}.pick{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:8px}.pick-item{display:grid;gap:2px;text-align:left;padding:10px 12px;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:10px;cursor:pointer;
+  transition:transform calc(.18s*var(--s)) var(--ease),border-color.2s}.pick-item:hover{transform:translateY(-2px);border-color:var(--accent)}.pick-item[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 35%,transparent)}.pick-item small{color:var(--muted)}.vhead{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px}.vhead h2{margin:0 auto 0 0;color:var(--text)}.shot{margin:0 0 10px}.shot img{display:block;width:100%;max-height:70vh;object-fit:contain;border-radius:10px;background:#000}.shot-empty{padding:28px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:10px}.vbtns{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}.rev-card{border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px;background:var(--bg)}.rev-card.enter{animation:rowIn calc(.5s*var(--s)) var(--ease)}.rev-card.head{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}.rev-card.k{font-size:.75rem;color:var(--muted);margin-top:8px;text-transform:uppercase;letter-spacing:.06em}.rev-card p{white-space:pre-wrap;overflow-wrap:anywhere}.rev-actions{display:flex;gap:8px;margin-top:10px}.acct-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}.acct{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--bg);display:flex;flex-direction:column;gap:6px}.acct.sub{color:var(--muted);font-size:.85rem;margin:0}.acct dl{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:6px 0}.acct dt{font-size:.7rem;color:var(--muted)}.acct dd{margin:0;font-weight:700;font-variant-numeric:tabular-nums}.nx-log{display:flex;flex-wrap:wrap;gap:8px;align-items:end;margin-top:10px}.nx-log label{min-width:120px}.nx-vsec{margin-top:16px;padding-top:12px;border-top:1px solid var(--line)}.nx-vsec h3{margin-bottom:8px}.nx-video video{display:block;width:100%;max-height:420px;margin-bottom:8px;border-radius:10px;background:#000}.nx-soon{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.nx-soon p{margin:0;color:var(--muted)}
+
+/* ---------- Settings dialog ---------- */
+dialog{width:min(440px,92vw);padding:0;border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--text)}
+dialog::backdrop{background:rgba(0,0,0,.55)}
+dialog[open]{animation:zoomIn calc(.35s*var(--s)) var(--ease)}
+dialog.closing{animation:zoomOut calc(.25s*var(--s)) var(--ease) forwards}.dlg-body{padding:20px;display:grid;gap:14px;max-height:88vh;overflow-y:auto}.dlg-body h2{margin:0;color:var(--text);font-size:1.15rem}.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.dlg-actions{display:flex;justify-content:space-between;gap:8px;margin-top:4px}
+output{color:var(--text);font-weight:600}
+
+/* ---------- Chat ---------- */.nx-launch{position:fixed;right:16px;bottom:16px;z-index:50;border-radius:999px;padding:10px 18px}.nx-chat{position:fixed;right:16px;bottom:16px;z-index:60;width:min(400px,calc(100vw - 32px));height:min(72vh,580px);display:flex;flex-direction:column;overflow:hidden;
+  background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 50px rgba(0,0,0,.45);animation:zoomIn calc(.35s*var(--s)) var(--ease)}.nx-chat header{display:flex;align-items:center;gap:6px;padding:10px 12px;border-bottom:1px solid var(--line)}.nx-chat header h2{margin:0 auto 0 0;font-size:1rem;color:var(--text)}.nx-chat header.btn{padding:4px 10px}.nx-name{display:grid;gap:12px;padding:16px;align-content:start;flex:1}.nx-name p{margin:0;color:var(--muted)}.nx-msgs{flex:1;min-height:0;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px}.nx-msg{max-width:88%;padding:8px 12px;border-radius:12px;white-space:pre-wrap;overflow-wrap:anywhere;background:var(--bg);border:1px solid var(--line)}.nx-msg.user{align-self:flex-end;background:var(--accent);color:var(--on-accent);border-color:transparent}.nx-msg.err{color:var(--red)}.nx-msg img{display:block;max-width:100%;margin-bottom:6px;border-radius:8px}.nx-comp{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:10px 12px;border-top:1px solid var(--line)}.nx-comp textarea{flex:1 1 100%;min-height:48px;max-height:120px}.nx-chat>.nx-note{padding:0 12px 10px;font-size:.72rem}
+
+/* ---------- Keyframes ---------- */
+@keyframes pop{0%{opacity:0;transform:scale(.25);filter:blur(12px)}60%{opacity:1;transform:scale(1.14);filter:blur(0)}100%{opacity:1;transform:scale(1);filter:blur(0)}}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes ring{0%{transform:scale(.4);opacity:.7}100%{transform:scale(1.6);opacity:0}}
+@keyframes zoomThrough{to{opacity:0;transform:scale(1.8)}}
+@keyframes zoomIn{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
+@keyframes zoomOut{to{opacity:0;transform:scale(.94)}}
+@keyframes viewIn{from{opacity:0;transform:scale(.97) translateY(8px)}to{opacity:1;transform:none}}
+@keyframes ripple{to{transform:scale(4);opacity:0}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+@keyframes rowIn{from{opacity:0;transform:translateY(-10px);background:color-mix(in srgb,var(--accent) 22%,transparent)}to{opacity:1;transform:none}}
+@keyframes rowOut{to{opacity:0;transform:translateX(24px)}}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes fade{to{opacity:1}}
+@keyframes glow{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 70%,transparent)}100%{box-shadow:0 0 0 1px color-mix(in srgb,var(--accent) 55%,transparent),0 0 18px color-mix(in srgb,var(--accent) 40%,transparent)}}
+@keyframes slideR{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:none}}
+@keyframes slideL{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:none}}
+
+/* ---------- Small screens ---------- */
+@media (max-width:760px){.topbar{padding:12px 14px}
+  main{padding:0 14px 96px}.wide{grid-column:1/-1}
+  #shell.h.brand,#shell.h.dock-foot{display:none}
+  #shell.h.dock-list{justify-content:space-between}
+  #shell.h.dock-item{flex-direction:column;gap:2px;padding:6px 8px;font-size:.68rem;text-align:center}
+  #shell.h.soon{display:none}.nx-launch,.nx-chat{bottom:80px}
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+<!-- END OF PART 1 -->
+<body>
+
+<!-- ===== PIN screen ===== -->
+<div class="nx-gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
+  <form class="nx-gate-box" id="gateForm" autocomplete="off">
+    <h2 id="gateTitle">NEXUS GROUP</h2>
+    <label>Enter PIN or password
+      <input type="password" id="gateIn" autocomplete="off" required>
+    </label>
+    <button class="btn" type="submit">Unlock</button>
+    <p class="nx-err" id="gateErr" role="alert"></p>
+  </form>
+</div>
+
+<!-- ===== Landing ===== -->
+<section id="landing" class="play" aria-labelledby="landingTitle" hidden>
+  <div class="rings" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="landing-inner">
+    <p class="eyebrow fade">Trading Journal</p>
+    <h1 class="brand-title" id="landingTitle">NEXUS GROUP</h1>
+    <p class="tag fade">Log every trade. See what works.</p>
+    <button class="btn big fade" id="enterBtn" type="button">Enter journal</button>
+  </div>
+</section>
+
+<!-- ===== App shell ===== -->
+<div id="shell" class="v" data-dock="left" inert>
+
+  <nav class="dock" aria-label="Main">
+    <button class="brand" id="homeBtn" type="button" aria-label="NEXUS GROUP Trading Journal, back to the landing page">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:8px" aria-hidden="true"><path d="M5 20V4l14 16V4"/></svg><span>NEXUS GROUP</span>
+      <small>Trading Journal</small>
+    </button>
+
+    <ul class="dock-list">
+      <li><button class="dock-item" type="button" data-view="dashboard" aria-current="page">
+        <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg></span>
+        <span class="lbl">Dashboard</span></button></li>
+      <li><button class="dock-item" type="button" data-view="journal">
+        <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M9 9h6M9 13h6"/></svg></span>
+        <span class="lbl">Journal</span></button></li>
+      <li><button class="dock-item" type="button" data-view="review">
+        <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-5-5"/></svg></span>
+        <span class="lbl">Trade review</span></button></li>
+      <li><button class="dock-item" type="button" data-view="plan">
+        <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg></span>
+        <span class="lbl">Pre-trade</span></button></li>
+      <li><button class="dock-item" type="button" data-view="backtest">
+        <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/><path d="M12 8v4l3 2"/></svg></span>
+        <span class="lbl">Backtesting</span><span class="soon">Soon</span></button></li>
+      <li><button class="dock-item" type="button" data-view="equity">
+        <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span>
+        <span class="lbl">Equity curve</span></button></li>
+      <li><button class="dock-item" type="button" data-view="accounts">
+        <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/></svg></span>
+        <span class="lbl">Accounts</span></button></li>
+    </ul>
+
+    <div class="dock-foot">
+      <button class="dock-item" id="settingsBtn" type="button" aria-haspopup="dialog">
+        <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/></svg></span>
+        <span class="lbl">Settings</span></button>
+      <button class="dock-item" id="collapseBtn" type="button">
+        <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></span>
+        <span class="lbl" id="collapseLabel">Collapse</span></button>
+    </div>
+  </nav>
+
+  <div class="content">
+    <header class="topbar">
+      <h1 id="viewTitle">Dashboard</h1>
+      <label id="acctFilterWrap" hidden>Show
+        <select id="acctFilter" aria-label="Filter by account"></select>
+      </label>
+    </header>
+
+    <main id="app">
+
+      <!-- Dashboard -->
+      <section class="view" data-view="dashboard">
+        <div class="dash-head">
+          <div class="seg" id="dashSeg" style="--n:2" role="group" aria-label="Dashboard mode">
+            <span class="seg-thumb" aria-hidden="true"></span>
+            <button type="button" data-val="overview">Overview</button>
+            <button type="button" data-val="calendar">Calendar</button>
+          </div>
+        </div>
+
+        <div id="dashOverview">
+          <section class="stats" aria-label="Statistics">
+            <div class="stat"><span>Total P&amp;L</span><strong id="sPnl">0.00</strong></div>
+            <div class="stat"><span>Trades</span><strong id="sCount">0</strong></div>
+            <div class="stat"><span>Win rate</span><strong id="sWin">0%</strong></div>
+            <div class="stat"><span>Avg win</span><strong id="sAvgWin" class="pos">0.00</strong></div>
+            <div class="stat"><span>Avg loss</span><strong id="sAvgLoss" class="neg">0.00</strong></div>
+            <div class="stat"><span>Profit factor</span><strong id="sPf">0.00</strong></div>
+          </section>
+          <div class="card"><h2>By account</h2><div class="acct-grid" id="bdBox"></div></div>
+          <div class="card"><h2>Latest trades</h2><ul class="latest" id="latest"></ul></div>
+        </div>
+
+        <div id="dashCalendar" hidden>
+          <div class="card">
+            <div class="cal-head">
+              <button class="btn ghost icon" id="calPrev" type="button" aria-label="Previous month">&#8249;</button>
+              <h2 id="calTitle" aria-live="polite">Month</h2>
+              <button class="btn ghost" id="calToday" type="button">Today</button>
+              <button class="btn ghost icon" id="calNext" type="button" aria-label="Next month">&#8250;</button>
+            </div>
+            <div class="cal-sum">
+              <div class="stat"><span>Month P&amp;L</span><strong id="cPnl">0.00</strong></div>
+              <div class="stat"><span>Trading days</span><strong id="cDays">0</strong></div>
+              <div class="stat"><span>Green days</span><strong id="cGreen" class="pos">0</strong></div>
+              <div class="stat"><span>Red days</span><strong id="cRed" class="neg">0</strong></div>
+            </div>
+            <div class="cal-wrap">
+              <div class="cal-grid cal-dow" aria-hidden="true"><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div><div>Sun</div><div>Week</div></div>
+              <div class="cal-grid" id="calGrid"></div>
+            </div>
+          </div>
+          <div class="card" id="dayPanel" hidden></div>
+        </div>
+      </section>
+
+      <!-- Journal -->
+      <section class="view" data-view="journal" hidden>
+        <div class="card">
+          <h2>Add trade</h2>
+          <form id="form" class="grid-form" novalidate>
+            <label>Date <input type="date" name="date" required></label>
+            <label>Symbol <input name="symbol" required maxlength="20" placeholder="EURUSD"></label>
+            <label>Account <select name="account"></select></label>
+            <label>Side <select name="side"><option value="long">Long</option><option value="short">Short</option></select></label>
+            <label>Entry <input type="number" name="entry" step="any" min="0" required></label>
+            <label>Exit <input type="number" name="exit" step="any" min="0" required></label>
+            <label>Size <input type="number" name="size" step="any" min="0" required></label>
+            <label>Fees <input type="number" name="fees" step="any" min="0" value="0"></label>
+            <label>Setup <input name="setup" maxlength="60" placeholder="Breakout"></label>
+            <label class="wide">Notes <input name="notes" maxlength="300" placeholder="What did you see? What would you change?"></label>
+            <label class="wide">Screenshot (optional) <input type="file" name="shot" accept="image/*"></label>
+            <button class="btn" type="submit" id="addBtn">Add trade</button>
+          </form>
+        </div>
+        <div class="card">
+          <div class="toolbar">
+            <button class="btn ghost" id="exportBtn" type="button">Export CSV</button>
+            <button class="btn ghost" id="importBtn" type="button">Import CSV</button>
+            <input type="file" id="file" accept=".csv,text/csv" hidden>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Date</th><th>Symbol</th><th>Account</th><th>Side</th><th>Entry</th><th>Exit</th><th>Size</th><th>Fees</th><th>P&amp;L</th><th>Setup</th><th>Notes</th><th></th></tr></thead>
+              <tbody id="tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Trade review -->
+      <section class="view" data-view="review" hidden>
+        <div class="dash-head">
+          <div class="seg" id="revSeg" style="--n:3" role="group" aria-label="Review type">
+            <span class="seg-thumb" aria-hidden="true"></span>
+            <button type="button" data-val="daily">Daily</button>
+            <button type="button" data-val="weekly">Weekly</button>
+            <button type="button" data-val="monthly">Monthly</button>
+          </div>
+        </div>
+        <div id="revBody">
+          <div class="card">
+            <div class="rev-top">
+              <label><span id="revDateLbl">Day</span> <input type="date" id="revDate"></label>
+              <div id="revMeta"></div>
+            </div>
+            <h2 id="pickTitle">Recorded trades</h2>
+            <div class="pick" id="pick"></div>
+          </div>
+          <div class="card" id="viewer" hidden></div>
+          <div class="card" id="revFormCard">
+            <h2 id="revFormTitle">Daily review</h2>
+            <form id="revForm" class="grid-form" novalidate>
+              <label>Discipline
+                <select name="rating"><option value="">Not rated</option><option value="1">1 (poor)</option><option value="2">2</option><option value="3">3 (ok)</option><option value="4">4</option><option value="5">5 (excellent)</option></select>
+              </label>
+              <label>Did you follow your damn setup?
+                <select name="followed"><option value="">Not answered</option><option value="yes">Yes</option><option value="partly">Partly</option><option value="no">No</option></select>
+              </label>
+              <label class="full">What went well <textarea name="well" rows="3" maxlength="2000" placeholder="Rules you followed, good reads, good exits"></textarea></label>
+              <label class="full">What to improve <textarea name="improve" rows="3" maxlength="2000" placeholder="Mistakes, rule breaks, emotions"></textarea></label>
+              <label class="full"><span id="revNextLbl">Plan for tomorrow</span> <textarea name="next" rows="3" maxlength="2000"></textarea></label>
+              <div class="form-actions full">
+                <button class="btn" type="submit" id="saveRevBtn">Save review</button>
+                <p class="msg" id="revMsg" role="status"></p>
+              </div>
+            </form>
+          </div>
+          <div class="card"><h2 id="revListTitle">Daily reviews</h2><div id="revList"></div></div>
+        </div>
+      </section>
+
+      <!-- Pre-trade -->
+      <section class="view" data-view="plan" hidden>
+        <div class="card" id="planFormCard">
+          <h2 id="planFormTitle">New pre-trade plan</h2>
+          <form id="planForm" class="grid-form" novalidate>
+            <label>Date <input type="date" name="date" required></label>
+            <label>Symbol <input name="symbol" required maxlength="20" placeholder="EURUSD"></label>
+            <label>Side <select name="side"><option value="long">Long</option><option value="short">Short</option></select></label>
+            <label>Planned entry <input type="number" name="entry" step="any" min="0"></label>
+            <label>Stop loss <input type="number" name="sl" step="any" min="0"></label>
+            <label>Target <input type="number" name="tp" step="any" min="0"></label>
+            <label>Status <select name="status"><option value="planned">Planned</option><option value="taken">Taken</option><option value="skipped">Skipped</option></select></label>
+            <label>Confidence <select name="confidence"><option value="">-</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></label>
+            <div class="rr"><span>Planned R:R</span><output id="planRR" aria-live="polite">-</output></div>
+            <label class="full">Why this trade? <textarea name="thesis" rows="4" maxlength="2000" placeholder="Setup, confluence, what invalidates it, how much you risk"></textarea></label>
+            <div class="form-actions full">
+              <button class="btn" type="submit" id="planSaveBtn">Save plan</button>
+              <button class="btn ghost" type="button" id="planCancel" hidden>Cancel edit</button>
+              <p class="msg" id="planMsg" role="status"></p>
+            </div>
+          </form>
+        </div>
+        <div class="card"><h2>Your plans</h2><div id="planList"></div></div>
+      </section>
+
+      <!-- Backtesting -->
+      <section class="view" data-view="backtest" hidden>
+        <div class="card">
+          <div class="nx-soon">
+            <h2 style="margin:0">Backtesting</h2>
+            <span class="badge st-planned">Coming soon</span>
+            <p>An automatic backtester is not built yet. For now, add a video you recorded from TradingView, log each trade result you see in it, and ask the chat assistant to review the numbers.</p>
+          </div>
+        </div>
+        <div class="card">
+          <h2>Add a backtest recording</h2>
+          <form id="btForm" class="grid-form" novalidate>
+            <label>Title <input name="title" required maxlength="80" placeholder="London breakout, EURUSD, Jan 2025"></label>
+            <label>Symbol <input name="symbol" maxlength="20" placeholder="EURUSD"></label>
+            <label>Timeframe <input name="tf" maxlength="10" placeholder="M15"></label>
+            <label class="full">Video file (optional) <input type="file" name="video" accept="video/*"></label>
+            <label class="full">Notes <textarea name="notes" rows="2" maxlength="1000" placeholder="Rules you tested, sample period"></textarea></label>
+            <div class="form-actions full">
+              <button class="btn" type="submit" id="btAddBtn">Add recording</button>
+              <p class="msg" id="btMsg" role="status"></p>
+            </div>
+          </form>
+        </div>
+        <div class="card"><h2>Your recordings</h2><div id="btList"></div></div>
+      </section>
+
+      <!-- Equity -->
+      <section class="view" data-view="equity" hidden>
+        <div class="stats">
+          <div class="stat"><span>Starting balance</span><strong id="eStart">0.00</strong></div>
+          <div class="stat"><span>Current balance</span><strong id="eEnd">0.00</strong></div>
+          <div class="stat"><span>Return</span><strong id="eRet">n/a</strong></div>
+          <div class="stat"><span>Max drawdown</span><strong id="eDd">0.00</strong></div>
+          <div class="stat"><span>Best trade</span><strong id="eBest" class="pos">0.00</strong></div>
+          <div class="stat"><span>Worst trade</span><strong id="eWorst" class="neg">0.00</strong></div>
+        </div>
+        <div class="card"><h2>Equity curve</h2><div id="chart"></div></div>
+      </section>
+
+      <!-- Accounts -->
+      <section class="view" data-view="accounts" hidden>
+        <div class="card">
+          <h2>Add account</h2>
+          <form id="acctForm" class="grid-form" novalidate>
+            <label>Name <input name="aname" required maxlength="40" placeholder="Main account"></label>
+            <label>Broker <input name="broker" maxlength="40" placeholder="Broker name"></label>
+            <label>Type <select name="atype"><option>Live</option><option>Prop</option><option>Demo</option></select></label>
+            <label>Currency <input name="currency" maxlength="3" placeholder="USD"></label>
+            <label>Starting balance <input type="number" name="start" step="any" min="0" value="0"></label>
+            <label>Platform <select name="platform"><option value="">Other</option><option>MT4</option><option>MT5</option></select></label>
+            <label>Server <input name="server" maxlength="60" placeholder="BrokerName-Live01"></label>
+            <label>Login number <input name="login" maxlength="20" inputmode="numeric" placeholder="12345678"></label>
+            <p class="hint full">These are labels only. Never type your trading password here.</p>
+            <button class="btn" type="submit" id="addAcctBtn">Add account</button>
+          </form>
+        </div>
+        <div class="card"><h2>Your accounts</h2><div class="acct-grid" id="acctList"></div></div>
+        <div class="card">
+          <h2>Import MT4 / MT5 history</h2>
+          <p>This reads a report file that you export yourself. It does not connect to your broker. In MT4, open the Account History tab, right-click and choose Save as Detailed Report. In MT5, open the History tab, right-click, choose Report, then HTML. Menu names differ between versions and brokers.</p>
+          <div class="nx-log">
+            <label>Account <select id="mtAcct"></select></label>
+            <label>Report file <input type="file" id="mtFile" accept=".htm,.html"></label>
+            <button class="btn" type="button" id="mtBtn">Import</button>
+          </div>
+          <p class="nx-note" id="mtMsg" role="status"></p>
+        </div>
+        <div class="card">
+          <h2>Why there is no live broker link</h2>
+          <p>A web page cannot log into MT4 or MT5 servers directly. Live syncing needs a server or a third-party bridge, and trading passwords should not be typed into a page like this one. The report import above is the safe option.</p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- ===== Chat assistant (Trade review, Pre-trade, Backtesting) ===== -->
+<button class="btn nx-launch" id="chatLaunch" type="button" hidden aria-haspopup="dialog">Chart assistant</button>
+<section class="nx-chat" id="chat" role="dialog" aria-labelledby="chatTitle" hidden>
+  <header>
+    <h2 id="chatTitle">Chart assistant</h2>
+    <button class="btn ghost" id="chatRename" type="button" hidden>Rename</button>
+    <button class="btn ghost" id="chatClear" type="button" hidden>Clear</button>
+    <button class="btn ghost" id="chatClose" type="button" aria-label="Close chat">Close</button>
+  </header>
+  <form class="nx-name" id="chatNameForm" hidden>
+    <p>Give your assistant a name before you start. You can change it later.</p>
+    <label>Name <input id="chatNameIn" maxlength="24" placeholder="Atlas" required></label>
+    <button class="btn" type="submit">Start chatting</button>
+  </form>
+  <div class="nx-msgs" id="chatMsgs" role="log" aria-live="polite" hidden></div>
+  <form class="nx-comp" id="chatForm" hidden>
+    <textarea id="chatIn" rows="2" maxlength="4000" placeholder="Ask about a chart, a setup, or your results" aria-label="Message"></textarea>
+    <button class="btn ghost" id="chatAttach" type="button">Add screenshot</button>
+    <input type="file" id="chatImg" accept="image/*" hidden>
+    <span class="nx-note" id="chatImgName"></span>
+    <button class="btn" type="submit" id="chatSend" style="margin-left:auto">Send</button>
+  </form>
+  <p class="nx-note" id="chatNote">Education only, not financial advice. The assistant can be wrong.</p>
+</section>
+
+<!-- ===== Settings ===== -->
+<dialog id="settings" aria-labelledby="settingsTitle">
+  <div class="dlg-body">
+    <h2 id="settingsTitle">Settings</h2>
+    <label>Theme
+      <select id="themeSel"><option value="midnight">Midnight</option><option value="light">Light</option><option value="forest">Forest</option><option value="sunset">Sunset</option><option value="custom">Custom</option></select>
+    </label>
+    <div class="row2">
+      <label>Background colour <input type="color" id="bgIn"></label>
+      <label>Accent colour <input type="color" id="accentIn"></label>
+    </div>
+    <label>Background style <select id="bgStyleSel"><option value="gradient">Soft gradient</option><option value="solid">Solid</option></select></label>
+    <label>Font style
+      <select id="fontSel"><option value="sans">Sans-serif</option><option value="serif">Serif</option><option value="mono">Monospace</option><option value="rounded">Rounded</option></select>
+    </label>
+    <label for="sizeIn">Font size <output id="sizeOut" for="sizeIn">15px</output></label>
+    <input type="range" id="sizeIn" min="12" max="22" step="1">
+    <label>Dock position
+      <select id="dockSel"><option value="left">Left</option><option value="right">Right</option><option value="top">Top</option><option value="bottom">Bottom</option></select>
+    </label>
+    <p class="hint">On phones the dock is always a bar at the bottom.</p>
+    <label class="chk"><input type="checkbox" id="glowIn"> Glow when switching tabs and buttons</label>
+    <label>Animation speed
+      <select id="speedSel"><option value="fast">Fast</option><option value="normal">Normal</option><option value="slow">Slow</option></select>
+    </label>
+    <div class="dlg-actions">
+      <button class="btn ghost" id="resetBtn" type="button">Reset to default</button>
+      <button class="btn" id="closeBtn" type="button">Done</button>
+    </div>
+  </div>
+</dialog>
+<!-- END OF PART 2 -->
+<script>
+(() => {
+  'use strict';
+
+  /* ---------- Basics ---------- */
+  const $ = id => document.getElementById(id);
+  const root = document.documentElement, shell = $('shell'), landing = $('landing');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const smooth = reduced? 'auto': 'smooth';
+  const h = (tag, cls, text) => { const el = document.createElement(tag); if (cls) el.className = cls; if (text!= null) el.textContent = text; return el; };
+  const ymd = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  const today = () => ymd(new Date());
+  const parseYMD = s => { const [y, m, d] = String(s).split('-').map(Number); return new Date(y, m - 1, d); };
+  const fmt = n => { n = Math.abs(n) < 0.005? 0: n; return n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }); };
+  const cls = n => n > 0? 'pos': n < 0? 'neg': '';
+  const sum = a => a.reduce((x, y) => x + y, 0);
+  const plural = (n, w) => `${n} ${w}${n === 1? '': 's'}`;
+  let lastId = 0;
+  const nid = () => { const n = Date.now(); lastId = n > lastId? n: lastId + 1; return lastId; };
+
+  /* ---------- Storage ---------- */
+  const K = {
+    trades: 'tradingJournal.v1', accounts: 'tradingJournal.accounts.v1', reviews: 'tradingJournal.reviews.v1',
+    plans: 'tradingJournal.plans.v1', backtests: 'tradingJournal.backtests.v1',
+    settings: 'tradingJournal.settings.v1', collapsed: 'tradingJournal.collapsed'
+  };
+  let warned = false;
+  function readJSON(key, fb) { try { const v = JSON.parse(localStorage.getItem(key)); return v?? fb; } catch { return fb; } }
+  function write(key, val) {
+    try { localStorage.setItem(key, JSON.stringify(val)); }
+    catch { if (!warned) { warned = true; alert('Could not save. Browser storage is full or blocked, so recent changes may be lost. Export a CSV backup.'); } }
+  }
+  const loadList = key => { const v = readJSON(key, []); return Array.isArray(v)? v.filter(x => x && typeof x === 'object'): []; };
+  let trades = loadList(K.trades).filter(t => typeof t.date === 'string');
+  let accounts = loadList(K.accounts);
+  let reviews = loadList(K.reviews), plans = loadList(K.plans), backtests = loadList(K.backtests);
+  const saveTrades = () => write(K.trades, trades);
+  const saveAccounts = () => write(K.accounts, accounts);
+  const saveReviews = () => write(K.reviews, reviews);
+  const savePlans = () => write(K.plans, plans);
+  const saveBacktests = () => write(K.backtests, backtests);
+
+  /* Screenshots and videos live in IndexedDB (too big for localStorage) */
+  const DB = (() => {
+    let p;
+    const open = () => p || (p = new Promise((res, rej) => {
+      const r = indexedDB.open('nexusJournal', 1);
+      r.onupgradeneeded = () => r.result.createObjectStore('files');
+      r.onsuccess = () => res(r.result);
+      r.onerror = () => rej(r.error);
+    }).catch(err => { p = null; throw err; }));
+    const tx = (mode, fn) => open().then(db => new Promise((res, rej) => {
+      const t = db.transaction('files', mode), out = fn(t.objectStore('files'));
+      t.oncomplete = () => res(out.result);
+      t.onerror = t.onabort = () => rej(t.error);
+    }));
+    return { get: k => tx('readonly', s => s.get(k)), put: (k, v) => tx('readwrite', s => s.put(v, k)), del: k => tx('readwrite', s => s.delete(k)) };
+  })();
+
+  async function shrink(file, max = 1600) {
+    try {
+      const bmp = await createImageBitmap(file), k = Math.min(1, max / Math.max(bmp.width, bmp.height));
+      const c = document.createElement('canvas'); c.width = Math.round(bmp.width * k); c.height = Math.round(bmp.height * k);
+      c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height); if (bmp.close) bmp.close();
+      const blob = await new Promise(r => c.toBlob(r, 'image/jpeg', 0.85));
+      return blob && blob.size < file.size? blob: file;
+    } catch { return file; }
+  }
+
+  /* ---------- Small UI helpers ---------- */
+  document.addEventListener('click', e => {
+    if (reduced) return;
+    const b = e.target.closest('.btn,.dock-item');
+    if (!b || b.disabled) return;
+    let rip = b.querySelector(':scope >.rip');
+    if (!rip) { rip = h('span', 'rip'); b.appendChild(rip); }
+    const r = b.getBoundingClientRect(), size = Math.max(r.width, r.height);
+    const cx = e.detail? e.clientX - r.left: r.width / 2, cy = e.detail? e.clientY - r.top: r.height / 2;
+    const s = h('span', 'ripple');
+    s.style.cssText = `width:${size}px;height:${size}px;left:${cx - size / 2}px;top:${cy - size / 2}px`;
+    rip.appendChild(s);
+    s.addEventListener('animationend', () => s.remove());
+  });
+  function shake(b) {
+    b.classList.remove('shake'); void b.offsetWidth; b.classList.add('shake');
+    const done = e => { if (e.target!== b) return; b.classList.remove('shake'); b.removeEventListener('animationend', done); };
+    b.addEventListener('animationend', done);
+  }
+  function flash(id, text) { const el = $(id); el.textContent = text; el.classList.add('show'); clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove('show'), 2500); }
+  const emptyMsg = text => h('p', 'empty', text);
+  function pop(el) { el.classList.remove('viewIn'); void el.offsetWidth; el.classList.add('viewIn'); }
+  function animateOut(el, done) {
+    if (reduced) return done();
+    let fin = false; const go = () => { if (fin) return; fin = true; done(); };
+    el.classList.add('leaving');
+    el.addEventListener('animationend', e => { if (e.target === el) go(); });
+    setTimeout(go, 600);
+  }
+  function initSeg(el, initial, onChange) {
+    const btns = [...el.querySelectorAll('button')];
+    function set(val, silent) {
+      const i = Math.max(0, btns.findIndex(b => b.dataset.val === val));
+      el.style.setProperty('--i', i);
+      btns.forEach((b, j) => b.setAttribute('aria-pressed', String(i === j)));
+      if (!silent) onChange(btns[i].dataset.val);
+    }
+    btns.forEach(b => b.addEventListener('click', () => set(b.dataset.val)));
+    set(initial, true);
+    return set;
+  }
+  function countTo(el, to, format) {
+    const from = el._v?? 0; el._v = to; cancelAnimationFrame(el._r);
+    if (reduced || from === to) { el.textContent = format(to); return; }
+    const t0 = performance.now(), dur = 600 * SPEEDS[S.speed];
+    const tick = now => {
+      const p = Math.min((now - t0) / dur, 1), e = 1 - Math.pow(1 - p, 3);
+      el.textContent = format(from + (to - from) * e);
+      if (p < 1) el._r = requestAnimationFrame(tick);
+    };
+    el._r = requestAnimationFrame(tick);
+  }
+
+  /* ---------- PIN gate (client-side only: anyone can read the password in the page source) ---------- */
+  const PIN_B64 = 'UHJvZml0YWJsZQ==';
+  const gate = $('gate'), gateBox = $('gateForm');
+  function openApp() { landing.hidden = false; $('enterBtn').focus({ preventScroll: true }); }
+  let unlocked = false;
+  try { unlocked = sessionStorage.getItem('nx.ok') === '1'; } catch {}
+  if (unlocked) { gate.remove(); openApp(); } else $('gateIn').focus();
+  gateBox.addEventListener('submit', e => {
+    e.preventDefault();
+    let good = false; try { good = btoa($('gateIn').value) === PIN_B64; } catch {}
+    if (!good) { $('gateErr').textContent = 'Wrong PIN. Try again.'; shake(gateBox); $('gateIn').select(); return; }
+    try { sessionStorage.setItem('nx.ok', '1'); } catch {}
+    openApp(); gate.classList.add('out');
+    const rm = () => gate.remove();
+    gate.addEventListener('animationend', ev => { if (ev.target === gate) rm(); });
+    setTimeout(rm, 800);
+  });
+
+  /* ---------- Settings ---------- */
+  const THEMES = {
+    midnight: { bg: '#0f1218', accent: '#5b8cff' }, light: { bg: '#f4f6fa', accent: '#2f5bff' },
+    forest: { bg: '#0e1a14', accent: '#3ddc97' }, sunset: { bg: '#1d1020', accent: '#ff8a4c' }
+  };
+  const FONTS = {
+    sans: 'system-ui,-apple-system,"Segoe UI",Roboto,sans-serif', serif: 'Georgia,"Times New Roman",serif',
+    mono: 'ui-monospace,SFMono-Regular,Menlo,Consolas,monospace', rounded: 'ui-rounded,"SF Pro Rounded",Nunito,"Segoe UI",system-ui,sans-serif'
+  };
+  const SPEEDS = { fast: 0.6, normal: 1, slow: 1.6 };
+  const DEFAULTS = { theme: 'midnight', bg: '#0f1218', accent: '#5b8cff', bgStyle: 'gradient', font: 'sans', size: 15, dock: 'left', glow: true, speed: 'normal' };
+  const HEX = /^#[0-9a-f]{6}$/i;
+  const lum = hex => { const n = parseInt(hex.slice(1), 16); return (0.299 * ((n >> 16) & 255) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255)) / 255; };
+  function loadSettings() {
+    const s = readJSON(K.settings, {}), o = s && typeof s === 'object'? s: {}, d = DEFAULTS;
+    return {
+      theme: (o.theme === 'custom' || Object.hasOwn(THEMES, o.theme))? o.theme: d.theme,
+      bg: HEX.test(o.bg)? o.bg: d.bg, accent: HEX.test(o.accent)? o.accent: d.accent,
+      bgStyle: o.bgStyle === 'solid'? 'solid': 'gradient',
+      font: Object.hasOwn(FONTS, o.font)? o.font: d.font,
+      size: Math.min(22, Math.max(12, Math.round(+o.size) || d.size)),
+      dock: ['left', 'right', 'top', 'bottom'].includes(o.dock)? o.dock: d.dock,
+      glow: o.glow!== false, speed: Object.hasOwn(SPEEDS, o.speed)? o.speed: d.speed
+    };
+  }
+  let S = loadSettings();
+  let collapsed = readJSON(K.collapsed, false) === true;
+  const mobileMQ = matchMedia('(max-width:760px)');
+  function applyLayout() {
+    const dock = mobileMQ.matches? 'bottom': S.dock, horiz = dock === 'top' || dock === 'bottom';
+    shell.dataset.dock = dock;
+    shell.classList.toggle('h', horiz); shell.classList.toggle('v',!horiz);
+    shell.classList.toggle('collapsed', collapsed &&!horiz);
+  }
+  function applySettings() {
+    const light = lum(S.bg) > 0.6, st = root.style;
+    st.setProperty('--bg', S.bg); st.setProperty('--accent', S.accent);
+    st.setProperty('--text', light? '#141821': '#e8ecf3');
+    st.setProperty('--on-accent', lum(S.accent) > 0.6? '#10131a': '#ffffff');
+    st.setProperty('--green', light? '#13935f': '#2ecc8f');
+    st.setProperty('--red', light? '#d93a4a': '#ff5d6c');
+    st.setProperty('--font', FONTS[S.font]); st.setProperty('--s', SPEEDS[S.speed]);
+    st.fontSize = S.size + 'px';
+    root.dataset.bgstyle = S.bgStyle; root.dataset.glow = S.glow? 'on': 'off';
+    applyLayout();
+  }
+  mobileMQ.addEventListener('change', applyLayout);
+  const commit = () => { applySettings(); write(K.settings, S); };
+  const dlg = $('settings');
+  function syncControls() {
+    $('themeSel').value = S.theme; $('bgIn').value = S.bg; $('accentIn').value = S.accent; $('bgStyleSel').value = S.bgStyle;
+    $('fontSel').value = S.font; $('sizeIn').value = S.size; $('sizeOut').textContent = S.size + 'px';
+    $('dockSel').value = S.dock; $('glowIn').checked = S.glow; $('speedSel').value = S.speed;
+  }
+  function closeSettings() {
+    if (!dlg.open) return;
+    if (reduced) { dlg.close(); return; }
+    const fin = () => { dlg.classList.remove('closing'); if (dlg.open) dlg.close(); };
+    dlg.classList.add('closing');
+    dlg.addEventListener('animationend', e => { if (e.target === dlg) fin(); }, { once: true });
+    setTimeout(fin, 500);
+  }
+  $('settingsBtn').addEventListener('click', () => { syncControls(); dlg.showModal(); });
+  $('closeBtn').addEventListener('click', closeSettings);
+  dlg.addEventListener('click', e => { if (e.target === dlg) closeSettings(); });
+  $('themeSel').addEventListener('change', e => {
+    S.theme = e.target.value;
+    if (Object.hasOwn(THEMES, S.theme)) { S.bg = THEMES[S.theme].bg; S.accent = THEMES[S.theme].accent; }
+    syncControls(); commit();
+  });
+  $('bgIn').addEventListener('input', e => { S.bg = e.target.value; S.theme = 'custom'; $('themeSel').value = 'custom'; commit(); });
+  $('accentIn').addEventListener('input', e => { S.accent = e.target.value; S.theme = 'custom'; $('themeSel').value = 'custom'; commit(); });
+  $('bgStyleSel').addEventListener('change', e => { S.bgStyle = e.target.value; commit(); });
+  $('fontSel').addEventListener('change', e => { S.font = e.target.value; commit(); });
+  $('sizeIn').addEventListener('input', e => { S.size = +e.target.value; $('sizeOut').textContent = S.size + 'px'; commit(); });
+  $('dockSel').addEventListener('change', e => { S.dock = e.target.value; commit(); });
+  $('glowIn').addEventListener('change', e => { S.glow = e.target.checked; commit(); });
+  $('speedSel').addEventListener('change', e => { S.speed = e.target.value; commit(); });
+  $('resetBtn').addEventListener('click', () => { S = {...DEFAULTS }; syncControls(); commit(); });
+  applySettings();
+
+  /* ---------- Landing and dock ---------- */
+  $('enterBtn').addEventListener('click', () => {
+    if (landing.classList.contains('leaving')) return;
+    landing.classList.add('leaving');
+    let done = false;
+    const fin = () => {
+      if (done) return; done = true;
+      landing.hidden = true; landing.classList.remove('leaving');
+      shell.inert = false; shell.classList.remove('reveal'); void shell.offsetWidth; shell.classList.add('reveal');
+      const cur = shell.querySelector('.dock-item[aria-current="page"]'); if (cur) cur.focus({ preventScroll: true });
+    };
+    landing.addEventListener('animationend', e => { if (e.target === landing) fin(); });
+    setTimeout(fin, 1000);
+  });
+  $('homeBtn').addEventListener('click', () => {
+    shell.inert = true; landing.hidden = false;
+    landing.classList.remove('play'); void landing.offsetWidth; landing.classList.add('play');
+    $('enterBtn').focus({ preventScroll: true });
+  });
+  shell.querySelectorAll('.dock-item').forEach(b => {
+    const l = b.querySelector('.lbl');
+    if (l && b.id!== 'collapseBtn') { const t = l.textContent + (b.querySelector('.soon')? ' (coming soon)': ''); b.setAttribute('aria-label', t); b.title = t; }
+  });
+  function setCollapsed(v) {
+    collapsed = v; write(K.collapsed, v); applyLayout();
+    const t = v? 'Expand': 'Collapse', b = $('collapseBtn');
+    $('collapseLabel').textContent = t; b.setAttribute('aria-label', t); b.title = t; b.setAttribute('aria-expanded', String(!v));
+  }
+  $('collapseBtn').addEventListener('click', () => setCollapsed(!collapsed));
+  setCollapsed(collapsed);
+
+  const TITLES = { dashboard: 'Dashboard', journal: 'Journal', review: 'Trade review', plan: 'Pre-trade plans', backtest: 'Backtesting', equity: 'Equity curve', accounts: 'Accounts' };
+  let currentView = 'dashboard';
+  function setView(name) {
+    if (!Object.hasOwn(TITLES, name)) name = 'dashboard';
+    currentView = name;
+    document.querySelectorAll('.view').forEach(v => { const on = v.dataset.view === name; v.hidden =!on; if (on) pop(v); });
+    shell.querySelectorAll('.dock-item[data-view]').forEach(b => {
+      if (b.dataset.view === name) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
+    });
+    $('viewTitle').textContent = TITLES[name];
+    syncFilterVis();
+    window.scrollTo(0, 0);
+    onView(name); // defined in Part 4
+  }
+  shell.querySelectorAll('.dock-item[data-view]').forEach(b => b.addEventListener('click', () => setView(b.dataset.view)));
+
+  /* ---------- Accounts, filter and P&L ---------- */
+  const acctName = id => (accounts.find(a => a.id === id) || {}).name || '';
+  const typeOf = t => (accounts.find(a => a.id === t.accountId) || {}).type;
+  const byDateDesc = (a, b) => String(b.date).localeCompare(String(a.date)) || b.id - a.id;
+  const pnlOf = t => {
+    const v = Number.isFinite(t.pnl)? t.pnl: (t.side === 'long'? t.exit - t.entry: t.entry - t.exit) * t.size - t.fees;
+    return Number.isFinite(v)? v: 0;
+  };
+  let filter = 'all';
+  const visible = () => filter === 'all'? trades: filter === 'none'? trades.filter(t =>!t.accountId): filter.startsWith('type:')? trades.filter(t => typeOf(t) === filter.slice(5)): trades.filter(t => String(t.accountId) === filter);
+  const baseBalance = () => {
+    const pool = filter === 'all'? accounts: filter === 'none'? []: filter.startsWith('type:')? accounts.filter(a => a.type === filter.slice(5)): accounts.filter(a => String(a.id) === filter);
+    return sum(pool.map(a => +a.start || 0));
+  };
+  function syncFilterVis() { $('acctFilterWrap').hidden =!(accounts.length && ['dashboard', 'equity'].includes(currentView)); }
+  function fillAccountControls() {
+    const add = (sel, v, label) => { const o = document.createElement('option'); o.value = v; o.textContent = label; sel.appendChild(o); };
+    const f = $('acctFilter'); f.replaceChildren();
+    add(f, 'all', 'All accounts');
+    ['Live', 'Prop', 'Demo'].forEach(ty => { if (accounts.some(a => a.type === ty)) add(f, 'type:' + ty, `All ${ty} accounts`); });
+    accounts.forEach(a => add(f, String(a.id), `${a.name} (${a.type})`));
+    if (accounts.length && trades.some(t =>!t.accountId)) add(f, 'none', 'Unassigned trades');
+    if (![...f.options].some(o => o.value === filter)) filter = 'all';
+    f.value = filter;
+    const fs = $('form').elements.account, prev = fs.value; fs.replaceChildren();
+    add(fs, '', 'No account'); accounts.forEach(a => add(fs, String(a.id), `${a.name} (${a.type})`));
+    if (prev && [...fs.options].some(o => o.value === prev)) fs.value = prev;
+    else if (/^\d+$/.test(filter)) fs.value = filter;
+    const m = $('mtAcct'), pm = m.value; m.replaceChildren();
+    accounts.forEach(a => add(m, String(a.id), a.name));
+    if ([...m.options].some(o => o.value === pm)) m.value = pm;
+    syncFilterVis();
+  }
+  $('acctFilter').addEventListener('change', e => { filter = e.target.value; renderDash(); });
+
+  /* ---------- Dashboard ---------- */
+  function renderStats() {
+    const pn = visible().map(pnlOf), wins = pn.filter(p => p > 0), losses = pn.filter(p => p < 0);
+    const total = sum(pn), gw = sum(wins), gl = Math.abs(sum(losses));
+    countTo($('sPnl'), total, fmt); $('sPnl').className = cls(total);
+    countTo($('sCount'), pn.length, v => String(Math.round(v)));
+    countTo($('sWin'), pn.length? wins.length / pn.length * 100: 0, v => v.toFixed(1) + '%');
+    countTo($('sAvgWin'), wins.length? gw / wins.length: 0, fmt);
+    countTo($('sAvgLoss'), losses.length? -gl / losses.length: 0, fmt);
+    countTo($('sPf'), gl? gw / gl: gw? 99.99: 0, v => v >= 99.99? '\u221E': v.toFixed(2));
+  }
+  function renderLatest() {
+    const box = $('latest'); box.replaceChildren();
+    const rows = [...visible()].sort(byDateDesc).slice(0, 6);
+    if (!rows.length) { box.appendChild(h('li', 'empty', 'No trades yet.')); return; }
+    rows.forEach(t => { const li = h('li'), p = pnlOf(t); li.append(h('span', '', `${t.date} \u00B7 ${t.symbol} \u00B7 ${t.side}`), h('strong', cls(p), fmt(p))); box.appendChild(li); });
+  }
+  function renderBreakdown() {
+    const box = $('bdBox'); box.replaceChildren();
+    if (!accounts.length) { box.appendChild(emptyMsg('Add your accounts in the Accounts tab to see each one separately here.')); return; }
+    const groups = accounts.map(a => ({
+      key: String(a.id), name: a.name, sub: [a.type, a.platform, a.server, a.currency].filter(Boolean).join(' \u00B7 '),
+      start: +a.start || 0, list: trades.filter(t => t.accountId === a.id), bal: true
+    }));
+    const un = trades.filter(t =>!t.accountId);
+    if (un.length) groups.push({ key: 'none', name: 'Unassigned', sub: 'Trades without an account', start: 0, list: un, bal: false });
+    groups.forEach(g => {
+      const pnl = sum(g.list.map(pnlOf)), card = h('article', 'acct'), dl = h('dl');
+      const cells = [['Trades', String(g.list.length), ''], ['P&L', fmt(pnl), cls(pnl)]];
+      if (g.bal) cells.push(['Balance', fmt(g.start + pnl), '']);
+      cells.forEach(([k, v, c]) => { const d = h('div'); d.append(h('dt', '', k), h('dd', c, v)); dl.appendChild(d); });
+      const btn = h('button', 'btn ghost', 'Show only this'); btn.type = 'button';
+      btn.addEventListener('click', () => { const s = $('acctFilter'); s.value = g.key; s.dispatchEvent(new Event('change')); });
+      card.append(h('h3', '', g.name), h('p', 'sub', g.sub), dl, btn); box.appendChild(card);
+    });
+  }
+
+  /* ---------- Calendar (daily review key = the date, YYYY-MM-DD) ---------- */
+  const now0 = new Date();
+  let calMonth = new Date(now0.getFullYear(), now0.getMonth(), 1);
+  let dayPick = null;
+  const longDate = d => d.toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  function renderCalendar(dir) {
+    const y = calMonth.getFullYear(), m = calMonth.getMonth();
+    $('calTitle').textContent = calMonth.toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
+    const byDay = new Map();
+    visible().forEach(t => { const d = byDay.get(t.date) || { pnl: 0, n: 0 }; d.pnl += pnlOf(t); d.n++; byDay.set(t.date, d); });
+    const offset = (new Date(y, m, 1).getDay() + 6) % 7, dim = new Date(y, m + 1, 0).getDate(), weeks = Math.ceil((offset + dim) / 7);
+    const tk = today(), grid = $('calGrid'); grid.replaceChildren();
+    let mPnl = 0, mDays = 0, green = 0, red = 0;
+    for (let w = 0; w < weeks; w++) {
+      let wPnl = 0, wN = 0;
+      for (let c = 0; c < 7; c++) {
+        const d = new Date(y, m, 1 - offset + w * 7 + c), ds = ymd(d), info = byDay.get(ds), inMonth = d.getMonth() === m;
+        const b = h('button', 'cal-day'); b.type = 'button'; b.dataset.date = ds;
+        if (!inMonth) b.classList.add('out');
+        if (ds === tk) b.classList.add('today');
+        b.append(h('span', 'num', String(d.getDate())));
+        if (info) {
+          b.classList.add(info.pnl > 0? 'win': info.pnl < 0? 'loss': 'flat');
+          b.append(h('span', 'pl ' + cls(info.pnl), fmt(info.pnl)), h('span', 'cnt', plural(info.n, 'trade')));
+          wPnl += info.pnl; wN += info.n;
+          if (inMonth) { mPnl += info.pnl; mDays++; if (info.pnl > 0) green++; else if (info.pnl < 0) red++; }
+        }
+        if (reviews.some(r => r.type === 'daily' && r.key === ds)) { const dot = h('span', 'dot'); dot.title = 'Reviewed'; b.appendChild(dot); }
+        b.setAttribute('aria-pressed', String(ds === dayPick));
+        b.setAttribute('aria-label', `${longDate(d)}: ${info? fmt(info.pnl) + ', ' + plural(info.n, 'trade'): 'no trades'}`);
+        b.addEventListener('click', () => {
+          dayPick = ds; renderCalendar(0); renderDayPanel(); pop($('dayPanel'));
+          const again = grid.querySelector(`[data-date="${ds}"]`); if (again) again.focus({ preventScroll: true });
+        });
+        grid.appendChild(b);
+      }
+      const wk = h('div', 'cal-wk');
+      wk.append(h('small', '', `Week ${w + 1}`), h('strong', cls(wPnl), wN? fmt(wPnl): '-'), h('small', '', wN? plural(wN, 'trade'): ''));
+      grid.appendChild(wk);
+    }
+    $('cPnl').textContent = fmt(mPnl); $('cPnl').className = cls(mPnl);
+    $('cDays').textContent = mDays; $('cGreen').textContent = green; $('cRed').textContent = red;
+    grid.classList.remove('fromRight', 'fromLeft');
+    if (dir) { void grid.offsetWidth; grid.classList.add(dir > 0? 'fromRight': 'fromLeft'); }
+  }
+  function renderDayPanel() {
+    const p = $('dayPanel');
+    if (!dayPick) { p.hidden = true; return; }
+    const day = visible().filter(t => t.date === dayPick).sort((a, b) => a.id - b.id), total = sum(day.map(pnlOf));
+    p.replaceChildren(h('h2', '', longDate(parseYMD(dayPick))));
+    const ul = h('ul', 'latest');
+    if (!day.length) ul.appendChild(h('li', 'empty', 'No trades on this day.'));
+    day.forEach(t => {
+      const li = h('li'), pl = pnlOf(t), an = acctName(t.accountId);
+      li.append(h('span', '', `${t.symbol} \u00B7 ${t.side}${an? ' \u00B7 ' + an: ''}`), h('strong', cls(pl), fmt(pl)));
+      ul.appendChild(li);
+    });
+    if (day.length) { const li = h('li'); li.append(h('strong', '', 'Day total'), h('strong', cls(total), fmt(total))); ul.appendChild(li); }
+    const btn = h('button', 'btn', 'Review this day'); btn.type = 'button';
+    btn.addEventListener('click', () => openReview('daily', dayPick)); // defined in Part 4
+    p.append(ul, btn); p.hidden = false;
+  }
+  $('calPrev').addEventListener('click', () => { calMonth = new Date(calMonth.getFullYear(), calMonth.getMonth() - 1, 1); renderCalendar(-1); });
+  $('calNext').addEventListener('click', () => { calMonth = new Date(calMonth.getFullYear(), calMonth.getMonth() + 1, 1); renderCalendar(1); });
+  $('calToday').addEventListener('click', () => {
+    const n = new Date(); calMonth = new Date(n.getFullYear(), n.getMonth(), 1); dayPick = today();
+    renderCalendar(0); renderDayPanel(); pop($('dayPanel'));
+  });
+  initSeg($('dashSeg'), 'overview', val => {
+    $('dashOverview').hidden = val!== 'overview'; $('dashCalendar').hidden = val!== 'calendar';
+    if (val === 'calendar') { renderCalendar(0); renderDayPanel(); }
+    pop(val === 'calendar'? $('dashCalendar'): $('dashOverview'));
+  });
+
+  /* ---------- Equity curve ---------- */
+  function renderEquity() {
+    const rows = [...visible()].sort((a, b) => String(a.date).localeCompare(String(b.date)) || a.id - b.id);
+    const start = baseBalance(), pn = rows.map(pnlOf), total = sum(pn);
+    let run = start, peak = start, dd = 0; const vals = [start];
+    pn.forEach(p => { run += p; vals.push(run); peak = Math.max(peak, run); dd = Math.max(dd, peak - run); });
+    const best = pn.length? pn.reduce((a, b) => Math.max(a, b), -Infinity): 0, worst = pn.length? pn.reduce((a, b) => Math.min(a, b), Infinity): 0;
+    $('eStart').textContent = fmt(start); $('eEnd').textContent = fmt(start + total);
+    $('eRet').textContent = start > 0? (total / start * 100).toFixed(2) + '%': 'n/a'; $('eRet').className = start > 0? cls(total): '';
+    $('eDd').textContent = fmt(dd); $('eDd').className = dd > 0? 'neg': '';
+    $('eBest').textContent = fmt(best); $('eWorst').textContent = fmt(worst);
+    const box = $('chart'); box.replaceChildren();
+    if (!rows.length) { box.appendChild(emptyMsg('Add a trade to see your equity curve.')); return; }
+    const W = 800, H = 260, PL = 74, PR = 20, PT = 20, PB = 34;
+    const min = Math.min(...vals), max = Math.max(...vals), span = (max - min) || 1, n = vals.length;
+    const x = i => PL + (n === 1? 0: i / (n - 1)) * (W - PL - PR);
+    const y = v => H - PB - ((v - min) / span) * (H - PT - PB);
+    const d = vals.map((v, i) => `${i? 'L': 'M'}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(' ');
+    const ns = 'http://www.w3.org/2000/svg', svg = document.createElementNS(ns, 'svg');
+    svg.setAttribute('class', 'chart'); svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.setAttribute('role', 'img');
+    svg.setAttribute('aria-label', `Equity curve, ending at ${fmt(run)}`);
+    const mk = (tag, attrs, parent) => { const el = document.createElementNS(ns, tag); for (const k in attrs) el.setAttribute(k, attrs[k]); (parent || svg).appendChild(el); return el; };
+    mk('line', { class: 'base', x1: PL, x2: W - PR, y1: y(start), y2: y(start) });
+    mk('path', { class: 'area', d: `${d} L${x(n - 1).toFixed(1)},${y(start).toFixed(1)} L${x(0).toFixed(1)},${y(start).toFixed(1)} Z` });
+    mk('path', { class: 'line', d, pathLength: '1' });
+    const lab = (txt, ax, ay, anchor) => { mk('text', { class: 'axis', x: ax, y: ay, 'text-anchor': anchor }).textContent = txt; };
+    lab(fmt(max), PL - 8, y(max) + 4, 'end'); lab(fmt(min), PL - 8, y(min) + 4, 'end');
+    lab(rows[0].date, PL, H - 10, 'start'); lab(rows[rows.length - 1].date, W - PR, H - 10, 'end');
+    rows.forEach((t, i) => {
+      const c = mk('circle', { class: 'pt', cx: x(i + 1).toFixed(1), cy: y(vals[i + 1]).toFixed(1), r: 8 });
+      mk('title', {}, c).textContent = `${t.date} ${t.symbol}: ${fmt(pn[i])} (balance ${fmt(vals[i + 1])})`;
+    });
+    box.appendChild(svg);
+  }
+
+  function renderDash() {
+    renderStats(); renderLatest(); renderBreakdown(); renderEquity();
+    if (!$('dashCalendar').hidden) { renderCalendar(0); renderDayPanel(); }
+  }
+
+// END OF PART 3
+  /* ================= PART 4 ================= */
+
+  /* ---------- Chat endpoint ----------
+     A single HTML file has no AI behind it. To make the chat answer, put the URL of your own
+     server here. It must accept a POST with JSON {assistant, messages:[{role,content}], image}
+     and return JSON {reply:"..."}. Never put an AI service key in this file. */
+  const CHAT_ENDPOINT = '';
+
+  /* ---------- Shared helpers ---------- */
+  const isImg = f =>!!f && /^image\//.test(f.type);
+  const isVid = f =>!!f && /^video\//.test(f.type);
+  function say(id, text, bad) { $(id).style.color = bad? 'var(--red)': ''; flash(id, text); }
+  const shortD = d => d.toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' });
+  const readFile = blob => new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = () => rej(r.error); r.readAsDataURL(blob); });
+  const delKey = key => DB.del(key).catch(() => {});
+
+  async function storeVideo(key, file) {
+    if (!isVid(file)) { alert('Please choose a video file.'); return false; }
+    try { await DB.put(key, file); return true; }
+    catch { alert('Could not save the video. Browser storage may be full or blocked (private windows often block it).'); return false; }
+  }
+
+  function videoPanel(key, has, onSet, bag) {
+    const wrap = h('div', 'nx-video'), fi = document.createElement('input');
+    fi.type = 'file'; fi.accept = 'video/*'; fi.hidden = true;
+    let tok = 0, url = null;
+    async function draw() {
+      const me = ++tok;
+      if (url) { URL.revokeObjectURL(url); url = null; }
+      wrap.replaceChildren(fi);
+      let v = null;
+      if (has) {
+        v = document.createElement('video'); v.controls = true; v.preload = 'metadata';
+        v.setAttribute('aria-label', 'Recorded video'); wrap.appendChild(v);
+      } else wrap.appendChild(h('p', 'nx-note', 'No video yet. Record your screen (for example a TradingView replay) and add the file here.'));
+      const row = h('div', 'vbtns'), add = h('button', 'btn ghost', has? 'Replace video': 'Add video');
+      add.type = 'button'; add.addEventListener('click', () => fi.click()); row.appendChild(add);
+      if (has) {
+        const rm = h('button', 'btn danger', 'Remove video'); rm.type = 'button';
+        rm.addEventListener('click', async () => {
+          if (!confirm('Remove this video?')) return;
+          await delKey(key); has = false; onSet(false); draw();
+        });
+        row.appendChild(rm);
+      }
+      wrap.appendChild(row);
+      if (v) {
+        let blob = null; try { blob = await DB.get(key); } catch {}
+        if (me!== tok) return;
+        if (blob) { url = URL.createObjectURL(blob); bag.push(url); v.src = url; }
+        else v.replaceWith(h('p', 'nx-note', 'The video could not be loaded.'));
+      }
+    }
+    fi.addEventListener('change', async () => {
+      const f = fi.files[0]; fi.value = '';
+      if (f && await storeVideo(key, f)) { has = true; onSet(true); draw(); }
+    });
+    draw();
+    return wrap;
+  }
+
+  /* ---------- Journal: add trade ---------- */
+  const enterIds = new Set();
+  const form = $('form');
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const btn = $('addBtn');
+    if (!form.checkValidity()) { shake(btn); form.reportValidity(); return; }
+    const f = form.elements, id = nid(), file = f.shot.files[0];
+    const t = {
+      id, date: f.date.value, symbol: f.symbol.value.trim().toUpperCase(), accountId: f.account.value? +f.account.value: null,
+      side: f.side.value, entry: +f.entry.value, exit: +f.exit.value, size: +f.size.value, fees: +f.fees.value || 0,
+      setup: f.setup.value.trim(), notes: f.notes.value.trim(), shot: false, video: false
+    };
+    btn.disabled = true;
+    if (isImg(file)) {
+      try { await DB.put('s' + id, await shrink(file)); t.shot = true; }
+      catch { alert('The screenshot could not be saved, but the trade was.'); }
+    }
+    btn.disabled = false;
+    trades.push(t); enterIds.add(id); saveTrades(); fillAccountControls(); renderJournal();
+    f.symbol.value = f.entry.value = f.exit.value = f.size.value = f.setup.value = f.notes.value = f.shot.value = '';
+    f.symbol.focus();
+  });
+
+  function removeTrade(id) {
+    trades = trades.filter(t => t.id!== id);
+    delKey('s' + id); delKey('v' + id);
+    if (pickId === id) pickId = null;
+    saveTrades(); fillAccountControls(); renderJournal();
+  }
+  function renderJournal() {
+    const tb = $('tbody'); tb.replaceChildren();
+    if (!trades.length) {
+      const tr = tb.insertRow(), td = tr.insertCell(); td.colSpan = 12; td.className = 'empty'; td.textContent = 'No trades yet.'; return;
+    }
+    [...trades].sort(byDateDesc).forEach(t => {
+      const tr = tb.insertRow(), p = pnlOf(t);
+      if (enterIds.has(t.id)) tr.classList.add('enter');
+      const vals = [t.date, t.symbol, acctName(t.accountId), t.side, t.entry, t.exit, t.size, fmt(+t.fees || 0), fmt(p), t.setup || '', t.notes || ''];
+      vals.forEach((v, i) => {
+        const td = tr.insertCell(); td.textContent = v == null? '': v;
+        if (i === 8) td.className = cls(p);
+        if (i === 10) td.className = 'notes';
+      });
+      const del = h('button', 'btn danger', 'Delete'); del.type = 'button';
+      del.setAttribute('aria-label', `Delete ${t.symbol} trade from ${t.date}`);
+      del.addEventListener('click', () => {
+        if (tr.classList.contains('leaving')) return;
+        if ((t.shot || t.video) &&!confirm('This trade has a screenshot or video. Delete them too?')) return;
+        animateOut(tr, () => removeTrade(t.id));
+      });
+      tr.insertCell().appendChild(del);
+    });
+    enterIds.clear();
+  }
+
+  /* ---------- Journal: CSV ---------- */
+  const HEAD = ['date', 'symbol', 'account', 'side', 'entry', 'exit', 'size', 'fees', 'setup', 'notes', 'pnl'];
+  const rs = v => { const s = String(v?? ''); return /^[=+\-@\t\r]/.test(s)? "'" + s: s; }; // stops spreadsheets running text as formulas
+  const unrs = v => /^'[=+\-@\t\r]/.test(v)? v.slice(1): v;
+  const q = v => `"${String(v?? '').replace(/"/g, '""')}"`;
+
+  $('exportBtn').addEventListener('click', () => {
+    const lines = [HEAD.join(',')];
+    trades.forEach(t => lines.push([t.date, rs(t.symbol), rs(acctName(t.accountId)), t.side, t.entry, t.exit, t.size, t.fees,
+      rs(t.setup), rs(t.notes), Number.isFinite(t.pnl)? t.pnl: ''].map(q).join(',')));
+    const url = URL.createObjectURL(new Blob([lines.join('\n')], { type: 'text/csv' }));
+    const a = Object.assign(document.createElement('a'), { href: url, download: `trades-${today()}.csv` });
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  });
+  function parseCSV(text) {
+    const rows = []; let row = [], cur = '', inQ = false;
+    for (let i = 0; i < text.length; i++) {
+      const c = text[i];
+      if (inQ) { if (c === '"') { if (text[i + 1] === '"') { cur += '"'; i++; } else inQ = false; } else cur += c; }
+      else if (c === '"') inQ = true;
+      else if (c === ',') { row.push(cur); cur = ''; }
+      else if (c === '\n' || c === '\r') { if (c === '\r' && text[i + 1] === '\n') i++; row.push(cur); rows.push(row); row = []; cur = ''; }
+      else cur += c;
+    }
+    if (cur!== '' || row.length) { row.push(cur); rows.push(row); }
+    return rows.filter(r => r.some(x => x!== ''));
+  }
+  $('importBtn').addEventListener('click', () => $('file').click());
+  $('file').addEventListener('change', async e => {
+    const file = e.target.files[0]; e.target.value = '';
+    if (!file) return;
+    const rows = parseCSV((await file.text()).replace(/^\uFEFF/, ''));
+    const hdr = (rows[0] || []).map(x => x.trim().toLowerCase());
+    if (HEAD.slice(0, 10).some((col, i) => hdr[i]!== col)) {
+      alert('This CSV does not have the expected columns: ' + HEAD.slice(0, 10).join(', ') + ' (pnl is optional).'); return;
+    }
+    let n = 0;
+    rows.slice(1).forEach(r => {
+      const c = i => (r[i]?? '').trim();
+      const acct = accounts.find(a => String(a.name).toLowerCase() === unrs(c(2)).toLowerCase());
+      const t = {
+        id: nid(), date: c(0), symbol: unrs(c(1)).toUpperCase(), accountId: acct? acct.id: null,
+        side: c(3).toLowerCase() === 'short'? 'short': 'long', entry: Number(c(4)), exit: Number(c(5)), size: Number(c(6)),
+        fees: Number(c(7)) || 0, setup: unrs(c(8)), notes: unrs(c(9)), shot: false, video: false
+      };
+      if (c(10)!== '' && Number.isFinite(Number(c(10)))) t.pnl = Number(c(10));
+      const numsOk = [4, 5, 6].every(i => c(i)!== '' && Number.isFinite(Number(c(i))));
+      if (/^\d{4}-\d{2}-\d{2}$/.test(t.date) && t.symbol && numsOk) { trades.push(t); enterIds.add(t.id); n++; }
+    });
+    saveTrades(); fillAccountControls(); renderJournal();
+    alert(`Imported ${n} of ${rows.length - 1} rows.`);
+  });
+
+  /* ---------- Trade review ---------- */
+  const weekStart = ds => { const d = parseYMD(ds); d.setDate(d.getDate() - ((d.getDay() + 6) % 7)); return ymd(d); };
+  const weekEnd = k => { const d = parseYMD(k); d.setDate(d.getDate() + 6); return ymd(d); };
+  const REV = {
+    daily: { name: 'Daily', lbl: 'Day', next: 'Plan for tomorrow', key: ds => ds, rep: k => k,
+      label: k => longDate(parseYMD(k)), has: (t, k) => t.date === k },
+    weekly: { name: 'Weekly', lbl: 'Any day in the week', next: 'Plan for next week', key: weekStart, rep: k => k,
+      label: k => `${shortD(parseYMD(k))} to ${shortD(parseYMD(weekEnd(k)))}`, has: (t, k) => t.date >= k && t.date <= weekEnd(k) },
+    monthly: { name: 'Monthly', lbl: 'Any day in the month', next: 'Plan for next month', key: ds => ds.slice(0, 7), rep: k => k + '-01',
+      label: k => parseYMD(k + '-01').toLocaleDateString(undefined, { month: 'long', year: 'numeric' }), has: (t, k) => t.date.startsWith(k) }
+  };
+  let revType = 'daily', revDay = today(), pickId = null, newRevId = null;
+  const revKey = () => REV[revType].key(revDay);
+  const findRev = () => reviews.find(r => r.type === revType && r.key === revKey());
+  const periodTrades = () => trades.filter(t => REV[revType].has(t, revKey())).sort((a, b) => String(a.date).localeCompare(String(b.date)) || a.id - b.id);
+  const vBag = [];
+  const freeVBag = () => vBag.splice(0).forEach(u => URL.revokeObjectURL(u));
+
+  const setRevSeg = initSeg($('revSeg'), 'daily', val => {
+    revType = val; pickId = null; renderReview(); loadRevForm(); pop($('revBody'));
+  });
+  $('revDate').addEventListener('change', e => {
+    if (!e.target.value) return;
+    revDay = e.target.value; pickId = null; renderReview(); loadRevForm();
+  });
+
+  function loadRevForm() {
+    const f = $('revForm').elements, r = findRev() || {};
+    f.rating.value = r.rating || ''; f.followed.value = r.followed || '';
+    f.well.value = r.well || ''; f.improve.value = r.improve || ''; f.next.value = r.next || '';
+    $('saveRevBtn').textContent = r.id? 'Update review': 'Save review';
+  }
+  function renderMeta() {
+    const list = periodTrades(), pn = list.map(pnlOf), tot = sum(pn), wins = pn.filter(p => p > 0).length;
+    const meta = $('revMeta'); meta.replaceChildren(h('p', 'period', REV[revType].label(revKey())));
+    const ul = h('ul', 'chips');
+    [[plural(list.length, 'trade'), ''], ['P&L ' + fmt(tot), cls(tot)],
+      [list.length? `Win rate ${Math.round(wins / list.length * 100)}%`: '', '']].filter(c => c[0]).forEach(([text, c]) => ul.appendChild(h('li', 'chip ' + c, text)));
+    meta.appendChild(ul);
+  }
+  function renderPick() {
+    const list = periodTrades(), box = $('pick');
+    if (pickId &&!list.some(t => t.id === pickId)) pickId = null;
+    box.replaceChildren();
+    if (!list.length) { box.appendChild(emptyMsg('No trades recorded in this period.')); return; }
+    list.forEach(t => {
+      const b = h('button', 'pick-item'); b.type = 'button'; b.setAttribute('aria-pressed', String(t.id === pickId));
+      b.append(h('strong', '', `${t.symbol} ${t.side}`), h('small', '', `${t.date} \u00B7 ${fmt(pnlOf(t))}`));
+      b.addEventListener('click', () => {
+        pickId = t.id; renderPick(); renderViewer();
+        $('viewer').scrollIntoView({ behavior: smooth, block: 'nearest' });
+      });
+      box.appendChild(b);
+    });
+  }
+  function renderViewer() {
+    freeVBag();
+    const box = $('viewer'), t = trades.find(x => x.id === pickId);
+    if (!t) { box.hidden = true; box.replaceChildren(); return; }
+    const p = pnlOf(t), an = acctName(t.accountId);
+    const head = h('div', 'vhead');
+    const closeB = h('button', 'btn ghost', 'Close'); closeB.type = 'button';
+    closeB.addEventListener('click', () => { pickId = null; renderPick(); renderViewer(); });
+    head.append(h('h2', '', `${t.symbol} \u00B7 ${t.side}`), h('strong', cls(p), fmt(p)), closeB);
+
+    const shotBox = h('figure', 'shot');
+    async function drawShot() {
+      shotBox.replaceChildren();
+      if (!t.shot) { shotBox.appendChild(h('div', 'shot-empty', 'No screenshot for this trade.')); return; }
+      shotBox.appendChild(h('div', 'shot-empty', 'Loading screenshot...'));
+      let blob = null; try { blob = await DB.get('s' + t.id); } catch {}
+      if (pickId!== t.id) return;
+      shotBox.replaceChildren();
+      if (blob) {
+        const u = URL.createObjectURL(blob); vBag.push(u);
+        const im = document.createElement('img'); im.src = u; im.alt = `Screenshot of the ${t.symbol} trade on ${t.date}`;
+        shotBox.appendChild(im);
+      } else shotBox.appendChild(h('div', 'shot-empty', 'The screenshot could not be loaded.'));
+    }
+    const fi = document.createElement('input'); fi.type = 'file'; fi.accept = 'image/*'; fi.hidden = true;
+    fi.addEventListener('change', async () => {
+      const f = fi.files[0]; fi.value = '';
+      if (!f) return;
+      if (!isImg(f)) { alert('Please choose an image file.'); return; }
+      try { await DB.put('s' + t.id, await shrink(f)); t.shot = true; saveTrades(); renderViewer(); }
+      catch { alert('Could not save the screenshot. Browser storage may be full or blocked.'); }
+    });
+    const btns = h('div', 'vbtns');
+    const addS = h('button', 'btn ghost', t.shot? 'Replace screenshot': 'Add screenshot'); addS.type = 'button';
+    addS.addEventListener('click', () => fi.click()); btns.appendChild(addS);
+    if (t.shot) {
+      const rmS = h('button', 'btn danger', 'Remove screenshot'); rmS.type = 'button';
+      rmS.addEventListener('click', async () => {
+        if (!confirm('Remove this screenshot?')) return;
+        await delKey('s' + t.id); t.shot = false; saveTrades(); renderViewer();
+      });
+      btns.appendChild(rmS);
+    }
+    const ask = h('button', 'btn', 'Ask the chart assistant'); ask.type = 'button'; ask.addEventListener('click', openChat);
+    btns.appendChild(ask);
+
+    const chips = h('ul', 'chips');
+    [t.date, an, `Entry ${t.entry}`, `Exit ${t.exit}`, `Size ${t.size}`, t.setup && `Setup: ${t.setup}`].filter(Boolean).forEach(x => chips.appendChild(h('li', 'chip', x)));
+
+    const vs = h('div', 'nx-vsec');
+    vs.append(h('h3', '', 'Trade video'), videoPanel('v' + t.id,!!t.video, has => { t.video = has; saveTrades(); }, vBag));
+
+    box.replaceChildren(head, shotBox, fi, btns, chips);
+    if (t.notes) box.appendChild(h('p', '', t.notes));
+    box.appendChild(vs);
+    box.hidden = false; pop(box); drawShot();
+  }
+
+  const FOLLOW = { yes: ['Followed setup', 'st-taken'], partly: ['Partly followed', 'st-planned'], no: ['Did not follow', 'st-no'] };
+  function renderRevList() {
+    $('revListTitle').textContent = `${REV[revType].name} reviews`;
+    const box = $('revList'); box.replaceChildren();
+    const rows = reviews.filter(r => r.type === revType && typeof r.key === 'string').sort((a, b) => b.key.localeCompare(a.key));
+    if (!rows.length) { box.appendChild(emptyMsg('No reviews saved yet.')); return; }
+    rows.forEach(r => {
+      const card = h('article', 'rev-card' + (r.id === newRevId? ' enter': '')), head = h('div', 'head');
+      head.appendChild(h('h3', '', REV[revType].label(r.key)));
+      if (r.rating) head.appendChild(h('span', 'badge', `Discipline ${r.rating}/5`));
+      if (FOLLOW[r.followed]) head.appendChild(h('span', 'badge ' + FOLLOW[r.followed][1], FOLLOW[r.followed][0]));
+      card.appendChild(head);
+      [['What went well', r.well], ['What to improve', r.improve], [REV[revType].next, r.next]].forEach(([k, v]) => {
+        if (v) card.append(h('div', 'k', k), h('p', '', v));
+      });
+      const act = h('div', 'rev-actions');
+      const ed = h('button', 'btn ghost', 'Edit'); ed.type = 'button';
+      ed.addEventListener('click', () => {
+        revDay = REV[revType].rep(r.key); pickId = null; renderReview(); loadRevForm();
+        $('revFormCard').scrollIntoView({ behavior: smooth, block: 'start' });
+      });
+      const del = h('button', 'btn danger', 'Delete'); del.type = 'button';
+      del.addEventListener('click', () => {
+        if (card.classList.contains('leaving') ||!confirm('Delete this review?')) return;
+        animateOut(card, () => {
+          reviews = reviews.filter(x => x.id!== r.id); saveReviews();
+          if (r.type === revType && r.key === revKey()) loadRevForm();
+          renderRevList();
+        });
+      });
+      act.append(ed, del); card.appendChild(act); box.appendChild(card);
+    });
+    newRevId = null;
+  }
+  function renderReview() {
+    const R = REV[revType];
+    $('revDateLbl').textContent = R.lbl; $('revDate').value = revDay;
+    $('revFormTitle').textContent = `${R.name} review`; $('revNextLbl').textContent = R.next;
+    renderMeta(); renderPick(); renderViewer(); renderRevList();
+  }
+  $('revForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const f = $('revForm').elements;
+    const data = { rating: f.rating.value, followed: f.followed.value, well: f.well.value.trim(), improve: f.improve.value.trim(), next: f.next.value.trim() };
+    if (!Object.values(data).some(Boolean)) { shake($('saveRevBtn')); say('revMsg', 'Fill in at least one field first.', true); return; }
+    const old = findRev(), rec = Object.assign(old || { id: nid(), type: revType, key: revKey() }, data, { updated: Date.now() });
+    if (!old) reviews.push(rec);
+    newRevId = old? null: rec.id;
+    saveReviews(); renderRevList(); $('saveRevBtn').textContent = 'Update review';
+    say('revMsg', old? 'Review updated.': 'Review saved.');
+  });
+  function openReview(type, key) {
+    if (!Object.hasOwn(REV, type)) type = 'daily';
+    revType = type; revDay = REV[type].rep(key); pickId = null;
+    setView('review'); setRevSeg(type, true); loadRevForm();
+  }
+
+  /* ---------- Pre-trade plans ---------- */
+  const num = v => (v === '' || v == null)? null: Number(v);
+  function rrOf(side, e, s, t) {
+    if (![e, s, t].every(Number.isFinite)) return { text: '-' };
+    const ok = side === 'long'? (s < e && e < t): (t < e && e < s);
+    if (!ok) return { text: 'Check levels' };
+    return { text: '1:' + (Math.abs(t - e) / Math.abs(e - s)).toFixed(2) };
+  }
+  let planEdit = null;
+  const planForm = $('planForm');
+  function updateRR() {
+    const f = planForm.elements;
+    $('planRR').textContent = rrOf(f.side.value, num(f.entry.value), num(f.sl.value), num(f.tp.value)).text;
+  }
+  function resetPlanForm() {
+    planEdit = null; planForm.reset(); planForm.elements.date.value = today();
+    $('planFormTitle').textContent = 'New pre-trade plan'; $('planSaveBtn').textContent = 'Save plan'; $('planCancel').hidden = true;
+    updateRR();
+  }
+  planForm.addEventListener('input', updateRR);
+  planForm.addEventListener('change', updateRR);
+  $('planCancel').addEventListener('click', resetPlanForm);
+  planForm.addEventListener('submit', e => {
+    e.preventDefault();
+    if (!planForm.checkValidity()) { shake($('planSaveBtn')); planForm.reportValidity(); return; }
+    const f = planForm.elements;
+    const rec = {
+      date: f.date.value, symbol: f.symbol.value.trim().toUpperCase(), side: f.side.value, entry: num(f.entry.value),
+      sl: num(f.sl.value), tp: num(f.tp.value), status: f.status.value, confidence: f.confidence.value, thesis: f.thesis.value.trim()
+    };
+    const old = planEdit && plans.find(p => p.id === planEdit);
+    if (old) Object.assign(old, rec); else plans.push({ id: nid(),...rec });
+    savePlans(); resetPlanForm(); renderPlans(); say('planMsg', old? 'Plan updated.': 'Plan saved.');
+  });
+  function editPlan(p) {
+    planEdit = p.id; const f = planForm.elements;
+    f.date.value = p.date; f.symbol.value = p.symbol; f.side.value = p.side; f.entry.value = p.entry?? ''; f.sl.value = p.sl?? '';
+    f.tp.value = p.tp?? ''; f.status.value = p.status; f.confidence.value = p.confidence || ''; f.thesis.value = p.thesis || '';
+    $('planFormTitle').textContent = 'Edit pre-trade plan'; $('planSaveBtn').textContent = 'Update plan'; $('planCancel').hidden = false;
+    updateRR(); $('planFormCard').scrollIntoView({ behavior: smooth, block: 'start' });
+  }
+  function renderPlans() {
+    const box = $('planList'); box.replaceChildren();
+    if (!plans.length) { box.appendChild(emptyMsg('No plans yet.')); return; }
+    const lv = v => v == null? '-': String(v), SL = { planned: 'Planned', taken: 'Taken', skipped: 'Skipped' };
+    [...plans].sort(byDateDesc).forEach(p => {
+      const card = h('article', 'rev-card'), head = h('div', 'head');
+      head.append(h('h3', '', `${p.symbol} \u00B7 ${p.side}`), h('span', 'badge st-' + (SL[p.status]? p.status: 'planned'), SL[p.status] || 'Planned'));
+      card.appendChild(head);
+      const chips = h('ul', 'chips');
+      [p.date, `Entry ${lv(p.entry)}`, `SL ${lv(p.sl)}`, `TP ${lv(p.tp)}`, `R:R ${rrOf(p.side, p.entry, p.sl, p.tp).text}`, p.confidence && `Confidence ${p.confidence}/5`].filter(Boolean).forEach(x => chips.appendChild(h('li', 'chip', x)));
+      card.appendChild(chips);
+      if (p.thesis) card.appendChild(h('p', '', p.thesis));
+      const act = h('div', 'rev-actions');
+      const ed = h('button', 'btn ghost', 'Edit'); ed.type = 'button'; ed.addEventListener('click', () => editPlan(p));
+      const del = h('button', 'btn danger', 'Delete'); del.type = 'button';
+      del.addEventListener('click', () => {
+        if (card.classList.contains('leaving') ||!confirm('Delete this plan?')) return;
+        animateOut(card, () => { plans = plans.filter(x => x.id!== p.id); savePlans(); if (planEdit === p.id) resetPlanForm(); renderPlans(); });
+      });
+      act.append(ed, del); card.appendChild(act); box.appendChild(card);
+    });
+  }
+
+  /* ---------- Backtesting recordings ---------- */
+  const btBag = [];
+  const freeBtBag = () => btBag.splice(0).forEach(u => URL.revokeObjectURL(u));
+  $('btForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const bform = e.currentTarget, btn = $('btAddBtn');
+    if (!bform.checkValidity()) { shake(btn); bform.reportValidity(); return; }
+    const f = bform.elements, id = nid(), file = f.video.files[0];
+    const rec = { id, title: f.title.value.trim(), symbol: f.symbol.value.trim().toUpperCase(), tf: f.tf.value.trim().toUpperCase(),
+      notes: f.notes.value.trim(), video: false, created: today() };
+    btn.disabled = true;
+    if (file && await storeVideo('b' + id, file)) rec.video = true;
+    btn.disabled = false;
+    backtests.push(rec); saveBacktests(); bform.reset(); renderBacktests();
+    say('btMsg', file &&!rec.video? 'Recording added without the video.': 'Recording added.');
+  });
+  function renderBacktests() {
+    freeBtBag();
+    const box = $('btList'); box.replaceChildren();
+    if (!backtests.length) { box.appendChild(emptyMsg('No recordings yet.')); return; }
+    [...backtests].sort((a, b) => b.id - a.id).forEach(b => {
+      const card = h('article', 'rev-card'), head = h('div', 'head');
+      const del = h('button', 'btn danger', 'Delete'); del.type = 'button';
+      del.addEventListener('click', () => {
+        if (card.classList.contains('leaving') ||!confirm('Delete this recording and its video?')) return;
+        animateOut(card, () => { backtests = backtests.filter(x => x.id!== b.id); delKey('b' + b.id); saveBacktests(); renderBacktests(); });
+      });
+      head.append(h('h3', '', b.title || 'Untitled'), del); card.appendChild(head);
+      const chips = h('ul', 'chips');
+      [b.symbol, b.tf, b.created && 'Added ' + b.created].filter(Boolean).forEach(x => chips.appendChild(h('li', 'chip', x)));
+      card.appendChild(chips);
+      if (b.notes) card.appendChild(h('p', '', b.notes));
+      card.appendChild(videoPanel('b' + b.id,!!b.video, has => { b.video = has; saveBacktests(); }, btBag));
+      box.appendChild(card);
+    });
+  }
+
+  /* ---------- Accounts ---------- */
+  $('acctForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const af = e.currentTarget;
+    if (!af.checkValidity()) { shake($('addAcctBtn')); af.reportValidity(); return; }
+    const f = af.elements;
+    accounts.push({
+      id: nid(), name: f.aname.value.trim(), broker: f.broker.value.trim(), type: f.atype.value, currency: f.currency.value.trim().toUpperCase(),
+      start: +f.start.value || 0, platform: f.platform.value, server: f.server.value.trim(), login: f.login.value.trim()
+    });
+    saveAccounts(); af.reset(); fillAccountControls(); renderAccounts();
+  });
+  function renderAccounts() {
+    const box = $('acctList'); box.replaceChildren();
+    if (!accounts.length) { box.appendChild(emptyMsg('No accounts yet.')); return; }
+    accounts.forEach(a => {
+      const card = h('article', 'acct'), n = trades.filter(t => t.accountId === a.id).length;
+      card.append(
+        h('h3', '', a.name),
+        h('p', 'sub', [a.type, a.platform, a.server, a.currency].filter(Boolean).join(' \u00B7 ')),
+        h('p', 'sub', [a.broker && `Broker: ${a.broker}`, a.login && `Login: ${a.login}`, `Start: ${fmt(+a.start || 0)}`, plural(n, 'trade')].filter(Boolean).join(' \u00B7 '))
+      );
+      const del = h('button', 'btn danger', 'Delete'); del.type = 'button';
+      del.addEventListener('click', () => {
+        if (!confirm(`Delete the account "${a.name}"? Its ${plural(n, 'trade')} stay in the journal as unassigned.`)) return;
+        trades.forEach(t => { if (t.accountId === a.id) t.accountId = null; });
+        accounts = accounts.filter(x => x.id!== a.id); saveAccounts(); saveTrades(); fillAccountControls(); renderAccounts();
+      });
+      card.appendChild(del); box.appendChild(card);
+    });
+  }
+
+  /* ---------- MT4 / MT5 report import ----------
+     Column layouts below come from memory of English-language reports and have not been checked
+     against real files. Rows that do not match are skipped and counted. */
+  const MTDATE = /^\d{4}\.\d{2}\.\d{2}( \d{2}:\d{2}(:\d{2})?)?$/;
+  const MTSIDE = /^(buy|sell)$/;
+  const mtNum = s => Number(String(s?? '').replace(/[\s\u00a0]/g, ''));
+  const r2 = x => Math.round(x * 100) / 100;
+  function mtRow(c) {
+    const low = x => String(x?? '').trim().toLowerCase(), L = c.length;
+    let ticket, side, size, sym, op, cp, closeT, comm, tax = 0, swap, profit;
+    if (L >= 13 && MTDATE.test(c[1] || '') && MTSIDE.test(low(c[2])) && MTDATE.test(c[8] || '')) {
+      // MT4: ticket, open time, type, size, item, price, s/l, t/p, close time, price, commission, [taxes], swap, profit
+      ticket = c[0]; side = low(c[2]); size = mtNum(c[3]); sym = c[4]; op = mtNum(c[5]); closeT = c[8]; cp = mtNum(c[9]);
+      comm = mtNum(c[10]); if (L >= 14) tax = mtNum(c[11]); swap = mtNum(c[L - 2]); profit = mtNum(c[L - 1]);
+    } else if (L >= 13 && MTDATE.test(c[0] || '') && MTSIDE.test(low(c[3])) && MTDATE.test(c[8] || '') &&!/^(in|out|in\/out)$/.test(low(c[4]))) {
+      // MT5 positions: time, position, symbol, type, volume, price, s/l, t/p, time, price, commission, swap, profit
+      ticket = c[1]; sym = c[2]; side = low(c[3]); size = mtNum(c[4]); op = mtNum(c[5]); closeT = c[8]; cp = mtNum(c[9]);
+      comm = mtNum(c[10]); swap = mtNum(c[11]); profit = mtNum(c[12]);
+    } else return null;
+    if (![size, op, cp, comm, tax, swap, profit].every(Number.isFinite) ||!sym ||!ticket) return null;
+    return {
+      ticket: String(ticket), date: closeT.slice(0, 10).replace(/\./g, '-'), symbol: String(sym).toUpperCase(),
+      side: side === 'buy'? 'long': 'short', entry: op, exit: cp, size, fees: r2(-(comm + tax + swap)), pnl: r2(profit + comm + tax + swap)
+    };
+  }
+  async function readReport(file) {
+    const b = new Uint8Array(await file.arrayBuffer());
+    let enc = 'utf-8';
+    if (b[0] === 0xFF && b[1] === 0xFE) enc = 'utf-16le';
+    else if (b[0] === 0xFE && b[1] === 0xFF) enc = 'utf-16be';
+    else if (b.length > 3 && b[1] === 0 && b[3] === 0) enc = 'utf-16le';
+    return new TextDecoder(enc).decode(b);
+  }
+  $('mtBtn').addEventListener('click', async () => {
+    const msg = $('mtMsg'), file = $('mtFile').files[0], acct = accounts.find(a => String(a.id) === $('mtAcct').value);
+    if (!acct) { msg.textContent = 'Add an account first, then pick it here.'; return; }
+    if (!file) { msg.textContent = 'Choose a report file first.'; return; }
+    if (file.size > 25e6) { msg.textContent = 'That file is over 25 MB, which is too large for a report.'; return; }
+    msg.textContent = 'Reading the report...';
+    try {
+      const doc = new DOMParser().parseFromString(await readReport(file), 'text/html');
+      const seen = new Set(trades.filter(t => t.accountId === acct.id && t.ticket).map(t => t.ticket));
+      let found = 0, dup = 0, added = 0;
+      doc.querySelectorAll('tr').forEach(tr => {
+        const cells = [...tr.cells].map(td => td.textContent.replace(/\s+/g, ' ').trim());
+        let r = mtRow(cells);
+        if (!r) { const packed = cells.filter(Boolean); if (packed.length!== cells.length) r = mtRow(packed); }
+        if (!r) return;
+        found++;
+        if (seen.has(r.ticket)) { dup++; return; }
+        seen.add(r.ticket);
+        trades.push({ id: nid(), accountId: acct.id, setup: '', notes: '', shot: false, video: false,...r });
+        added++;
+      });
+      $('mtFile').value = '';
+      if (!found) { msg.textContent = 'No closed trades were found. Use an English-language MT4 detailed statement, or an MT5 report that includes the Positions table.'; return; }
+      saveTrades(); fillAccountControls(); renderJournal();
+      msg.textContent = `Imported ${plural(added, 'trade')} into ${acct.name}.${dup? ` ${dup} already imported and skipped.`: ''}`;
+    } catch (err) { msg.textContent = 'Could not read that file: ' + (err && err.message? err.message: 'unknown error'); }
+  });
+
+  /* ---------- Chat window ---------- */
+  const CK = { name: 'tradingJournal.chat.name', hist: 'tradingJournal.chat.history' };
+  const chatViews = ['review', 'plan', 'backtest'];
+  let chatName = String(readJSON(CK.name, '') || '').slice(0, 24);
+  let chatHist = loadList(CK.hist).filter(m => (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string').slice(-60);
+  let chatOpen = false, chatNaming = false, chatBusy = false, chatImgData = null;
+
+  function addMsg(role, text, o = {}) {
+    const m = h('div', 'nx-msg' + (role === 'user'? ' user': '') + (o.err? ' err': ''));
+    if (o.img) { const im = document.createElement('img'); im.src = o.img; im.alt = 'Attached screenshot'; m.appendChild(im); }
+    if (text) m.appendChild(document.createTextNode(text));
+    const box = $('chatMsgs'); box.appendChild(m); box.scrollTop = box.scrollHeight;
+    return m;
+  }
+  function setChatImg(data, name) {
+    chatImgData = data; $('chatImgName').textContent = name || '';
+    $('chatAttach').textContent = data? 'Remove screenshot': 'Add screenshot';
+  }
+  function drawChat() {
+    const naming =!chatName || chatNaming;
+    $('chatTitle').textContent = chatName || 'Chart assistant';
+    $('chatNameForm').hidden =!naming;
+    $('chatMsgs').hidden = $('chatForm').hidden = naming;
+    $('chatRename').hidden = $('chatClear').hidden = naming;
+    $('chatSend').disabled =!CHAT_ENDPOINT || chatBusy;
+    $('chatSend').title = CHAT_ENDPOINT? '': 'No AI service is connected';
+    $('chatMsgs').replaceChildren();
+    if (naming) { $('chatNameIn').value = chatName; $('chatNameIn').focus(); return; }
+    chatHist.forEach(m => addMsg(m.role, m.content));
+    if (!CHAT_ENDPOINT) addMsg('assistant', 'Not connected: this page has no AI service behind it yet, so nothing you type is sent anywhere.', { err: true });
+    else if (!chatHist.length) addMsg('assistant', `I'm ${chatName}. Ask about a chart, a setup or your results.`);
+    $('chatIn').focus();
+  }
+  function openChat() {
+    chatOpen = true; $('chat').hidden = false; $('chatLaunch').hidden = true; drawChat();
+  }
+  function closeChat() {
+    if (!chatOpen) return;
+    chatOpen = false; chatNaming = false; $('chat').hidden = true;
+    $('chatLaunch').hidden =!chatViews.includes(currentView);
+    if (!$('chatLaunch').hidden) $('chatLaunch').focus({ preventScroll: true });
+  }
+  $('chatLaunch').addEventListener('click', openChat);
+  $('chatClose').addEventListener('click', closeChat);
+  $('chat').addEventListener('keydown', e => { if (e.key === 'Escape') closeChat(); });
+  $('chatRename').addEventListener('click', () => { chatNaming = true; drawChat(); });
+  $('chatClear').addEventListener('click', () => {
+    if (!confirm('Clear this conversation?')) return;
+    chatHist = []; write(CK.hist, chatHist); setChatImg(null); drawChat();
+  });
+  $('chatNameForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const v = $('chatNameIn').value.trim().slice(0, 24);
+    if (!v) return;
+    chatName = v; chatNaming = false; write(CK.name, chatName); drawChat();
+  });
+  $('chatAttach').addEventListener('click', () => { if (chatImgData) setChatImg(null); else $('chatImg').click(); });
+  $('chatImg').addEventListener('change', async e => {
+    const f = e.target.files[0]; e.target.value = '';
+    if (!f) return;
+    if (!isImg(f)) { alert('Please choose an image file.'); return; }
+    try { setChatImg(await readFile(await shrink(f, 1400)), f.name); } catch { alert('Could not read that image.'); }
+  });
+  $('chatIn').addEventListener('keydown', e => {
+    if (e.key === 'Enter' &&!e.shiftKey &&!e.isComposing) { e.preventDefault(); $('chatForm').requestSubmit(); }
+  });
+  $('chatForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const text = $('chatIn').value.trim(), img = chatImgData;
+    if (chatBusy ||!CHAT_ENDPOINT || (!text &&!img)) return;
+    chatBusy = true; $('chatSend').disabled = true;
+    addMsg('user', text, { img }); $('chatIn').value = ''; setChatImg(null);
+    const ctl = new AbortController(), timer = setTimeout(() => ctl.abort(), 60000);
+    try {
+      const messages = [...chatHist, { role: 'user', content: text || '(screenshot)' }].slice(-20);
+      const res = await fetch(CHAT_ENDPOINT, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: ctl.signal,
+        body: JSON.stringify({ assistant: chatName, messages, image: img })
+      });
+      if (!res.ok) throw new Error('server returned ' + res.status);
+      const data = await res.json(), reply = typeof data.reply === 'string'? data.reply.trim(): '';
+      if (!reply) throw new Error('empty reply');
+      chatHist.push({ role: 'user', content: text || '(screenshot)' }, { role: 'assistant', content: reply });
+      chatHist = chatHist.slice(-60); write(CK.hist, chatHist); addMsg('assistant', reply);
+    } catch (err) {
+      addMsg('assistant', 'Could not get a reply: ' + (err.name === 'AbortError'? 'the request timed out': err.message), { err: true });
+      if (!$('chatIn').value) $('chatIn').value = text;
+    } finally {
+      clearTimeout(timer); chatBusy = false; $('chatSend').disabled =!CHAT_ENDPOINT; $('chatIn').focus();
+    }
+  });
+
+  /* ---------- View hook (called by setView in Part 3) ---------- */
+  function onView(name) {
+    freeVBag(); freeBtBag();
+    if (!chatViews.includes(name)) closeChat();
+    $('chatLaunch').hidden =!chatViews.includes(name) || chatOpen;
+    const draw = { dashboard: renderDash, journal: renderJournal, review: renderReview, plan: renderPlans,
+      backtest: renderBacktests, equity: renderEquity, accounts: renderAccounts }[name];
+    if (draw) draw();
+  }
+
+  /* ---------- Start ---------- */
+  form.elements.date.value = today();
+  planForm.elements.date.value = today();
+  fillAccountControls();
+  renderDash();
+  loadRevForm();
+  updateRR();
+
+// END OF PART 4
+})();
+</script><script>
+(() => {
+  const KEY = 'tradingJournal.layout.v1';
+  const WIDTHS = { narrow: '900px', medium: '1100px', wide: '1400px', full: 'none' };
+  const POS = ['left', 'center', 'right'];
+  const DEF = { width: 'full', pos: 'left' };
+  let L = {...DEF };
+  try {
+    const s = JSON.parse(localStorage.getItem(KEY));
+    if (s && Object.hasOwn(WIDTHS, s.width)) L.width = s.width;
+    if (s && POS.includes(s.pos)) L.pos = s.pos;
+  } catch {}
+
+  const css = document.createElement('style');
+  css.textContent = `
+    #shell main { width: 100%; max-width: var(--content-max, none)!important; }
+    html[data-cpos="left"] #shell main { margin-left: 0!important; margin-right: auto!important; }
+    html[data-cpos="center"] #shell main { margin-left: auto!important; margin-right: auto!important; }
+    html[data-cpos="right"] #shell main { margin-left: auto!important; margin-right: 0!important; }`;
+  document.head.appendChild(css);
+
+  const actions = document.querySelector('#settings.dlg-actions');
+  const wrap = document.createElement('div');
+  wrap.style.display = 'contents';
+  wrap.innerHTML = `
+    <label>Content position
+      <select id="cposSel">
+        <option value="left">Left</option>
+        <option value="center">Centre</option>
+        <option value="right">Right</option>
+      </select>
+    </label>
+    <label>Content width
+      <select id="cwidthSel">
+        <option value="narrow">Narrow (900px)</option>
+        <option value="medium">Medium (1100px)</option>
+        <option value="wide">Wide (1400px)</option>
+        <option value="full">Full width</option>
+      </select>
+    </label>`;
+  if (actions) actions.before(wrap);
+
+  const posSel = document.getElementById('cposSel');
+  const widthSel = document.getElementById('cwidthSel');
+
+  function apply() {
+    document.documentElement.dataset.cpos = L.pos;
+    document.documentElement.style.setProperty('--content-max', WIDTHS[L.width]);
+    if (posSel) posSel.value = L.pos;
+    if (widthSel) widthSel.value = L.width;
+    try { localStorage.setItem(KEY, JSON.stringify(L)); } catch {}
+  }
+  if (posSel) posSel.addEventListener('change', e => { L.pos = e.target.value; apply(); });
+  if (widthSel) widthSel.addEventListener('change', e => { L.width = e.target.value; apply(); });
+  const reset = document.getElementById('resetBtn');
+  if (reset) reset.addEventListener('click', () => { L = {...DEF }; apply(); });
+  apply();
+})();
+</script>
+<script>
+(() => {
+  const KEY = 'tradingJournal.layout.v1';
+  const WIDTHS = { narrow: '900px', medium: '1100px', wide: '1400px', full: 'none' };
+  const POS = ['left', 'center', 'right'];
+  const DEF = { width: 'full', pos: 'left' };
+  let L = {...DEF };
+  try {
+    const s = JSON.parse(localStorage.getItem(KEY));
+    if (s && Object.hasOwn(WIDTHS, s.width)) L.width = s.width;
+    if (s && POS.includes(s.pos)) L.pos = s.pos;
+  } catch {}
+
+  const css = document.createElement('style');
+  css.textContent = `
+    #shell main { width: 100%; max-width: var(--content-max, none)!important; }
+    html[data-cpos="left"] #shell main { margin-left: 0!important; margin-right: auto!important; }
+    html[data-cpos="center"] #shell main { margin-left: auto!important; margin-right: auto!important; }
+    html[data-cpos="right"] #shell main { margin-left: auto!important; margin-right: 0!important; }`;
+  document.head.appendChild(css);
+
+  const actions = document.querySelector('#settings.dlg-actions');
+  const wrap = document.createElement('div');
+  wrap.style.display = 'contents';
+  wrap.innerHTML = `
+    <label>Content position
+      <select id="cposSel">
+        <option value="left">Left</option>
+        <option value="center">Centre</option>
+        <option value="right">Right</option>
+      </select>
+    </label>
+    <label>Content width
+      <select id="cwidthSel">
+        <option value="narrow">Narrow (900px)</option>
+        <option value="medium">Medium (1100px)</option>
+        <option value="wide">Wide (1400px)</option>
+        <option value="full">Full width</option>
+      </select>
+    </label>`;
+  if (actions) actions.before(wrap);
+
+  const posSel = document.getElementById('cposSel');
+  const widthSel = document.getElementById('cwidthSel');
+
+  function apply() {
+    document.documentElement.dataset.cpos = L.pos;
+    document.documentElement.style.setProperty('--content-max', WIDTHS[L.width]);
+    if (posSel) posSel.value = L.pos;
+    if (widthSel) widthSel.value = L.width;
+    try { localStorage.setItem(KEY, JSON.stringify(L)); } catch {}
+  }
+  if (posSel) posSel.addEventListener('change', e => { L.pos = e.target.value; apply(); });
+  if (widthSel) widthSel.addEventListener('change', e => { L.width = e.target.value; apply(); });
+  const reset = document.getElementById('resetBtn');
+  if (reset) reset.addEventListener('click', () => { L = {...DEF }; apply(); });
+  apply();
+})();
+</script>
+<script>
+(() => {
+  const KEY = 'tradingJournal.layout.v1';
+  const WIDTHS = { narrow: '900px', medium: '1100px', wide: '1400px', full: 'none' };
+  const POS = ['left', 'center', 'right'];
+  const DEF = { width: 'full', pos: 'left' };
+  let L = {...DEF };
+  try {
+    const s = JSON.parse(localStorage.getItem(KEY));
+    if (s && Object.hasOwn(WIDTHS, s.width)) L.width = s.width;
+    if (s && POS.includes(s.pos)) L.pos = s.pos;
+  } catch {}
+
+  const css = document.createElement('style');
+  css.textContent = `
+    #shell main { width: 100%; max-width: var(--content-max, none)!important; }
+    html[data-cpos="left"] #shell main { margin-left: 0!important; margin-right: auto!important; }
+    html[data-cpos="center"] #shell main { margin-left: auto!important; margin-right: auto!important; }
+    html[data-cpos="right"] #shell main { margin-left: auto!important; margin-right: 0!important; }`;
+  document.head.appendChild(css);
+
+  const actions = document.querySelector('#settings.dlg-actions');
+  const wrap = document.createElement('div');
+  wrap.style.display = 'contents';
+  wrap.innerHTML = `
+    <label>Content position
+      <select id="cposSel">
+        <option value="left">Left</option>
+        <option value="center">Centre</option>
+        <option value="right">Right</option>
+      </select>
+    </label>
+    <label>Content width
+      <select id="cwidthSel">
+        <option value="narrow">Narrow (900px)</option>
+        <option value="medium">Medium (1100px)</option>
+        <option value="wide">Wide (1400px)</option>
+        <option value="full">Full width</option>
+      </select>
+    </label>`;
+  if (actions) actions.before(wrap);
+
+  const posSel = document.getElementById('cposSel');
+  const widthSel = document.getElementById('cwidthSel');
+
+  function apply() {
+    document.documentElement.dataset.cpos = L.pos;
+    document.documentElement.style.setProperty('--content-max', WIDTHS[L.width]);
+    if (posSel) posSel.value = L.pos;
+    if (widthSel) widthSel.value = L.width;
+    try { localStorage.setItem(KEY, JSON.stringify(L)); } catch {}
+  }
+  if (posSel) posSel.addEventListener('change', e => { L.pos = e.target.value; apply(); });
+  if (widthSel) widthSel.addEventListener('change', e => { L.width = e.target.value; apply(); });
+  const reset = document.getElementById('resetBtn');
+  if (reset) reset.addEventListener('click', () => { L = {...DEF }; apply(); });
+  apply();
+})();
+</script>
+
+</body>
+</html>
+
