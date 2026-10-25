@@ -577,6 +577,12 @@ dialog.trade-detail{width:min(900px,94vw);max-height:92vh;overflow:hidden;backgr
     <label>AI service URL <input type="url" id="aiEndpointIn" placeholder="https://your-worker.workers.dev/chat"></label>
     <label>Private AI access token <input type="password" id="aiTokenIn" autocomplete="off" placeholder="Set in your AI worker"></label>
     <p class="hint">These connection settings are stored in this browser only. Never put API keys in this public HTML file.</p>
+    <section class="card backup-card" aria-labelledby="backupTitle">
+      <h3 id="backupTitle">Transfer your journal</h3>
+      <p class="hint">Download one backup file containing your journal data, settings, screenshots, and videos. Restore it on another device to move your progress.</p>
+      <div class="bias-actions"><button class="btn ghost" id="backupExport" type="button">Download full backup</button><button class="btn ghost" id="backupImport" type="button">Restore from backup</button><input id="backupFile" type="file" accept=".json,application/json" hidden></div>
+      <p class="hint" id="backupStatus" role="status" aria-live="polite">Keep the backup file somewhere you can access from the other device.</p>
+    </section>
     <label>Background style <select id="bgStyleSel"><option value="gradient">Soft gradient</option><option value="solid">Solid</option></select></label>
     <label>Font style
       <select id="fontSel"><option value="sans">Sans-serif</option><option value="serif">Serif</option><option value="mono">Monospace</option><option value="rounded">Rounded</option></select>
@@ -629,7 +635,7 @@ dialog.trade-detail{width:min(900px,94vw);max-height:92vh;overflow:hidden;backgr
   function readJSON(key, fb) { try { const v = JSON.parse(localStorage.getItem(key)); return v?? fb; } catch { return fb; } }
   function write(key, val) {
     try { localStorage.setItem(key, JSON.stringify(val)); }
-    catch { if (!warned) { warned = true; alert('Could not save. Browser storage is full or blocked, so recent changes may be lost. Export a CSV backup.'); } }
+    catch { if (!warned) { warned = true; alert('Could not save. Browser storage is full or blocked, so recent changes may be lost. Download a full backup from Settings.'); } }
   }
   const loadList = key => { const v = readJSON(key, []); return Array.isArray(v)? v.filter(x => x && typeof x === 'object'): []; };
   let trades = loadList(K.trades).filter(t => typeof t.date === 'string');
@@ -655,9 +661,20 @@ dialog.trade-detail{width:min(900px,94vw);max-height:92vh;overflow:hidden;backgr
       t.oncomplete = () => res(out.result);
       t.onerror = t.onabort = () => rej(t.error);
     }));
-    return { get: k => tx('readonly', s => s.get(k)), put: (k, v) => tx('readwrite', s => s.put(v, k)), del: k => tx('readwrite', s => s.delete(k)) };
+    return {
+      get: k => tx('readonly', s => s.get(k)), put: (k, v) => tx('readwrite', s => s.put(v, k)), del: k => tx('readwrite', s => s.delete(k)),
+      entries: () => open().then(db => new Promise((res, rej) => { const t=db.transaction('files','readonly'),s=t.objectStore('files'),kr=s.getAllKeys(),vr=s.getAll();t.oncomplete=()=>res(kr.result.map((key,i)=>[key,vr.result[i]]));t.onerror=t.onabort=()=>rej(t.error) })),
+      replace: entries => open().then(db => new Promise((res, rej) => { const t=db.transaction('files','readwrite'),s=t.objectStore('files');s.clear();for(const [key,value] of entries)s.put(value,key);t.oncomplete=()=>res();t.onerror=t.onabort=()=>rej(t.error) }))
+    };
   })();
 
+  /* ---------- Portable full backup ---------- */
+  const BACKUP_PREFIX='tradingJournal.', BACKUP_VERSION=1;
+  function encodeBase64(buffer){const bytes=new Uint8Array(buffer);let binary='';for(let i=0;i<bytes.length;i+=0x8000)binary+=String.fromCharCode(...bytes.subarray(i,Math.min(i+0x8000,bytes.length)));return btoa(binary)}
+  function decodeBase64(text){const binary=atob(text),bytes=new Uint8Array(binary.length);for(let i=0;i<binary.length;i++)bytes[i]=binary.charCodeAt(i);return bytes}
+  async function backupExport(){const status=$('backupStatus');try{status.textContent='Preparing your backup…';const storage={};for(let i=0;i<localStorage.length;i++){const key=localStorage.key(i);if(key&&key.startsWith(BACKUP_PREFIX))storage[key]=localStorage.getItem(key)}const entries=await DB.entries(),media=[];for(const [key,value] of entries){const blob=value instanceof Blob?value:new Blob([value]);media.push({key:String(key),type:blob.type||'application/octet-stream',data:encodeBase64(await blob.arrayBuffer())})}const backup={app:'NexusGroup Trading Journal',version:BACKUP_VERSION,createdAt:new Date().toISOString(),localStorage:storage,media};const file=new Blob([JSON.stringify(backup)],{type:'application/json'}),url=URL.createObjectURL(file),a=document.createElement('a');a.href=url;a.download='nexus-journal-backup-'+today()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),60000);status.textContent='Backup downloaded with '+Object.keys(storage).length+' saved sections and '+media.length+' media files.'}catch(err){console.error(err);status.textContent='Backup could not be created. Check available browser storage and try again.';alert('Could not create the full backup. Your saved data has not been changed.')}}
+  async function backupRestore(file){const status=$('backupStatus');try{status.textContent='Checking backup…';const m=JSON.parse(await file.text());if(m.app!=='NexusGroup Trading Journal'||m.version!==BACKUP_VERSION||!m.localStorage||!Array.isArray(m.media))throw Error('Unsupported backup');for(const [key,value] of Object.entries(m.localStorage))if(!key.startsWith(BACKUP_PREFIX)||typeof value!=='string')throw Error('Invalid saved data');const entries=m.media.map(x=>{if(typeof x.key!=='string'||typeof x.data!=='string')throw Error('Invalid media');return[x.key,new Blob([decodeBase64(x.data)],{type:x.type||'application/octet-stream'})]});if(!confirm('Restore '+Object.keys(m.localStorage).length+' saved sections and '+entries.length+' media files? This replaces this browser’s current journal data.'))return;status.textContent='Restoring your journal…';await DB.replace(entries);for(let i=localStorage.length-1;i>=0;i--){const key=localStorage.key(i);if(key&&key.startsWith(BACKUP_PREFIX))localStorage.removeItem(key)}for(const [key,value] of Object.entries(m.localStorage))localStorage.setItem(key,value);status.textContent='Restore complete. Reloading your journal…';location.reload()}catch(err){console.error(err);status.textContent='Could not restore that backup. Check that you selected a NexusGroup backup.';alert('Could not restore this backup. Your current journal was not intentionally changed.')}}
+  $('backupExport').addEventListener('click',backupExport);$('backupImport').addEventListener('click',()=>$('backupFile').click());$('backupFile').addEventListener('change',async e=>{const file=e.target.files&&e.target.files[0];if(file)await backupRestore(file);e.target.value=''});
   async function shrink(file, max = 1600) {
     try {
       const bmp = await createImageBitmap(file), k = Math.min(1, max / Math.max(bmp.width, bmp.height));
