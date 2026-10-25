@@ -141,7 +141,47 @@ output{color:var(--text);font-weight:600}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
-</style>
+/* Nexus dark interface and corrected dock layout */
+.settings-shortcut{display:inline-flex;align-items:center;gap:8px;margin-left:auto;border-color:color-mix(in srgb,var(--accent) 42%,#343b46);background:#11151d;color:#edf1f7;box-shadow:0 0 16px color-mix(in srgb,var(--accent) 16%,transparent)}.settings-shortcut:hover{border-color:var(--accent);box-shadow:0 0 20px color-mix(in srgb,var(--accent) 30%,transparent)}
+#shell.v .dock-list{flex-direction:column;flex:1;min-height:0;overflow-y:auto}
+#shell.v .dock-foot{flex-direction:column;width:100%;margin-top:auto}
+#shell.v.collapsed .dock-foot{align-items:stretch}
+:root{--detail-bg:#10141b;--card:color-mix(in srgb,#151a22 94%,var(--accent) 6%);--line:color-mix(in srgb,var(--accent) 25%,#2a303b);--hover:#1d2430}
+body{background-color:var(--bg);background-image:var(--bg-image),radial-gradient(1000px 640px at 50% -20%,color-mix(in srgb,var(--accent) 12%,transparent),transparent);color:var(--text)}
+#shell{width:100%;min-height:100vh;display:flex}#shell.v[data-dock="left"]{flex-direction:row!important}#shell.v[data-dock="right"]{flex-direction:row-reverse!important}
+#shell.v>.dock{position:sticky;top:0;align-self:flex-start;flex:0 0 232px;width:232px;height:100vh;min-height:100vh;flex-direction:column;padding:18px 12px;background:rgba(12,15,21,.94);border:0;border-right:1px solid var(--line);box-shadow:4px 0 28px rgba(0,0,0,.22);backdrop-filter:blur(18px)}
+#shell.v[data-dock="right"]>.dock{border-right:0;border-left:1px solid var(--line);box-shadow:-4px 0 28px rgba(0,0,0,.22)}#shell.v.collapsed>.dock{flex-basis:72px;width:72px}#shell.v.collapsed .dock-list{overflow-x:hidden}
+#shell.v>.content{flex:1 1 0;width:0;min-width:0}#shell main{width:100%;max-width:1500px!important;margin:0 auto!important;padding:4px clamp(16px,2.2vw,34px) 52px}
+#shell.h>.dock{position:sticky;top:0;z-index:40;flex-direction:row;align-items:center;background:rgba(12,15,21,.94);border:0;border-bottom:1px solid var(--line);backdrop-filter:blur(18px)}#shell[data-dock="bottom"].h>.dock{top:auto;bottom:0;border:0;border-top:1px solid var(--line)}#shell.h>.content{width:100%;min-width:0}#shell.v .dock-item{width:100%;min-height:44px}
+.card,.stat,.acct,.rev-card,.pick-item,.nx-chat,dialog{border-color:color-mix(in srgb,var(--accent) 34%,#2b3039);box-shadow:0 0 0 1px color-mix(in srgb,var(--accent) 9%,transparent),0 8px 28px rgba(0,0,0,.24)}
+.card,.stat,.acct,.rev-card{background:linear-gradient(145deg,rgba(21,25,33,.98),rgba(13,16,22,.98));border-radius:14px}.stat:hover,.acct:hover,.rev-card:hover{border-color:color-mix(in srgb,var(--accent) 62%,#39404c);box-shadow:0 0 18px color-mix(in srgb,var(--accent) 15%,transparent),0 10px 30px rgba(0,0,0,.28)}
+.dock-item{border:1px solid transparent}.dock-item[aria-current="page"]{border-color:color-mix(in srgb,var(--accent) 55%,transparent);box-shadow:0 0 18px color-mix(in srgb,var(--accent) 20%,transparent)}input,select,textarea{background:#0d1118;border-color:#303743;color:#edf1f7}
+input:focus,select:focus,textarea:focus{box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent),0 0 20px color-mix(in srgb,var(--accent) 16%,transparent)}.btn:not(.ghost):not(.danger){box-shadow:0 0 16px color-mix(in srgb,var(--accent) 23%,transparent)}
+dialog.trade-detail{width:min(900px,94vw);max-height:92vh;overflow:hidden;background:var(--detail-bg);border-color:color-mix(in srgb,var(--accent) 42%,#343b46);box-shadow:0 0 38px color-mix(in srgb,var(--accent) 15%,transparent),0 24px 90px rgba(0,0,0,.65)}
+.trade-detail-scroll{max-height:92vh;overflow:auto;padding:clamp(16px,3vw,30px);scrollbar-color:var(--accent) #10141b}.trade-detail-head{display:flex;align-items:flex-start;gap:14px;margin-bottom:18px}.trade-detail-head h2{color:var(--text);font-size:clamp(1.25rem,3vw,1.8rem);margin:0 auto 0 0}.trade-detail-head p{color:var(--muted);margin:4px 0 0}
+.trade-hero{margin:0 0 22px;min-height:250px;display:grid;place-items:center;overflow:hidden;border:1px solid color-mix(in srgb,var(--accent) 38%,#333a45);border-radius:16px;background:radial-gradient(ellipse at 50% 45%,color-mix(in srgb,var(--accent) 12%,#080a0f),#080a0f 75%);box-shadow:0 0 28px color-mix(in srgb,var(--accent) 13%,transparent)}.trade-hero img{display:block;width:100%;max-height:64vh;min-height:250px;object-fit:contain}.trade-hero .shot-empty{width:100%;min-height:250px;display:grid;place-items:center}
+.trade-detail-section{padding:18px;margin:0 0 14px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.025)}.trade-detail-section h3{margin:0 0 12px;font-size:.92rem;color:var(--muted);text-transform:uppercase;letter-spacing:.09em}.trade-info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}.trade-info-item{padding:11px 12px;border-radius:10px;background:rgba(255,255,255,.035)}.trade-info-item span{display:block;color:var(--muted);font-size:.76rem}.trade-info-item strong{display:block;margin-top:3px;overflow-wrap:anywhere}.trade-notes{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.75;margin:0}.trade-detail-actions{display:flex;justify-content:flex-end;gap:8px;margin:0 0 16px}.open-trade{white-space:nowrap}.latest li[data-trade-id]{cursor:pointer}.latest li[data-trade-id]:hover{color:var(--accent)}
+@media(max-width:760px){#shell.v>.dock{display:none}#shell.h>.dock{display:flex;position:fixed;left:0;right:0;bottom:0;min-height:66px;padding:5px 4px;overflow-x:auto}#shell.h .dock-list{justify-content:space-around}#shell.h .brand{display:none}#shell.h .dock-foot{display:flex;flex:0 0 auto;align-items:center;margin:0 0 0 6px}#shell.h .dock-item{flex-direction:column;gap:2px;padding:6px 7px;font-size:.66rem;text-align:center}#shell main{padding-bottom:96px}.trade-detail-scroll{padding:14px}.trade-hero,.trade-hero img,.trade-hero .shot-empty{min-height:190px}}
+:root[data-mode="light"]{--line:#d4dae4;--hover:#edf1f6;--card:#fff;--surface:#fff;--input-bg:#fff;--muted:#5d6878}
+:root[data-mode="light"] body{background-color:var(--bg);color:var(--text)}
+:root[data-mode="light"] .card,:root[data-mode="light"] .stat,:root[data-mode="light"] .acct,:root[data-mode="light"] .rev-card,:root[data-mode="light"] .pick-item,:root[data-mode="light"] dialog{background:#fff;color:var(--text);box-shadow:0 2px 12px rgba(30,45,65,.09);border-color:var(--line)}
+:root[data-mode="light"] .dock{background:rgba(255,255,255,.96)!important;box-shadow:0 0 22px rgba(30,45,65,.08)!important}
+:root[data-mode="light"] .dock-item,:root[data-mode="light"] .brand,:root[data-mode="light"] .settings-shortcut{color:var(--text)}
+:root[data-mode="light"] .settings-shortcut{background:#fff;border-color:#d4dae4;box-shadow:0 2px 10px rgba(30,45,65,.08)}
+:root[data-mode="light"] .seg,:root[data-mode="light"] .toolbar,:root[data-mode="light"] .plan-note-preview{background:#f4f6fa;color:var(--text);border-color:var(--line)}
+:root[data-mode="light"] .btn.ghost{background:#fff;color:var(--text);border-color:var(--line)}
+:root[data-mode="light"] .table-wrap{background:#fff;color:var(--text)}
+:root[data-mode="light"] th{background:#f1f4f8;color:var(--text)}
+:root[data-mode="light"] td{color:var(--text);border-color:var(--line)}
+:root[data-mode="light"] input,:root[data-mode="light"] select,:root[data-mode="light"] textarea{background:#fff;color:var(--text);border-color:#cbd3df}
+:root[data-mode="light"] .trade-detail-section,:root[data-mode="light"] .trade-info-item{background:#f4f6fa}
+.plan-list-head,.plan-notes-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.plan-list-head h2{margin:0;color:var(--text)}.plan-view-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}.plan-view-list{display:grid;gap:8px}.plan-view-list .plan-tile{display:flex;align-items:center;gap:14px}.plan-tile{position:relative;min-width:0;border:1px solid var(--line);border-radius:14px;padding:14px;background:var(--surface);box-shadow:0 0 16px color-mix(in srgb,var(--accent) 9%,transparent)}.plan-tile-icon{width:42px;height:42px;display:grid;place-items:center;border-radius:12px;background:color-mix(in srgb,var(--accent) 17%,transparent);color:var(--accent);font-size:1.3rem}.plan-date-group{margin:16px 0}.plan-date-group h3{margin:0 0 10px;color:var(--muted);font-size:.82rem;text-transform:uppercase;letter-spacing:.09em}.plan-note-section{display:grid;grid-template-columns:minmax(150px,1fr) 3fr auto;gap:10px;align-items:start;margin:8px 0}.plan-note-section textarea{min-height:64px}.recorder-controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;align-items:end;margin:14px 0}.recorder-card{border-color:color-mix(in srgb,var(--accent) 42%,var(--line))!important}.recorder-card canvas{width:100%;max-height:420px;background:#050609;border-radius:12px;margin:12px 0}.plan-shot{display:block;width:min(100%,480px);max-height:280px;object-fit:contain;border-radius:12px;margin:12px 0;background:#080a0f}.plan-tile .rev-actions{margin-top:12px}.plan-view-list .plan-tile .rev-actions{margin-left:auto}
+:root[data-mode="light"] .plan-tile{background:#fff;border-color:#d4dae4;box-shadow:0 2px 12px rgba(30,45,65,.08)}
+#landing{overflow:hidden;contain:paint}.brand-title{color:var(--text);text-shadow:0 0 28px color-mix(in srgb,var(--accent) 24%,transparent)}.brand-letter{display:inline-block;opacity:0;transform:translate(var(--from-x,0),var(--from-y,0)) rotate(var(--from-r,0deg)) scale(.25);filter:blur(14px);will-change:transform,opacity,filter}#landing.play .brand-title{animation:none}#landing.play .brand-letter{animation:letterAssemble 2.9s cubic-bezier(.22,.68,.18,1) both;animation-delay:calc(var(--i)*.065s)}#landing.play .brand-letter:nth-child(6){margin-left:.26em}#landing.play .tag.fade,#landing.play #enterBtn{animation-delay:3.65s}.landing-replay{position:fixed;top:20px;right:20px;z-index:201}body{overflow-x:hidden}
+.bias-layout{display:grid;grid-template-columns:minmax(190px,250px) minmax(0,1fr);gap:16px}.bias-sidebar{align-self:start;max-height:65vh;overflow:auto;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}.bias-month{margin:10px 0 4px;color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.08em}.bias-entry-link{display:block;width:100%;margin:3px 0;padding:8px 10px;text-align:left;border:1px solid transparent;border-radius:8px;background:transparent;color:var(--text);cursor:pointer}.bias-entry-link:hover,.bias-entry-link[aria-current="true"]{background:var(--hover);border-color:var(--line)}.bias-editor{min-height:300px;max-height:60vh;overflow:auto;padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--text);outline:none;line-height:1.75}.bias-editor:empty:before{content:attr(data-placeholder);color:var(--muted);pointer-events:none}.bias-editor:focus{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 18%,transparent)}.bias-editor img{display:block;max-width:min(100%,720px);max-height:560px;margin:12px 0;object-fit:contain;border-radius:10px}.bias-editor video{display:block;width:min(100%,720px);max-height:480px;margin:12px 0;background:#000;border-radius:10px}.bias-editor blockquote{margin:12px 0;padding:8px 14px;border-left:3px solid var(--accent);background:var(--hover)}.bias-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+@keyframes letterAssemble{0%{opacity:0;transform:translate(var(--from-x),var(--from-y)) rotate(-24deg) scale(.28);filter:blur(16px)}38%{opacity:.72;transform:translate(var(--curve-x),var(--curve-y)) rotate(9deg) scale(.74);filter:blur(5px);animation-timing-function:cubic-bezier(.2,.7,.25,1)}72%{opacity:1;transform:translate(calc(var(--curve-x)*.16),calc(var(--curve-y)*.16)) rotate(-3deg) scale(1.08);filter:blur(0);animation-timing-function:cubic-bezier(.2,.75,.25,1)}100%{opacity:1;transform:translate(0,0) rotate(0) scale(1);filter:blur(0)}}
+@media(max-width:700px){.bias-layout{grid-template-columns:1fr}.bias-sidebar{max-height:180px}.landing-replay{top:12px;right:12px}}
+@media(prefers-reduced-motion:reduce){#landing.play .brand-letter{animation-duration:2.9s!important;animation-delay:calc(var(--i)*.065s)!important}}.bias-page-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}.bias-page-head h2{color:var(--text);margin-bottom:4px}.bias-empty-state{min-height:260px;display:grid;align-content:center;justify-items:center;text-align:center;padding:24px;border:1px dashed var(--line);border-radius:12px;background:var(--surface)}.bias-empty-state p{color:var(--muted);margin:8px 0 0}.bias-list-status{margin-top:10px}</style>
 </head>
 <!-- END OF PART 1 -->
 <body>
@@ -163,7 +203,8 @@ output{color:var(--text);font-weight:600}
   <div class="rings" aria-hidden="true"><i></i><i></i><i></i></div>
   <div class="landing-inner">
     <p class="eyebrow fade">Trading Journal</p>
-    <h1 class="brand-title" id="landingTitle">NEXUS GROUP</h1>
+    <h1 class="brand-title" id="landingTitle" aria-label="NEXUS GROUP"><span class="brand-letter" style="--i:0;--from-x:-92vw;--from-y:-90vh;--curve-x:-25vw;--curve-y:-18vh">N</span><span class="brand-letter" style="--i:1;--from-x:92vw;--from-y:-90vh;--curve-x:24vw;--curve-y:-20vh">E</span><span class="brand-letter" style="--i:2;--from-x:-108vw;--from-y:4vh;--curve-x:-26vw;--curve-y:18vh">X</span><span class="brand-letter" style="--i:3;--from-x:92vw;--from-y:90vh;--curve-x:22vw;--curve-y:19vh">U</span><span class="brand-letter" style="--i:4;--from-x:-90vw;--from-y:90vh;--curve-x:-22vw;--curve-y:20vh">S</span><span class="brand-letter" aria-hidden="true" style="--i:5">&nbsp;</span><span class="brand-letter" style="--i:6;--from-x:0vw;--from-y:-105vh;--curve-x:20vw;--curve-y:-16vh">G</span><span class="brand-letter" style="--i:7;--from-x:108vw;--from-y:-2vh;--curve-x:24vw;--curve-y:18vh">R</span><span class="brand-letter" style="--i:8;--from-x:0vw;--from-y:105vh;--curve-x:-20vw;--curve-y:18vh">O</span><span class="brand-letter" style="--i:9;--from-x:-103vw;--from-y:-42vh;--curve-x:-24vw;--curve-y:-20vh">U</span><span class="brand-letter" style="--i:10;--from-x:105vw;--from-y:48vh;--curve-x:24vw;--curve-y:-17vh">P</span></h1>
+    <button class="btn ghost landing-replay" id="landingReplay" type="button">↻ Replay intro + sound</button>
     <p class="tag fade">Log every trade. See what works.</p>
     <button class="btn big fade" id="enterBtn" type="button">Enter journal</button>
   </div>
@@ -185,7 +226,9 @@ output{color:var(--text);font-weight:600}
       <li><button class="dock-item" type="button" data-view="journal">
         <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M9 9h6M9 13h6"/></svg></span>
         <span class="lbl">Journal</span></button></li>
-      <li><button class="dock-item" type="button" data-view="review">
+      <li><button class="dock-item" type="button" data-view="bias">
+        <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 19V5M4 19h16"/><path d="m7 15 4-5 3 2 5-6"/><circle cx="19" cy="6" r="1.2"/></svg></span>
+        <span class="lbl">Bias</span></button></li>      <li><button class="dock-item" type="button" data-view="review">
         <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-5-5"/></svg></span>
         <span class="lbl">Trade review</span></button></li>
       <li><button class="dock-item" type="button" data-view="plan">
@@ -215,6 +258,7 @@ output{color:var(--text);font-weight:600}
   <div class="content">
     <header class="topbar">
       <h1 id="viewTitle">Dashboard</h1>
+      <button class="btn ghost settings-shortcut" id="settingsShortcut" type="button" aria-haspopup="dialog">⚙ Settings</button>
       <label id="acctFilterWrap" hidden>Show
         <select id="acctFilter" aria-label="Filter by account"></select>
       </label>
@@ -302,6 +346,36 @@ output{color:var(--text);font-weight:600}
         </div>
       </section>
 
+      <section class="view" data-view="bias" hidden>
+        <section class="card" aria-labelledby="biasTitle">
+          <div class="bias-page-head"><div><h2 id="biasTitle">Market bias journal</h2><p class="nx-note">Dated market analysis with notes, pasted screenshots, and video. Your archive is grouped by month.</p></div><button class="btn" type="button" id="biasNew">+ New bias note</button></div>
+          <div class="bias-layout">
+            <aside class="bias-sidebar" id="biasSidebar" aria-label="Bias notes by month"></aside>
+            <div class="bias-workspace">
+              <div class="bias-empty-state" id="biasEmptyState"><h3>Choose or create a note</h3><p>Select a date from the archive, or start a new bias note.</p></div>
+              <div id="biasComposer" hidden>
+                <div class="grid-form bias-fields">
+                  <label>Date <input type="date" id="biasDate"></label>
+                  <label>Heading <input id="biasHeading" maxlength="100" placeholder="BTCUSD market bias"></label>
+                </div>
+                <div class="toolbar" style="margin-top:12px">
+                  <button class="btn ghost" type="button" id="biasMediaButton">Add image or video</button>
+                  <input type="file" id="biasMediaInput" accept="image/*,video/*" multiple hidden>
+                  <span class="nx-note">Paste an image or video file directly into the note too.</span>
+                </div>
+                <div class="bias-editor" id="biasEditor" contenteditable="true" role="textbox" aria-multiline="true" data-placeholder="Write your market bias, what you expect, and what would invalidate it…"></div>
+                <div class="bias-actions" style="margin-top:12px">
+                  <button class="btn" type="button" id="biasSave">Save bias note</button>
+                  <button class="btn ghost" type="button" id="biasClose">Close note</button>
+                  <button class="btn danger" type="button" id="biasDelete" hidden>Delete note</button>
+                  <span class="nx-note" id="biasStatus" role="status"></span>
+                </div>
+              </div>
+              <p class="nx-note bias-list-status" id="biasListStatus" role="status">Create a note or open one from the archive.</p>
+            </div>
+          </div>
+        </section>
+      </section>
       <!-- Trade review -->
       <section class="view" data-view="review" hidden>
         <div class="dash-head">
@@ -357,16 +431,29 @@ output{color:var(--text);font-weight:600}
             <label>Target <input type="number" name="tp" step="any" min="0"></label>
             <label>Status <select name="status"><option value="planned">Planned</option><option value="taken">Taken</option><option value="skipped">Skipped</option></select></label>
             <label>Confidence <select name="confidence"><option value="">-</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></label>
+            <label class="full">Chart screenshot (optional) <input type="file" name="screenshot" accept="image/*"></label>
             <div class="rr"><span>Planned R:R</span><output id="planRR" aria-live="polite">-</output></div>
-            <label class="full">Why this trade? <textarea name="thesis" rows="4" maxlength="2000" placeholder="Setup, confluence, what invalidates it, how much you risk"></textarea></label>
+            <div class="full"><div class="plan-notes-head"><strong>Custom notes</strong><button class="btn ghost" type="button" id="planNoteAdd">+ Add heading</button></div><div id="planNoteSections"></div></div>
             <div class="form-actions full">
               <button class="btn" type="submit" id="planSaveBtn">Save plan</button>
               <button class="btn ghost" type="button" id="planCancel" hidden>Cancel edit</button>
               <p class="msg" id="planMsg" role="status"></p>
             </div>
           </form>
+        <div class="card recorder-card" id="planRecorder">
+          <h2>Screen recording and capture</h2>
+          <p class="nx-note">Choose the screen or window to capture. Optional facecam is composited into the recording and saved with this plan.</p>
+          <div class="recorder-controls">
+            <label class="chk"><input type="checkbox" id="facecamOn"> Include facecam</label>
+            <label>Facecam shape <select id="facecamShape"><option value="circle">Round</option><option value="square">Square</option></select></label>
+            <label>Facecam corner <select id="facecamPosition"><option value="br">Bottom right</option><option value="bl">Bottom left</option><option value="tr">Top right</option><option value="tl">Top left</option></select></label>
+            <label>Facecam size <output id="facecamSizeOut">22%</output><input type="range" id="facecamSize" min="12" max="40" value="22"></label>
+          </div>
+          <canvas id="capturePreview" hidden aria-label="Screen recording preview"></canvas>
+          <div class="form-actions"><button class="btn ghost" type="button" id="capturePreviewBtn">Choose screen and preview</button><button class="btn" type="button" id="captureStartBtn" disabled>Start recording</button><button class="btn danger" type="button" id="captureStopBtn" disabled>Stop and attach</button><span class="nx-note" id="captureStatus" role="status"></span></div>
         </div>
-        <div class="card"><h2>Your plans</h2><div id="planList"></div></div>
+        </div>
+        <div class="card"><div class="plan-list-head"><h2>Your plans</h2><div class="seg" role="group" aria-label="Plan view"><button type="button" id="planIconView" aria-pressed="true">▦ Date cards</button><button type="button" id="planListView" aria-pressed="false">☰ List</button></div></div><div id="planList"></div></div>
       </section>
 
       <!-- Backtesting -->
@@ -437,8 +524,10 @@ output{color:var(--text);font-weight:600}
           <p class="nx-note" id="mtMsg" role="status"></p>
         </div>
         <div class="card">
-          <h2>Why there is no live broker link</h2>
-          <p>A web page cannot log into MT4 or MT5 servers directly. Live syncing needs a server or a third-party bridge, and trading passwords should not be typed into a page like this one. The report import above is the safe option.</p>
+          <h2>MT4 / MT5 live sync</h2>
+          <p>This site currently imports exported history reports; it does not yet perform automatic broker sync. Investor passwords are read-only, but they are still account credentials. A GitHub Pages front end cannot safely connect to broker servers by itself. Live sync needs a separately hosted connector and your own account with that provider.</p>
+          <p class="nx-note">MetaApi documents investor-password connections for read-only access. Review their credential handling, account costs, and terms before choosing a connector. Never enter a master trading password here.</p>
+          <p><a href="https://metaapi.cloud/docs/provisioning/api/account/createAccount/" target="_blank" rel="noopener">MetaApi account connection docs</a> · <a href="https://help.tradezella.com/en/articles/8672972-link-your-metatrader-4-5-account-with-tradezella" target="_blank" rel="noopener">TradeZella sync steps</a></p>
         </div>
       </section>
 
@@ -478,10 +567,16 @@ output{color:var(--text);font-weight:600}
     <label>Theme
       <select id="themeSel"><option value="midnight">Midnight</option><option value="light">Light</option><option value="forest">Forest</option><option value="sunset">Sunset</option><option value="custom">Custom</option></select>
     </label>
+    <label>Interface mode <select id="modeSel"><option value="dark">Dark</option><option value="light">Light</option></select></label>
     <div class="row2">
       <label>Background colour <input type="color" id="bgIn"></label>
       <label>Accent colour <input type="color" id="accentIn"></label>
     </div>
+    <label>Text colour <input type="color" id="textIn"></label>
+    <label>Trade detail page colour <input type="color" id="detailBgIn"></label>
+    <label>AI service URL <input type="url" id="aiEndpointIn" placeholder="https://your-worker.workers.dev/chat"></label>
+    <label>Private AI access token <input type="password" id="aiTokenIn" autocomplete="off" placeholder="Set in your AI worker"></label>
+    <p class="hint">These connection settings are stored in this browser only. Never put API keys in this public HTML file.</p>
     <label>Background style <select id="bgStyleSel"><option value="gradient">Soft gradient</option><option value="solid">Solid</option></select></label>
     <label>Font style
       <select id="fontSel"><option value="sans">Sans-serif</option><option value="serif">Serif</option><option value="mono">Monospace</option><option value="rounded">Rounded</option></select>
@@ -502,6 +597,7 @@ output{color:var(--text);font-weight:600}
     </div>
   </div>
 </dialog>
+<dialog id="tradeDetail" class="trade-detail" aria-labelledby="tradeDetailTitle"><div class="trade-detail-scroll" id="tradeDetailBody"></div></dialog>
 <!-- END OF PART 2 -->
 <script>
 (() => {
@@ -628,16 +724,18 @@ output{color:var(--text);font-weight:600}
   /* ---------- PIN gate (client-side only: anyone can read the password in the page source) ---------- */
   const PIN_B64 = 'UHJvZml0YWJsZQ==';
   const gate = $('gate'), gateBox = $('gateForm');
+  function playLandingSound(){try{const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;const ctx=new AC();ctx.resume();const t=ctx.currentTime;function tone(freq,kind,delay,duration,level,endFreq){const o=ctx.createOscillator(),g=ctx.createGain();o.type=kind;o.frequency.setValueAtTime(freq,t+delay);if(endFreq)o.frequency.exponentialRampToValueAtTime(endFreq,t+delay+duration*.76);g.gain.setValueAtTime(.0001,t+delay);g.gain.exponentialRampToValueAtTime(level,t+delay+.42);g.gain.setValueAtTime(level,t+delay+duration*.5);g.gain.exponentialRampToValueAtTime(.0001,t+delay+duration);o.connect(g);g.connect(ctx.destination);o.start(t+delay);o.stop(t+delay+duration)}tone(43,'sine',0,4.15,.16,36);tone(86.4,'triangle',0,3.8,.065,73.4);tone(130.8,'sine',.08,3.6,.045,110);tone(174.6,'sine',.16,3.3,.035,146.8);tone(220,'sine',.28,3,.025,196);tone(261.63,'triangle',2.25,1.7,.045);tone(329.63,'sine',2.3,1.65,.04);tone(392,'sine',2.35,1.55,.03);tone(523.25,'sine',2.45,1.35,.02);const sweep=ctx.createOscillator(),filter=ctx.createBiquadFilter(),sg=ctx.createGain();sweep.type='sawtooth';sweep.frequency.setValueAtTime(38,t);sweep.frequency.exponentialRampToValueAtTime(420,t+2.5);filter.type='lowpass';filter.frequency.setValueAtTime(140,t);filter.frequency.exponentialRampToValueAtTime(1600,t+2.6);sg.gain.setValueAtTime(.0001,t);sg.gain.exponentialRampToValueAtTime(.045,t+1.8);sg.gain.exponentialRampToValueAtTime(.0001,t+3.15);sweep.connect(filter);filter.connect(sg);sg.connect(ctx.destination);sweep.start(t);sweep.stop(t+3.2);setTimeout(()=>ctx.close(),4700)}catch{}}
+  function playLandingIntro(withSound){landing.classList.remove('play');void landing.offsetWidth;landing.classList.add('play');if(withSound)playLandingSound()}
   function openApp() { landing.hidden = false; $('enterBtn').focus({ preventScroll: true }); }
   let unlocked = false;
   try { unlocked = sessionStorage.getItem('nx.ok') === '1'; } catch {}
-  if (unlocked) { gate.remove(); openApp(); } else $('gateIn').focus();
+  if (unlocked) { gate.remove(); openApp(); playLandingIntro(false); } else $('gateIn').focus();
   gateBox.addEventListener('submit', e => {
     e.preventDefault();
     let good = false; try { good = btoa($('gateIn').value) === PIN_B64; } catch {}
     if (!good) { $('gateErr').textContent = 'Wrong PIN. Try again.'; shake(gateBox); $('gateIn').select(); return; }
     try { sessionStorage.setItem('nx.ok', '1'); } catch {}
-    openApp(); gate.classList.add('out');
+    openApp(); playLandingIntro(true); gate.classList.add('out');
     const rm = () => gate.remove();
     gate.addEventListener('animationend', ev => { if (ev.target === gate) rm(); });
     setTimeout(rm, 800);
@@ -653,14 +751,14 @@ output{color:var(--text);font-weight:600}
     mono: 'ui-monospace,SFMono-Regular,Menlo,Consolas,monospace', rounded: 'ui-rounded,"SF Pro Rounded",Nunito,"Segoe UI",system-ui,sans-serif'
   };
   const SPEEDS = { fast: 0.6, normal: 1, slow: 1.6 };
-  const DEFAULTS = { theme: 'midnight', bg: '#0f1218', accent: '#5b8cff', bgStyle: 'gradient', font: 'sans', size: 15, dock: 'left', glow: true, speed: 'normal' };
+  const DEFAULTS = { theme: 'midnight', bg: '#0f1218', accent: '#5b8cff', detailBg: '#10141b', mode: 'dark', textColor: '#e8ecf3', bgStyle: 'gradient', font: 'sans', size: 15, dock: 'left', glow: true, speed: 'normal' };
   const HEX = /^#[0-9a-f]{6}$/i;
   const lum = hex => { const n = parseInt(hex.slice(1), 16); return (0.299 * ((n >> 16) & 255) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255)) / 255; };
   function loadSettings() {
     const s = readJSON(K.settings, {}), o = s && typeof s === 'object'? s: {}, d = DEFAULTS;
     return {
       theme: (o.theme === 'custom' || Object.hasOwn(THEMES, o.theme))? o.theme: d.theme,
-      bg: HEX.test(o.bg)? o.bg: d.bg, accent: HEX.test(o.accent)? o.accent: d.accent,
+      bg: HEX.test(o.bg)? o.bg: d.bg, accent: HEX.test(o.accent)? o.accent: d.accent, detailBg: HEX.test(o.detailBg)? o.detailBg: d.detailBg, mode: o.mode === 'light' || (!o.mode && o.theme === 'light')? 'light': 'dark', textColor: HEX.test(o.textColor)? o.textColor: (o.mode === 'light' || (!o.mode && o.theme === 'light')? '#1b2331': d.textColor),
       bgStyle: o.bgStyle === 'solid'? 'solid': 'gradient',
       font: Object.hasOwn(FONTS, o.font)? o.font: d.font,
       size: Math.min(22, Math.max(12, Math.round(+o.size) || d.size)),
@@ -678,9 +776,9 @@ output{color:var(--text);font-weight:600}
     shell.classList.toggle('collapsed', collapsed &&!horiz);
   }
   function applySettings() {
-    const light = lum(S.bg) > 0.6, st = root.style;
-    st.setProperty('--bg', S.bg); st.setProperty('--accent', S.accent);
-    st.setProperty('--text', light? '#141821': '#e8ecf3');
+    const light = S.mode === 'light', st = root.style; root.dataset.mode = S.mode;
+    st.setProperty('--bg', S.bg); st.setProperty('--accent', S.accent); st.setProperty('--detail-bg', S.detailBg);
+    st.setProperty('--text', S.textColor); st.setProperty('--surface', light? '#ffffff': '#151a22'); st.setProperty('--input-bg', light? '#ffffff': '#0d1118'); st.setProperty('--muted', light? '#5d6878': '#9ca8ba');
     st.setProperty('--on-accent', lum(S.accent) > 0.6? '#10131a': '#ffffff');
     st.setProperty('--green', light? '#13935f': '#2ecc8f');
     st.setProperty('--red', light? '#d93a4a': '#ff5d6c');
@@ -693,8 +791,9 @@ output{color:var(--text);font-weight:600}
   const commit = () => { applySettings(); write(K.settings, S); };
   const dlg = $('settings');
   function syncControls() {
-    $('themeSel').value = S.theme; $('bgIn').value = S.bg; $('accentIn').value = S.accent; $('bgStyleSel').value = S.bgStyle;
+    $('themeSel').value = S.theme; $('modeSel').value = S.mode; $('textIn').value = S.textColor; $('bgIn').value = S.bg; $('accentIn').value = S.accent; $('detailBgIn').value = S.detailBg; $('bgStyleSel').value = S.bgStyle;
     $('fontSel').value = S.font; $('sizeIn').value = S.size; $('sizeOut').textContent = S.size + 'px';
+    $('aiEndpointIn').value=CHAT_ENDPOINT; $('aiTokenIn').value=CHAT_TOKEN;
     $('dockSel').value = S.dock; $('glowIn').checked = S.glow; $('speedSel').value = S.speed;
   }
   function closeSettings() {
@@ -706,15 +805,19 @@ output{color:var(--text);font-weight:600}
     setTimeout(fin, 500);
   }
   $('settingsBtn').addEventListener('click', () => { syncControls(); dlg.showModal(); });
+  $('settingsShortcut').addEventListener('click', () => { syncControls(); dlg.showModal(); });
   $('closeBtn').addEventListener('click', closeSettings);
   dlg.addEventListener('click', e => { if (e.target === dlg) closeSettings(); });
   $('themeSel').addEventListener('change', e => {
     S.theme = e.target.value;
-    if (Object.hasOwn(THEMES, S.theme)) { S.bg = THEMES[S.theme].bg; S.accent = THEMES[S.theme].accent; }
+    if (Object.hasOwn(THEMES, S.theme)) { S.bg = THEMES[S.theme].bg; S.accent = THEMES[S.theme].accent; S.mode = S.theme === 'light'? 'light': 'dark'; S.textColor = S.mode === 'light'? '#1b2331': '#e8ecf3'; S.detailBg = S.mode === 'light'? '#ffffff': '#10141b'; }
     syncControls(); commit();
   });
   $('bgIn').addEventListener('input', e => { S.bg = e.target.value; S.theme = 'custom'; $('themeSel').value = 'custom'; commit(); });
+  $('modeSel').addEventListener('change',e=>{S.mode=e.target.value;S.bg=S.mode==='light'?'#f4f6fa':'#0f1218';S.accent=S.mode==='light'?'#2f5bff':'#5b8cff';S.textColor=S.mode==='light'?'#1b2331':'#e8ecf3';S.detailBg=S.mode==='light'?'#ffffff':'#10141b';S.theme='custom';syncControls();commit();});
+  $('textIn').addEventListener('input',e=>{S.textColor=e.target.value;commit();});
   $('accentIn').addEventListener('input', e => { S.accent = e.target.value; S.theme = 'custom'; $('themeSel').value = 'custom'; commit(); });
+  $('detailBgIn').addEventListener('input', e => { S.detailBg = e.target.value; commit(); });
   $('bgStyleSel').addEventListener('change', e => { S.bgStyle = e.target.value; commit(); });
   $('fontSel').addEventListener('change', e => { S.font = e.target.value; commit(); });
   $('sizeIn').addEventListener('input', e => { S.size = +e.target.value; $('sizeOut').textContent = S.size + 'px'; commit(); });
@@ -725,6 +828,7 @@ output{color:var(--text);font-weight:600}
   applySettings();
 
   /* ---------- Landing and dock ---------- */
+  $('landingReplay').addEventListener('click',()=>playLandingIntro(true));
   $('enterBtn').addEventListener('click', () => {
     if (landing.classList.contains('leaving')) return;
     landing.classList.add('leaving');
@@ -740,7 +844,7 @@ output{color:var(--text);font-weight:600}
   });
   $('homeBtn').addEventListener('click', () => {
     shell.inert = true; landing.hidden = false;
-    landing.classList.remove('play'); void landing.offsetWidth; landing.classList.add('play');
+    playLandingIntro(true);
     $('enterBtn').focus({ preventScroll: true });
   });
   shell.querySelectorAll('.dock-item').forEach(b => {
@@ -755,7 +859,7 @@ output{color:var(--text);font-weight:600}
   $('collapseBtn').addEventListener('click', () => setCollapsed(!collapsed));
   setCollapsed(collapsed);
 
-  const TITLES = { dashboard: 'Dashboard', journal: 'Journal', review: 'Trade review', plan: 'Pre-trade plans', backtest: 'Backtesting', equity: 'Equity curve', accounts: 'Accounts' };
+  const TITLES = { dashboard: 'Dashboard', journal: 'Journal', bias: 'Market bias', review: 'Trade review', plan: 'Pre-trade plans', backtest: 'Backtesting', equity: 'Equity curve', accounts: 'Accounts' };
   let currentView = 'dashboard';
   function setView(name) {
     if (!Object.hasOwn(TITLES, name)) name = 'dashboard';
@@ -821,7 +925,7 @@ output{color:var(--text);font-weight:600}
     const box = $('latest'); box.replaceChildren();
     const rows = [...visible()].sort(byDateDesc).slice(0, 6);
     if (!rows.length) { box.appendChild(h('li', 'empty', 'No trades yet.')); return; }
-    rows.forEach(t => { const li = h('li'), p = pnlOf(t); li.append(h('span', '', `${t.date} \u00B7 ${t.symbol} \u00B7 ${t.side}`), h('strong', cls(p), fmt(p))); box.appendChild(li); });
+    rows.forEach(t => { const li = h('li'), p = pnlOf(t); li.dataset.tradeId=t.id; li.tabIndex=0; li.setAttribute('role','button'); li.append(h('span', '', `${t.date} · ${t.symbol} · ${t.side}`), h('strong', cls(p), fmt(p))); li.addEventListener('click',()=>openTradeDetails(t)); li.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openTradeDetails(t)}}); box.appendChild(li); });
   }
   function renderBreakdown() {
     const box = $('bdBox'); box.replaceChildren();
@@ -896,7 +1000,7 @@ output{color:var(--text);font-weight:600}
     const ul = h('ul', 'latest');
     if (!day.length) ul.appendChild(h('li', 'empty', 'No trades on this day.'));
     day.forEach(t => {
-      const li = h('li'), pl = pnlOf(t), an = acctName(t.accountId);
+      const li = h('li'), pl = pnlOf(t), an = acctName(t.accountId); li.dataset.tradeId=t.id; li.tabIndex=0; li.setAttribute('role','button');
       li.append(h('span', '', `${t.symbol} \u00B7 ${t.side}${an? ' \u00B7 ' + an: ''}`), h('strong', cls(pl), fmt(pl)));
       ul.appendChild(li);
     });
@@ -964,7 +1068,9 @@ output{color:var(--text);font-weight:600}
      A single HTML file has no AI behind it. To make the chat answer, put the URL of your own
      server here. It must accept a POST with JSON {assistant, messages:[{role,content}], image}
      and return JSON {reply:"..."}. Never put an AI service key in this file. */
-  const CHAT_ENDPOINT = '';
+  let CHAT_ENDPOINT = readJSON('nexus.ai.endpoint', ''), CHAT_TOKEN = readJSON('nexus.ai.token', '');
+  $('aiEndpointIn').addEventListener('change',e=>{CHAT_ENDPOINT=e.target.value.trim();write('nexus.ai.endpoint',CHAT_ENDPOINT);$('chatSend').disabled=!CHAT_ENDPOINT||!CHAT_TOKEN;});
+  $('aiTokenIn').addEventListener('change',e=>{CHAT_TOKEN=e.target.value.trim();write('nexus.ai.token',CHAT_TOKEN);$('chatSend').disabled=!CHAT_ENDPOINT||!CHAT_TOKEN;});
 
   /* ---------- Shared helpers ---------- */
   const isImg = f =>!!f && /^image\//.test(f.type);
@@ -1063,6 +1169,7 @@ output{color:var(--text);font-weight:600}
         if (i === 8) td.className = cls(p);
         if (i === 10) td.className = 'notes';
       });
+      const view=h('button','btn ghost open-trade','View'); view.type='button'; view.addEventListener('click',()=>openTradeDetails(t));
       const del = h('button', 'btn danger', 'Delete'); del.type = 'button';
       del.setAttribute('aria-label', `Delete ${t.symbol} trade from ${t.date}`);
       del.addEventListener('click', () => {
@@ -1070,11 +1177,34 @@ output{color:var(--text);font-weight:600}
         if ((t.shot || t.video) &&!confirm('This trade has a screenshot or video. Delete them too?')) return;
         animateOut(tr, () => removeTrade(t.id));
       });
-      tr.insertCell().appendChild(del);
+      const actions=tr.insertCell(); actions.append(view,del);
     });
     enterIds.clear();
   }
 
+  /* ---------- Market bias notes ---------- */
+  const BIAS_KEY='tradingJournal.bias.v1';let biasEntries=loadList(BIAS_KEY).filter(n=>/^\d{4}-\d{2}-\d{2}$/.test(n.date));let biasActiveDate=null,biasDirty=false,biasRange=null,biasUrls=[];
+  const biasEditor=$('biasEditor');
+  const saveBiasList=()=>write(BIAS_KEY,biasEntries);
+  function cleanBiasHtml(html){
+    const doc=new DOMParser().parseFromString(String(html||''),'text/html'),allowed=new Set(['P','DIV','BR','STRONG','B','EM','I','U','S','UL','OL','LI','H1','H2','H3','BLOCKQUOTE','A','IMG','VIDEO']);
+    function copy(node){if(node.nodeType===Node.TEXT_NODE)return document.createTextNode(node.nodeValue||'');if(node.nodeType!==Node.ELEMENT_NODE)return document.createDocumentFragment();const tag=node.tagName;if(!allowed.has(tag)){const f=document.createDocumentFragment();[...node.childNodes].forEach(c=>f.appendChild(copy(c)));return f}const out=document.createElement(tag.toLowerCase());if(tag==='IMG'||tag==='VIDEO'){const key=node.getAttribute('data-bias-media');if(!/^bias-media-\d+$/.test(key||''))return document.createDocumentFragment();out.dataset.biasMedia=key;out.dataset.biasKind=tag==='IMG'?'image':'video';if(tag==='IMG'){out.alt=(node.getAttribute('alt')||'Pasted market analysis image').slice(0,160)}else{out.controls=true;out.setAttribute('playsinline','')}return out}if(tag==='A'){try{const u=new URL(node.getAttribute('href')||'',location.href);if(u.protocol==='https:'||u.protocol==='http:')out.href=u.href}catch{}}[...node.childNodes].forEach(c=>out.appendChild(copy(c)));return out}
+    const out=document.createElement('div');[...doc.body.childNodes].forEach(c=>out.appendChild(copy(c)));return out.innerHTML;
+  }
+  function biasMediaKeys(html){const d=new DOMParser().parseFromString(String(html||''),'text/html');return [...d.querySelectorAll('[data-bias-media]')].map(x=>x.getAttribute('data-bias-media')).filter(Boolean)}
+  function rememberBiasRange(){const sel=getSelection();if(sel&&sel.rangeCount&&biasEditor.contains(sel.anchorNode))biasRange=sel.getRangeAt(0).cloneRange()}
+  function insertBiasNode(node){biasEditor.focus();const sel=getSelection();let range=biasRange&&biasEditor.contains(biasRange.startContainer)?biasRange.cloneRange():null;if(!range){range=document.createRange();range.selectNodeContents(biasEditor);range.collapse(false)}sel.removeAllRanges();sel.addRange(range);range.deleteContents();range.insertNode(node);const br=document.createElement('br');node.after(br);range.setStartAfter(br);range.collapse(true);sel.removeAllRanges();sel.addRange(range);rememberBiasRange();biasDirty=true}
+  async function addBiasMedia(file){if(!file)return;const image=/^image\//.test(file.type),video=/^video\//.test(file.type);if(!image&&!video){$('biasStatus').textContent='Choose an image or video file.';return}const key='bias-media-'+nid();try{await DB.put(key,file);const node=document.createElement(image?'img':'video');node.dataset.biasMedia=key;node.dataset.biasKind=image?'image':'video';if(image)node.alt=file.name||'Pasted market analysis image';else{node.controls=true;node.playsInline=true}const url=URL.createObjectURL(file);biasUrls.push(url);node.src=url;insertBiasNode(node);$('biasStatus').textContent='Media added. Save the note to keep it.'}catch{$('biasStatus').textContent='Could not save that media. Browser storage may be full or blocked.'}}
+  async function attachBiasMedia(){biasUrls.forEach(URL.revokeObjectURL);biasUrls=[];const nodes=[...biasEditor.querySelectorAll('[data-bias-media]')];for(const node of nodes){const key=node.dataset.biasMedia;try{const blob=await DB.get(key);if(!blob)continue;const url=URL.createObjectURL(blob);biasUrls.push(url);node.src=url}catch{}}}
+  function renderBiasSidebar(){const box=$('biasSidebar');box.replaceChildren();if(!biasEntries.length){box.appendChild(h('p','bias-actions','No bias notes yet.'));return}const groups=new Map();[...biasEntries].sort((a,b)=>b.date.localeCompare(a.date)).forEach(n=>{const m=n.date.slice(0,7),arr=groups.get(m)||[];arr.push(n);groups.set(m,arr)});for(const [month,items]of groups){const d=parseYMD(month+'-01'),section=h('section',''),title=h('h3','bias-month',d.toLocaleDateString(undefined,{month:'long',year:'numeric'}));section.appendChild(title);items.forEach(n=>{const b=h('button','bias-entry-link',`${parseYMD(n.date).toLocaleDateString(undefined,{day:'2-digit',month:'short'})} · ${n.heading||'Market bias'}`);b.type='button';b.setAttribute('aria-current',String(n.date===biasActiveDate));b.addEventListener('click',()=>openBiasEntry(n));section.appendChild(b)});box.appendChild(section)}}
+  function showBiasComposer(){ $('biasComposer').hidden=false; $('biasEmptyState').hidden=true; $('biasNew').hidden=true; $('biasListStatus').textContent=''; }
+  function closeBiasComposer(message='',checkDirty=true){if(checkDirty&&biasDirty&&!confirm('Discard your unsaved bias note changes?'))return false;biasUrls.forEach(URL.revokeObjectURL);biasUrls=[];biasActiveDate=null;biasDirty=false;$('biasDate').value=today();$('biasHeading').value='';biasEditor.replaceChildren();$('biasComposer').hidden=true;$('biasEmptyState').hidden=false;$('biasNew').hidden=false;$('biasDelete').hidden=true;$('biasStatus').textContent='';$('biasListStatus').textContent=message||'Create a note or open one from the archive.';renderBiasSidebar();return true}
+  function openBiasEntry(entry){if(biasDirty&&!confirm('Discard your unsaved bias note changes?'))return;biasUrls.forEach(URL.revokeObjectURL);biasUrls=[];biasActiveDate=entry.date;$('biasDate').value=entry.date;$('biasHeading').value=entry.heading||'';biasEditor.innerHTML=cleanBiasHtml(entry.html);biasDirty=false;$('biasDelete').hidden=false;$('biasStatus').textContent='';showBiasComposer();renderBiasSidebar();attachBiasMedia()}
+  function newBiasEntry(){if(biasDirty&&!confirm('Discard your unsaved bias note changes?'))return;biasUrls.forEach(URL.revokeObjectURL);biasUrls=[];biasActiveDate=null;$('biasDate').value=today();$('biasHeading').value='';biasEditor.replaceChildren();biasDirty=false;$('biasDelete').hidden=true;$('biasStatus').textContent='';showBiasComposer();biasEditor.focus()}
+  async function saveBiasEntry(){const date=$('biasDate').value,heading=$('biasHeading').value.trim(),html=cleanBiasHtml(biasEditor.innerHTML),hasMedia=biasMediaKeys(html).length>0;if(!/^\d{4}-\d{2}-\d{2}$/.test(date)){$('biasStatus').textContent='Choose a date first.';return}if(!heading&&!biasEditor.innerText.trim()&&!hasMedia){$('biasStatus').textContent='Add a heading, text, image, or video first.';return}const prior=biasEntries.find(n=>n.date===biasActiveDate),old=biasEntries.find(n=>n.date===date)||prior,entry={id:old?old.id:nid(),date,heading,html,updated:Date.now()};biasEntries=biasEntries.filter(n=>n.date!==date&&n.date!==biasActiveDate);biasEntries.push(entry);saveBiasList();const keep=new Set(biasMediaKeys(html)),oldKeys=new Set([...biasMediaKeys(prior&&prior.html),...biasMediaKeys(old&&old.html)]);for(const key of oldKeys)if(!keep.has(key))await delKey(key);closeBiasComposer('Bias note saved.',false)}
+  async function deleteBiasEntry(){const old=biasEntries.find(n=>n.date===biasActiveDate);if(!old||!confirm('Delete this bias note and its pasted media?'))return;for(const key of biasMediaKeys(old.html))await delKey(key);biasEntries=biasEntries.filter(n=>n.date!==old.date);saveBiasList();closeBiasComposer('Bias note deleted.',false)}  $('biasMediaButton').addEventListener('click',()=>{rememberBiasRange();$('biasMediaInput').click()});$('biasMediaInput').addEventListener('change',async e=>{for(const file of [...e.target.files])await addBiasMedia(file);e.target.value=''});
+  ['keyup','mouseup','touchend'].forEach(name=>biasEditor.addEventListener(name,rememberBiasRange));biasEditor.addEventListener('input',()=>{biasDirty=true;$('biasStatus').textContent='Unsaved changes.'});biasEditor.addEventListener('paste',e=>{const items=[...(e.clipboardData?.items||[])],files=items.map(x=>x.kind==='file'?x.getAsFile():null).filter(Boolean);if(files.length){e.preventDefault();files.forEach(addBiasMedia);return}const html=e.clipboardData?.getData('text/html');if(html){e.preventDefault();document.execCommand('insertHTML',false,cleanBiasHtml(html));biasDirty=true;$('biasStatus').textContent='Unsaved changes.'}});
+  $('biasHeading').addEventListener('input',()=>{biasDirty=true;$('biasStatus').textContent='Unsaved changes.'});$('biasDate').addEventListener('change',()=>{biasDirty=true;$('biasStatus').textContent='Unsaved changes.'});$('biasSave').addEventListener('click',saveBiasEntry);$('biasNew').addEventListener('click',newBiasEntry);$('biasClose').addEventListener('click',()=>closeBiasComposer('',true));$('biasDelete').addEventListener('click',deleteBiasEntry);renderBiasSidebar();$('biasDate').value=today();
   /* ---------- Journal: CSV ---------- */
   const HEAD = ['date', 'symbol', 'account', 'side', 'entry', 'exit', 'size', 'fees', 'setup', 'notes', 'pnl'];
   const rs = v => { const s = String(v?? ''); return /^[=+\-@\t\r]/.test(s)? "'" + s: s; }; // stops spreadsheets running text as formulas
@@ -1217,6 +1347,7 @@ output{color:var(--text);font-weight:600}
       catch { alert('Could not save the screenshot. Browser storage may be full or blocked.'); }
     });
     const btns = h('div', 'vbtns');
+    const details=h('button','btn ghost','Open trade details'); details.type='button'; details.addEventListener('click',()=>openTradeDetails(t)); btns.appendChild(details);
     const addS = h('button', 'btn ghost', t.shot? 'Replace screenshot': 'Add screenshot'); addS.type = 'button';
     addS.addEventListener('click', () => fi.click()); btns.appendChild(addS);
     if (t.shot) {
@@ -1307,62 +1438,73 @@ output{color:var(--text);font-weight:600}
     if (!ok) return { text: 'Check levels' };
     return { text: '1:' + (Math.abs(t - e) / Math.abs(e - s)).toFixed(2) };
   }
-  let planEdit = null;
-  const planForm = $('planForm');
-  function updateRR() {
-    const f = planForm.elements;
-    $('planRR').textContent = rrOf(f.side.value, num(f.entry.value), num(f.sl.value), num(f.tp.value)).text;
-  }
-  function resetPlanForm() {
-    planEdit = null; planForm.reset(); planForm.elements.date.value = today();
-    $('planFormTitle').textContent = 'New pre-trade plan'; $('planSaveBtn').textContent = 'Save plan'; $('planCancel').hidden = true;
-    updateRR();
-  }
-  planForm.addEventListener('input', updateRR);
-  planForm.addEventListener('change', updateRR);
-  $('planCancel').addEventListener('click', resetPlanForm);
-  planForm.addEventListener('submit', e => {
-    e.preventDefault();
-    if (!planForm.checkValidity()) { shake($('planSaveBtn')); planForm.reportValidity(); return; }
-    const f = planForm.elements;
-    const rec = {
-      date: f.date.value, symbol: f.symbol.value.trim().toUpperCase(), side: f.side.value, entry: num(f.entry.value),
-      sl: num(f.sl.value), tp: num(f.tp.value), status: f.status.value, confidence: f.confidence.value, thesis: f.thesis.value.trim()
-    };
-    const old = planEdit && plans.find(p => p.id === planEdit);
-    if (old) Object.assign(old, rec); else plans.push({ id: nid(),...rec });
-    savePlans(); resetPlanForm(); renderPlans(); say('planMsg', old? 'Plan updated.': 'Plan saved.');
-  });
-  function editPlan(p) {
-    planEdit = p.id; const f = planForm.elements;
-    f.date.value = p.date; f.symbol.value = p.symbol; f.side.value = p.side; f.entry.value = p.entry?? ''; f.sl.value = p.sl?? '';
-    f.tp.value = p.tp?? ''; f.status.value = p.status; f.confidence.value = p.confidence || ''; f.thesis.value = p.thesis || '';
-    $('planFormTitle').textContent = 'Edit pre-trade plan'; $('planSaveBtn').textContent = 'Update plan'; $('planCancel').hidden = false;
-    updateRR(); $('planFormCard').scrollIntoView({ behavior: smooth, block: 'start' });
-  }
-  function renderPlans() {
-    const box = $('planList'); box.replaceChildren();
-    if (!plans.length) { box.appendChild(emptyMsg('No plans yet.')); return; }
-    const lv = v => v == null? '-': String(v), SL = { planned: 'Planned', taken: 'Taken', skipped: 'Skipped' };
-    [...plans].sort(byDateDesc).forEach(p => {
-      const card = h('article', 'rev-card'), head = h('div', 'head');
-      head.append(h('h3', '', `${p.symbol} \u00B7 ${p.side}`), h('span', 'badge st-' + (SL[p.status]? p.status: 'planned'), SL[p.status] || 'Planned'));
-      card.appendChild(head);
-      const chips = h('ul', 'chips');
-      [p.date, `Entry ${lv(p.entry)}`, `SL ${lv(p.sl)}`, `TP ${lv(p.tp)}`, `R:R ${rrOf(p.side, p.entry, p.sl, p.tp).text}`, p.confidence && `Confidence ${p.confidence}/5`].filter(Boolean).forEach(x => chips.appendChild(h('li', 'chip', x)));
-      card.appendChild(chips);
-      if (p.thesis) card.appendChild(h('p', '', p.thesis));
-      const act = h('div', 'rev-actions');
-      const ed = h('button', 'btn ghost', 'Edit'); ed.type = 'button'; ed.addEventListener('click', () => editPlan(p));
-      const del = h('button', 'btn danger', 'Delete'); del.type = 'button';
-      del.addEventListener('click', () => {
-        if (card.classList.contains('leaving') ||!confirm('Delete this plan?')) return;
-        animateOut(card, () => { plans = plans.filter(x => x.id!== p.id); savePlans(); if (planEdit === p.id) resetPlanForm(); renderPlans(); });
-      });
-      act.append(ed, del); card.appendChild(act); box.appendChild(card);
+  let planEdit = null, planViewMode = readJSON('tradingJournal.planView.v1', 'grid');
+  const planForm = $('planForm'), planShotBag = [];
+  const freePlanBag = () => planShotBag.splice(0).forEach(u => URL.revokeObjectURL(u));
+  function updateRR() { const f=planForm.elements; $('planRR').textContent=rrOf(f.side.value,num(f.entry.value),num(f.sl.value),num(f.tp.value)).text; }
+  function renderPlanNoteEditor(sections) {
+    const box=$('planNoteSections'); box.replaceChildren();
+    const rows=Array.isArray(sections)&&sections.length?sections:[{heading:'Trade idea',text:''}];
+    rows.forEach(note=>{
+      const row=h('div','plan-note-section'), title=document.createElement('input'), body=document.createElement('textarea'), remove=h('button','btn danger','Remove');
+      title.className='note-heading'; title.maxLength=60; title.placeholder='Your heading'; title.value=note.heading||''; title.setAttribute('aria-label','Custom note heading');
+      body.className='note-body'; body.maxLength=2000; body.rows=3; body.placeholder='Write notes for this heading'; body.value=note.text||''; body.setAttribute('aria-label','Notes for this heading');
+      remove.type='button'; remove.addEventListener('click',()=>{row.remove();if(!box.children.length)renderPlanNoteEditor([])});
+      row.append(title,body,remove);box.appendChild(row);
     });
   }
+  function readPlanNotes(){return [...$('planNoteSections').querySelectorAll('.plan-note-section')].map(row=>({heading:row.querySelector('.note-heading').value.trim(),text:row.querySelector('.note-body').value.trim()})).filter(n=>n.heading||n.text);}
+  $('planNoteAdd').addEventListener('click',()=>{const current=readPlanNotes();current.push({heading:'',text:''});renderPlanNoteEditor(current);const inputs=$('planNoteSections').querySelectorAll('.note-heading');inputs[inputs.length-1].focus();});
+  function resetPlanForm(){planEdit=null;planForm.reset();planForm.elements.date.value=today();$('planFormTitle').textContent='New pre-trade plan';$('planSaveBtn').textContent='Save plan';$('planCancel').hidden=true;renderPlanNoteEditor([]);updateRR();}
+  planForm.addEventListener('input',updateRR);planForm.addEventListener('change',updateRR);$('planCancel').addEventListener('click',resetPlanForm);
+  $('planForm').addEventListener('submit',async e=>{
+    e.preventDefault();if(!planForm.checkValidity()){shake($('planSaveBtn'));planForm.reportValidity();return;}
+    const f=planForm.elements,old=planEdit&&plans.find(p=>p.id===planEdit),id=old?old.id:nid(),screenShot=f.screenshot.files[0],rec={id,date:f.date.value,symbol:f.symbol.value.trim().toUpperCase(),side:f.side.value,entry:num(f.entry.value),sl:num(f.sl.value),tp:num(f.tp.value),status:f.status.value,confidence:f.confidence.value,notes:readPlanNotes(),video:!!(old&&old.video),screenshot:!!(old&&old.screenshot)};
+    const btn=$('planSaveBtn');btn.disabled=true;
+    try{if(screenShot&&isImg(screenShot)){await DB.put('ps'+id,await shrink(screenShot));rec.screenshot=true}if(pendingPlanVideo){await DB.put('p'+id,pendingPlanVideo);rec.video=true;pendingPlanVideo=null}}
+    catch{alert('The plan was saved, but its media could not be stored. Browser storage may be full or blocked.')}
+    if(old)Object.assign(old,rec);else plans.push(rec);savePlans();btn.disabled=false;resetPlanForm();renderPlans();say('planMsg',old?'Plan updated.':'Plan saved.');
+  });
+  function editPlan(p){
+    planEdit=p.id;const f=planForm.elements;f.date.value=p.date;f.symbol.value=p.symbol;f.side.value=p.side;f.entry.value=p.entry??'';f.sl.value=p.sl??'';f.tp.value=p.tp??'';f.status.value=p.status;f.confidence.value=p.confidence||'';
+    renderPlanNoteEditor(p.notes||[{heading:'Trade idea',text:p.thesis||''}]);$('planFormTitle').textContent='Edit pre-trade plan';$('planSaveBtn').textContent='Update plan';$('planCancel').hidden=false;updateRR();$('planFormCard').scrollIntoView({behavior:smooth,block:'start'});
+  }
+  function addPlanScreenshot(card,p){if(!p.screenshot)return;DB.get('ps'+p.id).then(blob=>{if(!blob||!card.isConnected)return;const url=URL.createObjectURL(blob),img=document.createElement('img');planShotBag.push(url);img.src=url;img.alt=`Chart screenshot for ${p.symbol} on ${p.date}`;img.className='plan-shot';card.insertBefore(img,card.querySelector('.chips'))}).catch(()=>{});}
+  function renderPlans(){
+    freePlanBag();const box=$('planList');box.className=planViewMode==='list'?'plan-view-list':'plan-view-grid';box.replaceChildren();
+    $('planIconView').setAttribute('aria-pressed',String(planViewMode!=='list'));$('planListView').setAttribute('aria-pressed',String(planViewMode==='list'));
+    if(!plans.length){box.appendChild(emptyMsg('No plans yet. Add a plan above to begin your dated plan journal.'));return;}
+    const groups=new Map();[...plans].sort(byDateDesc).forEach(p=>{const arr=groups.get(p.date)||[];arr.push(p);groups.set(p.date,arr)});
+    for(const [date,items] of groups){const group=h('section','plan-date-group'),head=h('h3','',shortD(parseYMD(date))),grid=h('div',planViewMode==='list'?'plan-view-list':'plan-view-grid');group.append(head,grid);
+      items.forEach(p=>{
+        const card=h('article','plan-tile'),summary=h('div'),icon=h('span','plan-tile-icon',p.side==='short'?'↓':'↑'),title=h('h3','',`${p.symbol} · ${p.side}`),status=h('span','badge st-'+(p.status||'planned'),({planned:'Planned',taken:'Taken',skipped:'Skipped'})[p.status]||'Planned');
+        summary.append(title,status);card.append(icon,summary);
+        const chips=h('ul','chips');[`Entry ${p.entry??'-'}`,`SL ${p.sl??'-'}`,`TP ${p.tp??'-'}`,`R:R ${rrOf(p.side,p.entry,p.sl,p.tp).text}`,p.confidence&&`Confidence ${p.confidence}/5`].filter(Boolean).forEach(x=>chips.appendChild(h('li','chip',x)));card.appendChild(chips);
+        addPlanScreenshot(card,p);
+        (p.notes||[{heading:'Trade idea',text:p.thesis||''}]).filter(n=>n.heading||n.text).forEach(n=>{const section=h('div','plan-note-preview');if(n.heading)section.appendChild(h('strong','',n.heading));if(n.text)section.appendChild(h('p','',n.text));card.appendChild(section)});
+        const actions=h('div','rev-actions'),edit=h('button','btn ghost','Edit');edit.type='button';edit.addEventListener('click',()=>editPlan(p));const del=h('button','btn danger','Delete');del.type='button';del.addEventListener('click',async()=>{if(!confirm('Delete this pre-trade plan and its saved media?'))return;plans=plans.filter(x=>x.id!==p.id);await delKey('p'+p.id);await delKey('ps'+p.id);savePlans();if(planEdit===p.id)resetPlanForm();renderPlans()});actions.append(edit,del);card.appendChild(actions);
+        if(p.video)card.appendChild(videoPanel('p'+p.id,true,has=>{p.video=has;savePlans()},planShotBag));grid.appendChild(card);
+      });box.appendChild(group);
+    }
+  }
+  $('planIconView').addEventListener('click',()=>{planViewMode='grid';write('tradingJournal.planView.v1',planViewMode);renderPlans()});$('planListView').addEventListener('click',()=>{planViewMode='list';write('tradingJournal.planView.v1',planViewMode);renderPlans()});
 
+  /* Screen capture is user initiated and composites screen plus optional camera into one saved video. */
+  const captureCanvas=$('capturePreview'),captureCtx=captureCanvas.getContext('2d'),screenVideo=document.createElement('video'),faceVideo=document.createElement('video');
+  let screenStream=null,faceStream=null,captureRecorder=null,captureParts=[],captureFrame=0,pendingPlanVideo=null;
+  screenVideo.muted=faceVideo.muted=true;screenVideo.playsInline=faceVideo.playsInline=true;
+  const capStatus=t=>{$('captureStatus').textContent=t};
+  function drawCapture(){if(!screenStream||screenVideo.readyState<2)return;const w=captureCanvas.width,hc=captureCanvas.height;captureCtx.drawImage(screenVideo,0,0,w,hc);
+    if(faceStream&&$('facecamOn').checked&&faceVideo.readyState>=2){const scale=+$('facecamSize').value/100,fw=w*scale,fh=fw*(faceVideo.videoHeight/faceVideo.videoWidth||.75),pad=Math.max(18,w*.025),pos=$('facecamPosition').value,x=pos.endsWith('r')?w-fw-pad:pad,y=pos.startsWith('t')?pad:hc-fh-pad;
+      captureCtx.save();captureCtx.shadowColor='rgba(0,0,0,.75)';captureCtx.shadowBlur=18;captureCtx.beginPath();if($('facecamShape').value==='circle')captureCtx.ellipse(x+fw/2,y+fh/2,fw/2,fh/2,0,0,Math.PI*2);else captureCtx.rect(x,y,fw,fh);captureCtx.clip();captureCtx.drawImage(faceVideo,x,y,fw,fh);captureCtx.restore();captureCtx.save();captureCtx.strokeStyle='#ffffff';captureCtx.lineWidth=Math.max(3,w*.003);captureCtx.beginPath();if($('facecamShape').value==='circle')captureCtx.ellipse(x+fw/2,y+fh/2,fw/2,fh/2,0,0,Math.PI*2);else captureCtx.rect(x,y,fw,fh);captureCtx.stroke();captureCtx.restore();}
+    captureFrame=requestAnimationFrame(drawCapture);
+  }
+  function releaseCapture(){cancelAnimationFrame(captureFrame);[screenStream,faceStream].filter(Boolean).forEach(st=>st.getTracks().forEach(t=>t.stop()));screenStream=faceStream=null;screenVideo.srcObject=faceVideo.srcObject=null;$('captureStartBtn').disabled=true;$('captureStopBtn').disabled=true;}
+  $('facecamSize').addEventListener('input',e=>$('facecamSizeOut').textContent=e.target.value+'%');
+  $('capturePreviewBtn').addEventListener('click',async()=>{try{releaseCapture();screenStream=await navigator.mediaDevices.getDisplayMedia({video:{frameRate:30},audio:false});if($('facecamOn').checked)faceStream=await navigator.mediaDevices.getUserMedia({video:true,audio:false});screenVideo.srcObject=screenStream;if(faceStream)faceVideo.srcObject=faceStream;await Promise.all([screenVideo.play(),faceStream?faceVideo.play():Promise.resolve()]);const st=screenStream.getVideoTracks()[0].getSettings();captureCanvas.width=Math.min(st.width||1280,1920);captureCanvas.height=Math.min(st.height||720,1080);captureCanvas.hidden=false;drawCapture();$('captureStartBtn').disabled=false;capStatus('Preview ready. Adjust the facecam, then start recording.');screenStream.getVideoTracks()[0].onended=()=>{if(captureRecorder?.state==='recording')captureRecorder.stop();else releaseCapture()};}catch(err){releaseCapture();capStatus(err.name==='NotAllowedError'?'Screen or camera permission was cancelled.':'Could not start capture: '+err.message)}});
+  $('captureStartBtn').addEventListener('click',()=>{if(!screenStream)return;try{const stream=captureCanvas.captureStream(30),mime=['video/webm;codecs=vp9','video/webm;codecs=vp8','video/webm'].find(t=>MediaRecorder.isTypeSupported(t));captureParts=[];captureRecorder=new MediaRecorder(stream,mime?{mimeType:mime}:undefined);captureRecorder.ondataavailable=e=>{if(e.data.size)captureParts.push(e.data)};captureRecorder.onstop=()=>{pendingPlanVideo=new Blob(captureParts,{type:captureRecorder.mimeType||'video/webm'});releaseCapture();capStatus('Recording attached. Save the plan to keep it in the journal.')};captureRecorder.start(1000);$('captureStartBtn').disabled=true;$('captureStopBtn').disabled=false;capStatus('Recording screen and facecam…')}catch(err){capStatus('Could not record this screen: '+err.message)}});
+  $('captureStopBtn').addEventListener('click',()=>{if(captureRecorder?.state==='recording')captureRecorder.stop()});
+  renderPlanNoteEditor([]);updateRR();
   /* ---------- Backtesting recordings ---------- */
   const btBag = [];
   const freeBtBag = () => btBag.splice(0).forEach(u => URL.revokeObjectURL(u));
@@ -1517,12 +1659,12 @@ output{color:var(--text);font-weight:600}
     $('chatNameForm').hidden =!naming;
     $('chatMsgs').hidden = $('chatForm').hidden = naming;
     $('chatRename').hidden = $('chatClear').hidden = naming;
-    $('chatSend').disabled =!CHAT_ENDPOINT || chatBusy;
-    $('chatSend').title = CHAT_ENDPOINT? '': 'No AI service is connected';
+    $('chatSend').disabled =(!CHAT_ENDPOINT || !CHAT_TOKEN) || chatBusy;
+    $('chatSend').title = CHAT_ENDPOINT && CHAT_TOKEN? '': 'Add the AI worker URL and token in Settings';
     $('chatMsgs').replaceChildren();
     if (naming) { $('chatNameIn').value = chatName; $('chatNameIn').focus(); return; }
     chatHist.forEach(m => addMsg(m.role, m.content));
-    if (!CHAT_ENDPOINT) addMsg('assistant', 'Not connected: this page has no AI service behind it yet, so nothing you type is sent anywhere.', { err: true });
+    if (!CHAT_ENDPOINT || !CHAT_TOKEN) addMsg('assistant', 'Add the AI worker URL and private token in Settings to connect the assistant.', { err: true });
     else if (!chatHist.length) addMsg('assistant', `I'm ${chatName}. Ask about a chart, a setup or your results.`);
     $('chatIn').focus();
   }
@@ -1562,14 +1704,14 @@ output{color:var(--text);font-weight:600}
   $('chatForm').addEventListener('submit', async e => {
     e.preventDefault();
     const text = $('chatIn').value.trim(), img = chatImgData;
-    if (chatBusy ||!CHAT_ENDPOINT || (!text &&!img)) return;
+    if (chatBusy ||!CHAT_ENDPOINT || !CHAT_TOKEN || (!text &&!img)) return;
     chatBusy = true; $('chatSend').disabled = true;
     addMsg('user', text, { img }); $('chatIn').value = ''; setChatImg(null);
     const ctl = new AbortController(), timer = setTimeout(() => ctl.abort(), 60000);
     try {
       const messages = [...chatHist, { role: 'user', content: text || '(screenshot)' }].slice(-20);
       const res = await fetch(CHAT_ENDPOINT, {
-        method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: ctl.signal,
+        method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + CHAT_TOKEN }, signal: ctl.signal,
         body: JSON.stringify({ assistant: chatName, messages, image: img })
       });
       if (!res.ok) throw new Error('server returned ' + res.status);
@@ -1581,7 +1723,7 @@ output{color:var(--text);font-weight:600}
       addMsg('assistant', 'Could not get a reply: ' + (err.name === 'AbortError'? 'the request timed out': err.message), { err: true });
       if (!$('chatIn').value) $('chatIn').value = text;
     } finally {
-      clearTimeout(timer); chatBusy = false; $('chatSend').disabled =!CHAT_ENDPOINT; $('chatIn').focus();
+      clearTimeout(timer); chatBusy = false; $('chatSend').disabled =(!CHAT_ENDPOINT || !CHAT_TOKEN); $('chatIn').focus();
     }
   });
 
@@ -1590,11 +1732,27 @@ output{color:var(--text);font-weight:600}
     freeVBag(); freeBtBag();
     if (!chatViews.includes(name)) closeChat();
     $('chatLaunch').hidden =!chatViews.includes(name) || chatOpen;
-    const draw = { dashboard: renderDash, journal: renderJournal, review: renderReview, plan: renderPlans,
+    const draw = { dashboard: renderDash, journal: renderJournal, bias: renderBiasSidebar, review: renderReview, plan: renderPlans,
       backtest: renderBacktests, equity: renderEquity, accounts: renderAccounts }[name];
     if (draw) draw();
   }
 
+  let tradeDetailUrl=null;
+  const tradeDetail=$('tradeDetail'), tradeDetailBody=$('tradeDetailBody');
+  tradeDetail.addEventListener('close',()=>{if(tradeDetailUrl)URL.revokeObjectURL(tradeDetailUrl);tradeDetailUrl=null;});
+  async function openTradeDetails(t){
+    if(!t)return;if(tradeDetailUrl){URL.revokeObjectURL(tradeDetailUrl);tradeDetailUrl=null;}
+    const pnl=pnlOf(t),title=`${t.symbol||'Trade'} · ${t.side||''}`;
+    const header=h('header','trade-detail-head'),close=h('button','btn ghost','Close');close.type='button';close.addEventListener('click',()=>tradeDetail.close());
+    const heading=h('div');heading.append(h('h2','','Trade details'),h('p','',`${longDate(parseYMD(t.date))} · ${acctName(t.accountId)||'Unassigned account'}`));header.append(heading,h('strong',cls(pnl),fmt(pnl)),close);
+    const hero=h('figure','trade-hero');hero.appendChild(h('div','shot-empty',t.shot?'Loading trade screenshot…':'No screenshot was saved with this trade.'));
+    const info=h('section','trade-detail-section'),grid=h('div','trade-info-grid');info.appendChild(h('h3','','Trade information'));
+    [['Symbol',t.symbol],['Side',t.side],['Account',acctName(t.accountId)||'Unassigned'],['Entry',t.entry],['Exit',t.exit],['Size',t.size],['Fees',fmt(+t.fees||0)],['Net P&L',fmt(pnl)],['Setup',t.setup||'—']].forEach(([k,v])=>{const i=h('div','trade-info-item');i.append(h('span','',k),h('strong','',String(v??'—')));grid.appendChild(i)});info.appendChild(grid);
+    const notes=h('section','trade-detail-section');notes.append(h('h3','','Notes'),h('p','trade-notes',t.notes||'No notes were added for this trade.'));
+    const actions=h('div','trade-detail-actions'),done=h('button','btn ghost','Done');done.type='button';done.addEventListener('click',()=>tradeDetail.close());actions.appendChild(done);
+    tradeDetailBody.replaceChildren(header,hero,info,notes,actions);if(!tradeDetail.open)tradeDetail.showModal();tradeDetailBody.scrollTop=0;
+    if(t.shot){try{const blob=await DB.get('s'+t.id);if(blob&&tradeDetail.open&&tradeDetailBody.contains(hero)){tradeDetailUrl=URL.createObjectURL(blob);const im=document.createElement('img');im.src=tradeDetailUrl;im.alt=`Uploaded screenshot of ${title} on ${t.date}`;hero.replaceChildren(im)}else if(tradeDetail.open&&tradeDetailBody.contains(hero))hero.replaceChildren(h('div','shot-empty','The saved screenshot could not be loaded.'))}catch{if(tradeDetail.open&&tradeDetailBody.contains(hero))hero.replaceChildren(h('div','shot-empty','The saved screenshot could not be loaded.'))}}
+  }
   /* ---------- Start ---------- */
   form.elements.date.value = today();
   planForm.elements.date.value = today();
@@ -1605,184 +1763,12 @@ output{color:var(--text);font-weight:600}
 
 // END OF PART 4
 })();
-</script><script>
-(() => {
-  const KEY = 'tradingJournal.layout.v1';
-  const WIDTHS = { narrow: '900px', medium: '1100px', wide: '1400px', full: 'none' };
-  const POS = ['left', 'center', 'right'];
-  const DEF = { width: 'full', pos: 'left' };
-  let L = {...DEF };
-  try {
-    const s = JSON.parse(localStorage.getItem(KEY));
-    if (s && Object.hasOwn(WIDTHS, s.width)) L.width = s.width;
-    if (s && POS.includes(s.pos)) L.pos = s.pos;
-  } catch {}
-
-  const css = document.createElement('style');
-  css.textContent = `
-    #shell main { width: 100%; max-width: var(--content-max, none)!important; }
-    html[data-cpos="left"] #shell main { margin-left: 0!important; margin-right: auto!important; }
-    html[data-cpos="center"] #shell main { margin-left: auto!important; margin-right: auto!important; }
-    html[data-cpos="right"] #shell main { margin-left: auto!important; margin-right: 0!important; }`;
-  document.head.appendChild(css);
-
-  const actions = document.querySelector('#settings.dlg-actions');
-  const wrap = document.createElement('div');
-  wrap.style.display = 'contents';
-  wrap.innerHTML = `
-    <label>Content position
-      <select id="cposSel">
-        <option value="left">Left</option>
-        <option value="center">Centre</option>
-        <option value="right">Right</option>
-      </select>
-    </label>
-    <label>Content width
-      <select id="cwidthSel">
-        <option value="narrow">Narrow (900px)</option>
-        <option value="medium">Medium (1100px)</option>
-        <option value="wide">Wide (1400px)</option>
-        <option value="full">Full width</option>
-      </select>
-    </label>`;
-  if (actions) actions.before(wrap);
-
-  const posSel = document.getElementById('cposSel');
-  const widthSel = document.getElementById('cwidthSel');
-
-  function apply() {
-    document.documentElement.dataset.cpos = L.pos;
-    document.documentElement.style.setProperty('--content-max', WIDTHS[L.width]);
-    if (posSel) posSel.value = L.pos;
-    if (widthSel) widthSel.value = L.width;
-    try { localStorage.setItem(KEY, JSON.stringify(L)); } catch {}
-  }
-  if (posSel) posSel.addEventListener('change', e => { L.pos = e.target.value; apply(); });
-  if (widthSel) widthSel.addEventListener('change', e => { L.width = e.target.value; apply(); });
-  const reset = document.getElementById('resetBtn');
-  if (reset) reset.addEventListener('click', () => { L = {...DEF }; apply(); });
-  apply();
-})();
 </script>
-<script>
-(() => {
-  const KEY = 'tradingJournal.layout.v1';
-  const WIDTHS = { narrow: '900px', medium: '1100px', wide: '1400px', full: 'none' };
-  const POS = ['left', 'center', 'right'];
-  const DEF = { width: 'full', pos: 'left' };
-  let L = {...DEF };
-  try {
-    const s = JSON.parse(localStorage.getItem(KEY));
-    if (s && Object.hasOwn(WIDTHS, s.width)) L.width = s.width;
-    if (s && POS.includes(s.pos)) L.pos = s.pos;
-  } catch {}
-
-  const css = document.createElement('style');
-  css.textContent = `
-    #shell main { width: 100%; max-width: var(--content-max, none)!important; }
-    html[data-cpos="left"] #shell main { margin-left: 0!important; margin-right: auto!important; }
-    html[data-cpos="center"] #shell main { margin-left: auto!important; margin-right: auto!important; }
-    html[data-cpos="right"] #shell main { margin-left: auto!important; margin-right: 0!important; }`;
-  document.head.appendChild(css);
-
-  const actions = document.querySelector('#settings.dlg-actions');
-  const wrap = document.createElement('div');
-  wrap.style.display = 'contents';
-  wrap.innerHTML = `
-    <label>Content position
-      <select id="cposSel">
-        <option value="left">Left</option>
-        <option value="center">Centre</option>
-        <option value="right">Right</option>
-      </select>
-    </label>
-    <label>Content width
-      <select id="cwidthSel">
-        <option value="narrow">Narrow (900px)</option>
-        <option value="medium">Medium (1100px)</option>
-        <option value="wide">Wide (1400px)</option>
-        <option value="full">Full width</option>
-      </select>
-    </label>`;
-  if (actions) actions.before(wrap);
-
-  const posSel = document.getElementById('cposSel');
-  const widthSel = document.getElementById('cwidthSel');
-
-  function apply() {
-    document.documentElement.dataset.cpos = L.pos;
-    document.documentElement.style.setProperty('--content-max', WIDTHS[L.width]);
-    if (posSel) posSel.value = L.pos;
-    if (widthSel) widthSel.value = L.width;
-    try { localStorage.setItem(KEY, JSON.stringify(L)); } catch {}
-  }
-  if (posSel) posSel.addEventListener('change', e => { L.pos = e.target.value; apply(); });
-  if (widthSel) widthSel.addEventListener('change', e => { L.width = e.target.value; apply(); });
-  const reset = document.getElementById('resetBtn');
-  if (reset) reset.addEventListener('click', () => { L = {...DEF }; apply(); });
-  apply();
-})();
-</script>
-<script>
-(() => {
-  const KEY = 'tradingJournal.layout.v1';
-  const WIDTHS = { narrow: '900px', medium: '1100px', wide: '1400px', full: 'none' };
-  const POS = ['left', 'center', 'right'];
-  const DEF = { width: 'full', pos: 'left' };
-  let L = {...DEF };
-  try {
-    const s = JSON.parse(localStorage.getItem(KEY));
-    if (s && Object.hasOwn(WIDTHS, s.width)) L.width = s.width;
-    if (s && POS.includes(s.pos)) L.pos = s.pos;
-  } catch {}
-
-  const css = document.createElement('style');
-  css.textContent = `
-    #shell main { width: 100%; max-width: var(--content-max, none)!important; }
-    html[data-cpos="left"] #shell main { margin-left: 0!important; margin-right: auto!important; }
-    html[data-cpos="center"] #shell main { margin-left: auto!important; margin-right: auto!important; }
-    html[data-cpos="right"] #shell main { margin-left: auto!important; margin-right: 0!important; }`;
-  document.head.appendChild(css);
-
-  const actions = document.querySelector('#settings.dlg-actions');
-  const wrap = document.createElement('div');
-  wrap.style.display = 'contents';
-  wrap.innerHTML = `
-    <label>Content position
-      <select id="cposSel">
-        <option value="left">Left</option>
-        <option value="center">Centre</option>
-        <option value="right">Right</option>
-      </select>
-    </label>
-    <label>Content width
-      <select id="cwidthSel">
-        <option value="narrow">Narrow (900px)</option>
-        <option value="medium">Medium (1100px)</option>
-        <option value="wide">Wide (1400px)</option>
-        <option value="full">Full width</option>
-      </select>
-    </label>`;
-  if (actions) actions.before(wrap);
-
-  const posSel = document.getElementById('cposSel');
-  const widthSel = document.getElementById('cwidthSel');
-
-  function apply() {
-    document.documentElement.dataset.cpos = L.pos;
-    document.documentElement.style.setProperty('--content-max', WIDTHS[L.width]);
-    if (posSel) posSel.value = L.pos;
-    if (widthSel) widthSel.value = L.width;
-    try { localStorage.setItem(KEY, JSON.stringify(L)); } catch {}
-  }
-  if (posSel) posSel.addEventListener('change', e => { L.pos = e.target.value; apply(); });
-  if (widthSel) widthSel.addEventListener('change', e => { L.width = e.target.value; apply(); });
-  const reset = document.getElementById('resetBtn');
-  if (reset) reset.addEventListener('click', () => { L = {...DEF }; apply(); });
-  apply();
-})();
-</script>
-
 </body>
 </html>
+
+
+
+
+
 
