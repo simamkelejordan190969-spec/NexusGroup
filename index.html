@@ -181,7 +181,23 @@ dialog.trade-detail{width:min(900px,94vw);max-height:92vh;overflow:hidden;backgr
 .bias-layout{display:grid;grid-template-columns:minmax(190px,250px) minmax(0,1fr);gap:16px}.bias-sidebar{align-self:start;max-height:65vh;overflow:auto;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}.bias-month{margin:10px 0 4px;color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.08em}.bias-entry-link{display:block;width:100%;margin:3px 0;padding:8px 10px;text-align:left;border:1px solid transparent;border-radius:8px;background:transparent;color:var(--text);cursor:pointer}.bias-entry-link:hover,.bias-entry-link[aria-current="true"]{background:var(--hover);border-color:var(--line)}.bias-editor{min-height:300px;max-height:60vh;overflow:auto;padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--text);outline:none;line-height:1.75}.bias-editor:empty:before{content:attr(data-placeholder);color:var(--muted);pointer-events:none}.bias-editor:focus{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 18%,transparent)}.bias-editor img{display:block;max-width:min(100%,720px);max-height:560px;margin:12px 0;object-fit:contain;border-radius:10px}.bias-editor video{display:block;width:min(100%,720px);max-height:480px;margin:12px 0;background:#000;border-radius:10px}.bias-editor blockquote{margin:12px 0;padding:8px 14px;border-left:3px solid var(--accent);background:var(--hover)}.bias-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 @keyframes letterAssemble{0%{opacity:0;transform:translate(var(--from-x),var(--from-y)) rotate(-24deg) scale(.28);filter:blur(16px)}38%{opacity:.72;transform:translate(var(--curve-x),var(--curve-y)) rotate(9deg) scale(.74);filter:blur(5px);animation-timing-function:cubic-bezier(.2,.7,.25,1)}72%{opacity:1;transform:translate(calc(var(--curve-x)*.16),calc(var(--curve-y)*.16)) rotate(-3deg) scale(1.08);filter:blur(0);animation-timing-function:cubic-bezier(.2,.75,.25,1)}100%{opacity:1;transform:translate(0,0) rotate(0) scale(1);filter:blur(0)}}
 @media(max-width:700px){.bias-layout{grid-template-columns:1fr}.bias-sidebar{max-height:180px}.landing-replay{top:12px;right:12px}}
-@media(prefers-reduced-motion:reduce){#landing.play .brand-letter{animation-duration:2.9s!important;animation-delay:calc(var(--i)*.065s)!important}}.bias-page-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}.bias-page-head h2{color:var(--text);margin-bottom:4px}.bias-empty-state{min-height:260px;display:grid;align-content:center;justify-items:center;text-align:center;padding:24px;border:1px dashed var(--line);border-radius:12px;background:var(--surface)}.bias-empty-state p{color:var(--muted);margin:8px 0 0}.bias-list-status{margin-top:10px}</style>
+@media(prefers-reduced-motion:reduce){#landing.play .brand-letter{animation-duration:2.9s!important;animation-delay:calc(var(--i)*.065s)!important}}.bias-page-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}.bias-page-head h2{color:var(--text);margin-bottom:4px}.bias-empty-state{min-height:260px;display:grid;align-content:center;justify-items:center;text-align:center;padding:24px;border:1px dashed var(--line);border-radius:12px;background:var(--surface)}.bias-empty-state p{color:var(--muted);margin:8px 0 0}.bias-list-status{margin-top:10px}
+.bias-reader{position:fixed;inset:0;width:100vw;max-width:none;height:100dvh;max-height:none;margin:0;padding:0;border:0;border-radius:0;background:var(--bg);color:var(--text)}
+.bias-reader::backdrop{background:rgba(0,0,0,.82)}.bias-reader-shell{height:100%;display:flex;flex-direction:column}.bias-reader-head{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:clamp(14px,3vw,32px);border-bottom:1px solid var(--line);background:var(--surface)}.bias-reader-head h1{margin:0}.bias-reader-content{flex:1;overflow:auto;width:min(100%,1100px);margin:0 auto;padding:clamp(18px,5vw,54px);font-size:1.04rem;line-height:1.75}.bias-reader-content img{display:block;width:100%;max-height:75vh;object-fit:contain;margin:16px auto}.bias-reader-content video{display:block;width:100%;max-height:75vh;margin:16px auto;background:#000}.bias-reader-actions{position:sticky;bottom:0;display:flex;justify-content:center;gap:12px;padding:14px;background:var(--surface);border-top:1px solid var(--line);box-shadow:0 -8px 30px rgba(0,0,0,.2)}
+.journal-head{display:flex;justify-content:space-between;align-items:center;gap:12px}.journal-head h2{margin-bottom:4px}
+
+dialog.trade-detail.full-screen{position:fixed;inset:0;width:100vw;max-width:none;height:100vh;max-height:none;margin:0;border-radius:0}
+.trade-detail-head{position:sticky;top:0;z-index:2;padding:8px 0 14px;background:var(--detail-bg)}
+.trade-image-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:14px}.trade-shot-card{margin:0 0 18px}.trade-shot-card h3{margin:0 0 8px;color:var(--muted);font-size:.85rem}.trade-shot-card .trade-hero{margin:0}.trade-fullscreen-row{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}.pretrade-copy{display:flex;gap:8px;align-items:end;flex-wrap:wrap;margin-top:10px;width:100%}.pretrade-copy label{min-width:220px;flex:1}
+.trade-edit-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}.trade-edit-form .full{grid-column:1/-1}.trade-note-editor{padding:12px;border:1px solid var(--line);border-radius:12px}.trade-note-editor-row{display:grid;grid-template-columns:minmax(150px,1fr) 3fr auto;gap:8px;margin-top:8px}
+@media(max-width:700px){.trade-edit-form .full{grid-column:auto}.trade-note-editor-row{grid-template-columns:1fr}}
+
+.rev-bulk{display:flex;align-items:end;gap:10px;flex-wrap:wrap;margin-bottom:14px}.period-outcome-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px;border:1px solid var(--line);border-radius:10px;margin:7px 0}.period-outcome-row small{display:block;color:var(--muted);margin-top:3px}.period-outcome-row select{min-width:130px}
+@media(max-width:700px){.period-outcome-row{align-items:stretch;flex-direction:column}.period-outcome-row select{width:100%}}
+
+dialog.trade-detail.full-screen .trade-detail-scroll{height:100vh;max-height:100vh;overflow:auto}
+.bt-reader{position:fixed;inset:0;width:100vw;max-width:none;height:100dvh;max-height:none;margin:0;padding:0;border:0;border-radius:0;background:var(--bg);color:var(--text)}.bt-reader-shell{height:100%;display:flex;flex-direction:column}.bt-reader-head{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:clamp(14px,3vw,30px);border-bottom:1px solid var(--line);background:var(--surface)}.bt-reader-head h1{margin:0}.bt-reader-content{flex:1;overflow:auto;width:min(100%,1200px);margin:auto;padding:clamp(18px,4vw,42px)}.bt-reader-content video{display:block;width:100%;max-height:68vh;background:#000;border-radius:12px}.bt-reader-actions{position:sticky;bottom:0;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;padding:14px;background:var(--surface);border-top:1px solid var(--line)}.bt-rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}.bt-report{white-space:pre-wrap;padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--surface);line-height:1.65}.bt-recorder-slot{margin:14px 0}
+</style>
 </head>
 <!-- END OF PART 1 -->
 <body>
@@ -315,7 +331,7 @@ dialog.trade-detail{width:min(900px,94vw);max-height:92vh;overflow:hidden;backgr
       <!-- Journal -->
       <section class="view" data-view="journal" hidden>
         <div class="card">
-          <h2>Add trade</h2>
+          <div class="journal-head"><div><h2>Add trade</h2><p class="nx-note">Record the setup, result, and chart evidence.</p></div><button class="btn ghost" type="button" id="journalAiBtn">Ask the chart assistant</button></div>
           <form id="form" class="grid-form" novalidate>
             <label>Date <input type="date" name="date" required></label>
             <label>Symbol <input name="symbol" required maxlength="20" placeholder="EURUSD"></label>
@@ -396,18 +412,19 @@ dialog.trade-detail{width:min(900px,94vw);max-height:92vh;overflow:hidden;backgr
             <div class="pick" id="pick"></div>
           </div>
           <div class="card" id="viewer" hidden></div>
+          <div class="card" id="revOutcomeCard" hidden><h2>Trade outcomes</h2><p class="nx-note">Choose win, loss, or break-even for each trade. Apply one result to all, or set them individually.</p><div class="rev-bulk"><label>Apply to all <select id="revBulkOutcome"><option value="">Choose result</option><option value="win">Win</option><option value="loss">Loss</option><option value="be">B.E.</option></select></label><button class="btn ghost" type="button" id="revBulkApply">Apply</button></div><div id="periodOutcomes"></div></div>
           <div class="card" id="revFormCard">
             <h2 id="revFormTitle">Daily review</h2>
             <form id="revForm" class="grid-form" novalidate>
-              <label>Discipline
+              <label id="revRatingField">Discipline
                 <select name="rating"><option value="">Not rated</option><option value="1">1 (poor)</option><option value="2">2</option><option value="3">3 (ok)</option><option value="4">4</option><option value="5">5 (excellent)</option></select>
               </label>
-              <label>Did you follow your damn setup?
+              <label id="revFollowedField">Did you follow your setup?
                 <select name="followed"><option value="">Not answered</option><option value="yes">Yes</option><option value="partly">Partly</option><option value="no">No</option></select>
               </label>
               <label class="full">What went well <textarea name="well" rows="3" maxlength="2000" placeholder="Rules you followed, good reads, good exits"></textarea></label>
-              <label class="full">What to improve <textarea name="improve" rows="3" maxlength="2000" placeholder="Mistakes, rule breaks, emotions"></textarea></label>
-              <label class="full"><span id="revNextLbl">Plan for tomorrow</span> <textarea name="next" rows="3" maxlength="2000"></textarea></label>
+              <label class="full"><span id="revImproveLabel">What went wrong / what to improve</span> <textarea name="improve" rows="3" maxlength="2000" placeholder="Mistakes, rule breaks, emotions"></textarea></label>
+              <label class="full" id="revNextField"><span id="revNextLbl">Plan for tomorrow</span> <textarea name="next" rows="3" maxlength="2000"></textarea></label>
               <div class="form-actions full">
                 <button class="btn" type="submit" id="saveRevBtn">Save review</button>
                 <p class="msg" id="revMsg" role="status"></p>
@@ -440,7 +457,7 @@ dialog.trade-detail{width:min(900px,94vw);max-height:92vh;overflow:hidden;backgr
               <p class="msg" id="planMsg" role="status"></p>
             </div>
           </form>
-        <div class="card recorder-card" id="planRecorder">
+        <div id="planRecorderHome"><div class="card recorder-card" id="planRecorder">
           <h2>Screen recording and capture</h2>
           <p class="nx-note">Choose the screen or window to capture. Optional facecam is composited into the recording and saved with this plan.</p>
           <div class="recorder-controls">
@@ -451,35 +468,34 @@ dialog.trade-detail{width:min(900px,94vw);max-height:92vh;overflow:hidden;backgr
           </div>
           <canvas id="capturePreview" hidden aria-label="Screen recording preview"></canvas>
           <div class="form-actions"><button class="btn ghost" type="button" id="capturePreviewBtn">Choose screen and preview</button><button class="btn" type="button" id="captureStartBtn" disabled>Start recording</button><button class="btn danger" type="button" id="captureStopBtn" disabled>Stop and attach</button><span class="nx-note" id="captureStatus" role="status"></span></div>
-        </div>
+        </div></div>
         </div>
         <div class="card"><div class="plan-list-head"><h2>Your plans</h2><div class="seg" role="group" aria-label="Plan view"><button type="button" id="planIconView" aria-pressed="true">▦ Date cards</button><button type="button" id="planListView" aria-pressed="false">☰ List</button></div></div><div id="planList"></div></div>
       </section>
 
       <!-- Backtesting -->
       <section class="view" data-view="backtest" hidden>
-        <div class="card">
-          <div class="nx-soon">
-            <h2 style="margin:0">Backtesting</h2>
-            <span class="badge st-planned">Coming soon</span>
-            <p>An automatic backtester is not built yet. For now, add a video you recorded from TradingView, log each trade result you see in it, and ask the chat assistant to review the numbers.</p>
-          </div>
-        </div>
-        <div class="card">
-          <h2>Add a backtest recording</h2>
+        <div class="card"><h2 style="margin:0">Backtesting with Nexus AI</h2><p class="nx-note">Record a chart replay with the shared screen recorder, then ask Nexus AI to review sampled frames. Results are estimates from the visible recording, not a tick-accurate or broker-verified simulation.</p></div>
+        <div id="backtestRecorderSlot" class="bt-recorder-slot"></div>
+        <div class="card"><h2>Save a backtest</h2>
           <form id="btForm" class="grid-form" novalidate>
             <label>Title <input name="title" required maxlength="80" placeholder="London breakout, EURUSD, Jan 2025"></label>
             <label>Symbol <input name="symbol" maxlength="20" placeholder="EURUSD"></label>
             <label>Timeframe <input name="tf" maxlength="10" placeholder="M15"></label>
             <label class="full">Video file (optional) <input type="file" name="video" accept="video/*"></label>
-            <label class="full">Notes <textarea name="notes" rows="2" maxlength="1000" placeholder="Rules you tested, sample period"></textarea></label>
-            <div class="form-actions full">
-              <button class="btn" type="submit" id="btAddBtn">Add recording</button>
-              <p class="msg" id="btMsg" role="status"></p>
-            </div>
+            <label class="full">Notes <textarea name="notes" rows="2" maxlength="1000" placeholder="Strategy rules and sample period"></textarea></label>
+            <details class="full"><summary>Optional capital and prop firm rules</summary><div class="bt-rules">
+              <label>Starting capital <input type="number" name="capital" min="0" step="any" placeholder="e.g. 100000"></label>
+              <label>Max daily loss <input type="number" name="dailyLoss" min="0" step="any" placeholder="Amount in account currency"></label>
+              <label>Max total drawdown <input type="number" name="maxDrawdown" min="0" step="any" placeholder="Amount in account currency"></label>
+              <label>Profit target <input type="number" name="profitTarget" min="0" step="any" placeholder="Amount in account currency"></label>
+              <label>Minimum trading days <input type="number" name="minDays" min="0" step="1" placeholder="Optional"></label>
+              <label class="full">Other rules <textarea name="otherRules" rows="2" maxlength="1000" placeholder="Consistency rule, max positions, restricted times…"></textarea></label>
+            </div></details>
+            <div class="form-actions full"><button class="btn" type="submit" id="btAddBtn">Save backtest</button><p class="msg" id="btMsg" role="status"></p></div>
           </form>
         </div>
-        <div class="card"><h2>Your recordings</h2><div id="btList"></div></div>
+        <div class="card"><h2>Your backtests</h2><div id="btList"></div></div>
       </section>
 
       <!-- Equity -->
@@ -536,17 +552,17 @@ dialog.trade-detail{width:min(900px,94vw);max-height:92vh;overflow:hidden;backgr
 </div>
 
 <!-- ===== Chat assistant (Trade review, Pre-trade, Backtesting) ===== -->
-<button class="btn nx-launch" id="chatLaunch" type="button" hidden aria-haspopup="dialog">Chart assistant</button>
+<button class="btn nx-launch" id="chatLaunch" type="button" hidden aria-haspopup="dialog">Nexus AI</button>
 <section class="nx-chat" id="chat" role="dialog" aria-labelledby="chatTitle" hidden>
   <header>
-    <h2 id="chatTitle">Chart assistant</h2>
+    <h2 id="chatTitle">Nexus AI</h2>
     <button class="btn ghost" id="chatRename" type="button" hidden>Rename</button>
     <button class="btn ghost" id="chatClear" type="button" hidden>Clear</button>
     <button class="btn ghost" id="chatClose" type="button" aria-label="Close chat">Close</button>
   </header>
   <form class="nx-name" id="chatNameForm" hidden>
     <p>Give your assistant a name before you start. You can change it later.</p>
-    <label>Name <input id="chatNameIn" maxlength="24" placeholder="Atlas" required></label>
+    <label>Name <input id="chatNameIn" maxlength="24" placeholder="Nexus AI" required></label>
     <button class="btn" type="submit">Start chatting</button>
   </form>
   <div class="nx-msgs" id="chatMsgs" role="log" aria-live="polite" hidden></div>
@@ -577,12 +593,7 @@ dialog.trade-detail{width:min(900px,94vw);max-height:92vh;overflow:hidden;backgr
     <label>AI service URL <input type="url" id="aiEndpointIn" placeholder="https://your-worker.workers.dev/chat"></label>
     <label>Private AI access token <input type="password" id="aiTokenIn" autocomplete="off" placeholder="Set in your AI worker"></label>
     <p class="hint">These connection settings are stored in this browser only. Never put API keys in this public HTML file.</p>
-    <section class="card backup-card" aria-labelledby="backupTitle">
-      <h3 id="backupTitle">Transfer your journal</h3>
-      <p class="hint">Download one backup file containing your journal data, settings, screenshots, and videos. Restore it on another device to move your progress.</p>
-      <div class="bias-actions"><button class="btn ghost" id="backupExport" type="button">Download full backup</button><button class="btn ghost" id="backupImport" type="button">Restore from backup</button><input id="backupFile" type="file" accept=".json,application/json" hidden></div>
-      <p class="hint" id="backupStatus" role="status" aria-live="polite">Keep the backup file somewhere you can access from the other device.</p>
-    </section>
+    <section class="card backup-card" aria-labelledby="backupTitle"><h3 id="backupTitle">Transfer your journal</h3><p class="hint">Save all journal records and uploaded media into one backup file for another device.</p><div class="bias-actions"><button class="btn ghost" id="backupExport" type="button">Download full backup</button><button class="btn ghost" id="backupImport" type="button">Restore from backup</button><input id="backupFile" type="file" accept=".json,application/json" hidden></div><p class="hint" id="backupStatus" role="status" aria-live="polite">Keep the backup file somewhere you can access from the other device.</p></section>
     <label>Background style <select id="bgStyleSel"><option value="gradient">Soft gradient</option><option value="solid">Solid</option></select></label>
     <label>Font style
       <select id="fontSel"><option value="sans">Sans-serif</option><option value="serif">Serif</option><option value="mono">Monospace</option><option value="rounded">Rounded</option></select>
@@ -604,6 +615,10 @@ dialog.trade-detail{width:min(900px,94vw);max-height:92vh;overflow:hidden;backgr
   </div>
 </dialog>
 <dialog id="tradeDetail" class="trade-detail" aria-labelledby="tradeDetailTitle"><div class="trade-detail-scroll" id="tradeDetailBody"></div></dialog>
+<dialog id="btReader" class="bt-reader" aria-labelledby="btReaderTitle"><div class="bt-reader-shell"><header class="bt-reader-head"><div><p class="eyebrow">Backtest review</p><h1 id="btReaderTitle"></h1><p id="btReaderMeta" class="nx-note"></p></div><button class="btn ghost" type="button" id="btReaderClose">Close</button></header><main class="bt-reader-content" id="btReaderContent"></main><footer class="bt-reader-actions"><button class="btn" type="button" id="btChatwaveRun">Run report with Nexus AI</button></footer></div></dialog>
+<dialog id="biasReader" class="bias-reader" aria-labelledby="biasReaderTitle"><div class="bias-reader-shell">
+<header class="bias-reader-head"><div><p class="eyebrow">Market bias</p><h1 id="biasReaderTitle"></h1><p id="biasReaderDate" class="nx-note"></p></div><button class="btn ghost" type="button" id="biasReaderClose">Close</button></header>
+<div class="bias-reader-content" id="biasReaderContent"></div><footer class="bias-reader-actions"><button class="btn ghost" type="button" id="biasReaderEdit">Edit note</button><button class="btn" type="button" id="biasReaderChat">Nexus AI</button></footer></div></dialog>
 <!-- END OF PART 2 -->
 <script>
 (() => {
@@ -662,19 +677,19 @@ dialog.trade-detail{width:min(900px,94vw);max-height:92vh;overflow:hidden;backgr
       t.onerror = t.onabort = () => rej(t.error);
     }));
     return {
-      get: k => tx('readonly', s => s.get(k)), put: (k, v) => tx('readwrite', s => s.put(v, k)), del: k => tx('readwrite', s => s.delete(k)),
-      entries: () => open().then(db => new Promise((res, rej) => { const t=db.transaction('files','readonly'),s=t.objectStore('files'),kr=s.getAllKeys(),vr=s.getAll();t.oncomplete=()=>res(kr.result.map((key,i)=>[key,vr.result[i]]));t.onerror=t.onabort=()=>rej(t.error) })),
-      replace: entries => open().then(db => new Promise((res, rej) => { const t=db.transaction('files','readwrite'),s=t.objectStore('files');s.clear();for(const [key,value] of entries)s.put(value,key);t.oncomplete=()=>res();t.onerror=t.onabort=()=>rej(t.error) }))
+      get:k=>tx('readonly',s=>s.get(k)),put:(k,v)=>tx('readwrite',s=>s.put(v,k)),del:k=>tx('readwrite',s=>s.delete(k)),
+      entries:()=>open().then(db=>new Promise((res,rej)=>{const t=db.transaction('files','readonly'),s=t.objectStore('files'),k=s.getAllKeys(),v=s.getAll();t.oncomplete=()=>res(k.result.map((key,i)=>[key,v.result[i]]));t.onerror=t.onabort=()=>rej(t.error)})),
+      replace:entries=>open().then(db=>new Promise((res,rej)=>{const t=db.transaction('files','readwrite'),s=t.objectStore('files');s.clear();for(const [key,value] of entries)s.put(value,key);t.oncomplete=()=>res();t.onerror=t.onabort=()=>rej(t.error)}))
     };
   })();
 
-  /* ---------- Portable full backup ---------- */
-  const BACKUP_PREFIX='tradingJournal.', BACKUP_VERSION=1;
-  function encodeBase64(buffer){const bytes=new Uint8Array(buffer);let binary='';for(let i=0;i<bytes.length;i+=0x8000)binary+=String.fromCharCode(...bytes.subarray(i,Math.min(i+0x8000,bytes.length)));return btoa(binary)}
+  const BACKUP_PREFIX='tradingJournal.',BACKUP_VERSION=1;
+  function encodeBase64(buffer){const bytes=new Uint8Array(buffer);let binary='';for(let i=0;i<bytes.length;i+=32768)binary+=String.fromCharCode(...bytes.subarray(i,Math.min(i+32768,bytes.length)));return btoa(binary)}
   function decodeBase64(text){const binary=atob(text),bytes=new Uint8Array(binary.length);for(let i=0;i<binary.length;i++)bytes[i]=binary.charCodeAt(i);return bytes}
-  async function backupExport(){const status=$('backupStatus');try{status.textContent='Preparing your backup…';const storage={};for(let i=0;i<localStorage.length;i++){const key=localStorage.key(i);if(key&&key.startsWith(BACKUP_PREFIX))storage[key]=localStorage.getItem(key)}const entries=await DB.entries(),media=[];for(const [key,value] of entries){const blob=value instanceof Blob?value:new Blob([value]);media.push({key:String(key),type:blob.type||'application/octet-stream',data:encodeBase64(await blob.arrayBuffer())})}const backup={app:'NexusGroup Trading Journal',version:BACKUP_VERSION,createdAt:new Date().toISOString(),localStorage:storage,media};const file=new Blob([JSON.stringify(backup)],{type:'application/json'}),url=URL.createObjectURL(file),a=document.createElement('a');a.href=url;a.download='nexus-journal-backup-'+today()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),60000);status.textContent='Backup downloaded with '+Object.keys(storage).length+' saved sections and '+media.length+' media files.'}catch(err){console.error(err);status.textContent='Backup could not be created. Check available browser storage and try again.';alert('Could not create the full backup. Your saved data has not been changed.')}}
-  async function backupRestore(file){const status=$('backupStatus');try{status.textContent='Checking backup…';const m=JSON.parse(await file.text());if(m.app!=='NexusGroup Trading Journal'||m.version!==BACKUP_VERSION||!m.localStorage||!Array.isArray(m.media))throw Error('Unsupported backup');for(const [key,value] of Object.entries(m.localStorage))if(!key.startsWith(BACKUP_PREFIX)||typeof value!=='string')throw Error('Invalid saved data');const entries=m.media.map(x=>{if(typeof x.key!=='string'||typeof x.data!=='string')throw Error('Invalid media');return[x.key,new Blob([decodeBase64(x.data)],{type:x.type||'application/octet-stream'})]});if(!confirm('Restore '+Object.keys(m.localStorage).length+' saved sections and '+entries.length+' media files? This replaces this browser’s current journal data.'))return;status.textContent='Restoring your journal…';await DB.replace(entries);for(let i=localStorage.length-1;i>=0;i--){const key=localStorage.key(i);if(key&&key.startsWith(BACKUP_PREFIX))localStorage.removeItem(key)}for(const [key,value] of Object.entries(m.localStorage))localStorage.setItem(key,value);status.textContent='Restore complete. Reloading your journal…';location.reload()}catch(err){console.error(err);status.textContent='Could not restore that backup. Check that you selected a NexusGroup backup.';alert('Could not restore this backup. Your current journal was not intentionally changed.')}}
-  $('backupExport').addEventListener('click',backupExport);$('backupImport').addEventListener('click',()=>$('backupFile').click());$('backupFile').addEventListener('change',async e=>{const file=e.target.files&&e.target.files[0];if(file)await backupRestore(file);e.target.value=''});
+  async function exportFullBackup(){const status=$('backupStatus');try{status.textContent='Preparing backup…';const data={};for(let i=0;i<localStorage.length;i++){const key=localStorage.key(i);if(key&&key.startsWith(BACKUP_PREFIX))data[key]=localStorage.getItem(key)}const entries=await DB.entries(),media=[];for(const [key,value] of entries){const blob=value instanceof Blob?value:new Blob([value]);media.push({key:String(key),type:blob.type||'application/octet-stream',data:encodeBase64(await blob.arrayBuffer())})}const backup={app:'NexusGroup Trading Journal',version:BACKUP_VERSION,createdAt:new Date().toISOString(),localStorage:data,media};const file=new Blob([JSON.stringify(backup)],{type:'application/json'}),url=URL.createObjectURL(file),a=document.createElement('a');a.href=url;a.download='nexus-journal-backup-'+today()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),60000);status.textContent='Full backup downloaded ('+media.length+' media files).'}catch(err){console.error(err);status.textContent='Could not create backup. Check available browser storage.';alert('Could not create the backup. Your journal data was not changed.')}}
+  async function importFullBackup(file){const status=$('backupStatus');try{status.textContent='Checking backup…';const m=JSON.parse(await file.text());if(m.app!=='NexusGroup Trading Journal'||m.version!==BACKUP_VERSION||!m.localStorage||!Array.isArray(m.media))throw Error('Unsupported backup');for(const [key,value] of Object.entries(m.localStorage))if(!key.startsWith(BACKUP_PREFIX)||typeof value!=='string')throw Error('Invalid saved data');const entries=m.media.map(x=>{if(typeof x.key!=='string'||typeof x.data!=='string'||!(/^(s|sa|v|p|ps|b)\d+$|^bias-media-\d+$/.test(x.key)))throw Error('Invalid media record');return[x.key,new Blob([decodeBase64(x.data)],{type:x.type||'application/octet-stream'})]});if(!confirm('Restore '+Object.keys(m.localStorage).length+' saved sections and '+entries.length+' media files? This replaces this browser’s current journal data.'))return;status.textContent='Restoring…';await DB.replace(entries);for(let i=localStorage.length-1;i>=0;i--){const key=localStorage.key(i);if(key&&key.startsWith(BACKUP_PREFIX))localStorage.removeItem(key)}for(const [key,value] of Object.entries(m.localStorage))localStorage.setItem(key,value);status.textContent='Restore complete. Reloading…';location.reload()}catch(err){console.error(err);status.textContent='Could not restore that backup.';alert('Could not restore the selected backup.')}}
+  $('backupExport').addEventListener('click',exportFullBackup);$('backupImport').addEventListener('click',()=>$('backupFile').click());$('backupFile').addEventListener('change',async e=>{const file=e.target.files&&e.target.files[0];if(file)await importFullBackup(file);e.target.value=''});
+
   async function shrink(file, max = 1600) {
     try {
       const bmp = await createImageBitmap(file), k = Math.min(1, max / Math.max(bmp.width, bmp.height));
@@ -1168,7 +1183,7 @@ dialog.trade-detail{width:min(900px,94vw);max-height:92vh;overflow:hidden;backgr
 
   function removeTrade(id) {
     trades = trades.filter(t => t.id!== id);
-    delKey('s' + id); delKey('v' + id);
+    delKey('s' + id); delKey('sa' + id); delKey('v' + id);
     if (pickId === id) pickId = null;
     saveTrades(); fillAccountControls(); renderJournal();
   }
@@ -1191,7 +1206,7 @@ dialog.trade-detail{width:min(900px,94vw);max-height:92vh;overflow:hidden;backgr
       del.setAttribute('aria-label', `Delete ${t.symbol} trade from ${t.date}`);
       del.addEventListener('click', () => {
         if (tr.classList.contains('leaving')) return;
-        if ((t.shot || t.video) &&!confirm('This trade has a screenshot or video. Delete them too?')) return;
+        if ((t.shot || t.afterShot || t.video) &&!confirm('This trade has screenshots or video. Delete them too?')) return;
         animateOut(tr, () => removeTrade(t.id));
       });
       const actions=tr.insertCell(); actions.append(view,del);
@@ -1201,7 +1216,7 @@ dialog.trade-detail{width:min(900px,94vw);max-height:92vh;overflow:hidden;backgr
 
   /* ---------- Market bias notes ---------- */
   const BIAS_KEY='tradingJournal.bias.v1';let biasEntries=loadList(BIAS_KEY).filter(n=>/^\d{4}-\d{2}-\d{2}$/.test(n.date));let biasActiveDate=null,biasDirty=false,biasRange=null,biasUrls=[];
-  const biasEditor=$('biasEditor');
+  const biasEditor=$('biasEditor'),biasReader=$('biasReader'),biasReaderContent=$('biasReaderContent'); let biasReadEntry=null;
   const saveBiasList=()=>write(BIAS_KEY,biasEntries);
   function cleanBiasHtml(html){
     const doc=new DOMParser().parseFromString(String(html||''),'text/html'),allowed=new Set(['P','DIV','BR','STRONG','B','EM','I','U','S','UL','OL','LI','H1','H2','H3','BLOCKQUOTE','A','IMG','VIDEO']);
@@ -1212,8 +1227,13 @@ dialog.trade-detail{width:min(900px,94vw);max-height:92vh;overflow:hidden;backgr
   function rememberBiasRange(){const sel=getSelection();if(sel&&sel.rangeCount&&biasEditor.contains(sel.anchorNode))biasRange=sel.getRangeAt(0).cloneRange()}
   function insertBiasNode(node){biasEditor.focus();const sel=getSelection();let range=biasRange&&biasEditor.contains(biasRange.startContainer)?biasRange.cloneRange():null;if(!range){range=document.createRange();range.selectNodeContents(biasEditor);range.collapse(false)}sel.removeAllRanges();sel.addRange(range);range.deleteContents();range.insertNode(node);const br=document.createElement('br');node.after(br);range.setStartAfter(br);range.collapse(true);sel.removeAllRanges();sel.addRange(range);rememberBiasRange();biasDirty=true}
   async function addBiasMedia(file){if(!file)return;const image=/^image\//.test(file.type),video=/^video\//.test(file.type);if(!image&&!video){$('biasStatus').textContent='Choose an image or video file.';return}const key='bias-media-'+nid();try{await DB.put(key,file);const node=document.createElement(image?'img':'video');node.dataset.biasMedia=key;node.dataset.biasKind=image?'image':'video';if(image)node.alt=file.name||'Pasted market analysis image';else{node.controls=true;node.playsInline=true}const url=URL.createObjectURL(file);biasUrls.push(url);node.src=url;insertBiasNode(node);$('biasStatus').textContent='Media added. Save the note to keep it.'}catch{$('biasStatus').textContent='Could not save that media. Browser storage may be full or blocked.'}}
-  async function attachBiasMedia(){biasUrls.forEach(URL.revokeObjectURL);biasUrls=[];const nodes=[...biasEditor.querySelectorAll('[data-bias-media]')];for(const node of nodes){const key=node.dataset.biasMedia;try{const blob=await DB.get(key);if(!blob)continue;const url=URL.createObjectURL(blob);biasUrls.push(url);node.src=url}catch{}}}
-  function renderBiasSidebar(){const box=$('biasSidebar');box.replaceChildren();if(!biasEntries.length){box.appendChild(h('p','bias-actions','No bias notes yet.'));return}const groups=new Map();[...biasEntries].sort((a,b)=>b.date.localeCompare(a.date)).forEach(n=>{const m=n.date.slice(0,7),arr=groups.get(m)||[];arr.push(n);groups.set(m,arr)});for(const [month,items]of groups){const d=parseYMD(month+'-01'),section=h('section',''),title=h('h3','bias-month',d.toLocaleDateString(undefined,{month:'long',year:'numeric'}));section.appendChild(title);items.forEach(n=>{const b=h('button','bias-entry-link',`${parseYMD(n.date).toLocaleDateString(undefined,{day:'2-digit',month:'short'})} · ${n.heading||'Market bias'}`);b.type='button';b.setAttribute('aria-current',String(n.date===biasActiveDate));b.addEventListener('click',()=>openBiasEntry(n));section.appendChild(b)});box.appendChild(section)}}
+  async function attachBiasMedia(target=biasEditor){const nodes=[...target.querySelectorAll('[data-bias-media]')];for(const node of nodes){const key=node.dataset.biasMedia;try{const blob=await DB.get(key);if(!blob)continue;const url=URL.createObjectURL(blob);biasUrls.push(url);node.src=url}catch{}}}
+  function renderBiasSidebar(){const box=$('biasSidebar');box.replaceChildren();if(!biasEntries.length){box.appendChild(h('p','bias-actions','No bias notes yet.'));return}const groups=new Map();[...biasEntries].sort((a,b)=>b.date.localeCompare(a.date)).forEach(n=>{const m=n.date.slice(0,7),arr=groups.get(m)||[];arr.push(n);groups.set(m,arr)});for(const [month,items]of groups){const d=parseYMD(month+'-01'),section=h('section',''),title=h('h3','bias-month',d.toLocaleDateString(undefined,{month:'long',year:'numeric'}));section.appendChild(title);items.forEach(n=>{const b=h('button','bias-entry-link',`${parseYMD(n.date).toLocaleDateString(undefined,{day:'2-digit',month:'short'})} · ${n.heading||'Market bias'}`);b.type='button';b.setAttribute('aria-current',String(n.date===biasActiveDate));b.addEventListener('click',()=>viewBiasEntry(n));section.appendChild(b)});box.appendChild(section)}}
+  function viewBiasEntry(entry){if(biasDirty&&!confirm('Discard your unsaved bias note changes?'))return;if(!$('biasComposer').hidden)closeBiasComposer('',false);biasUrls.forEach(URL.revokeObjectURL);biasUrls=[];biasReadEntry=entry;$('biasReaderTitle').textContent=entry.heading||'Market bias';$('biasReaderDate').textContent=longDate(parseYMD(entry.date));biasReaderContent.innerHTML=cleanBiasHtml(entry.html||'');biasReader.showModal();attachBiasMedia(biasReaderContent)}
+  $('biasReaderClose').addEventListener('click',()=>biasReader.close());
+  $('biasReaderEdit').addEventListener('click',()=>{const entry=biasReadEntry;if(!entry)return;biasReader.close();openBiasEntry(entry)});
+  $('biasReaderChat').addEventListener('click',openChat);
+  biasReader.addEventListener('close',()=>{if($('biasComposer').hidden){biasUrls.forEach(URL.revokeObjectURL);biasUrls=[]}biasReadEntry=null});
   function showBiasComposer(){ $('biasComposer').hidden=false; $('biasEmptyState').hidden=true; $('biasNew').hidden=true; $('biasListStatus').textContent=''; }
   function closeBiasComposer(message='',checkDirty=true){if(checkDirty&&biasDirty&&!confirm('Discard your unsaved bias note changes?'))return false;biasUrls.forEach(URL.revokeObjectURL);biasUrls=[];biasActiveDate=null;biasDirty=false;$('biasDate').value=today();$('biasHeading').value='';biasEditor.replaceChildren();$('biasComposer').hidden=true;$('biasEmptyState').hidden=false;$('biasNew').hidden=false;$('biasDelete').hidden=true;$('biasStatus').textContent='';$('biasListStatus').textContent=message||'Create a note or open one from the archive.';renderBiasSidebar();return true}
   function openBiasEntry(entry){if(biasDirty&&!confirm('Discard your unsaved bias note changes?'))return;biasUrls.forEach(URL.revokeObjectURL);biasUrls=[];biasActiveDate=entry.date;$('biasDate').value=entry.date;$('biasHeading').value=entry.heading||'';biasEditor.innerHTML=cleanBiasHtml(entry.html);biasDirty=false;$('biasDelete').hidden=false;$('biasStatus').textContent='';showBiasComposer();renderBiasSidebar();attachBiasMedia()}
@@ -1287,7 +1307,7 @@ dialog.trade-detail{width:min(900px,94vw);max-height:92vh;overflow:hidden;backgr
     monthly: { name: 'Monthly', lbl: 'Any day in the month', next: 'Plan for next month', key: ds => ds.slice(0, 7), rep: k => k + '-01',
       label: k => parseYMD(k + '-01').toLocaleDateString(undefined, { month: 'long', year: 'numeric' }), has: (t, k) => t.date.startsWith(k) }
   };
-  let revType = 'daily', revDay = today(), pickId = null, newRevId = null;
+  let revType = 'daily', revDay = today(), pickId = null, newRevId = null, revOutcomes = {};
   const revKey = () => REV[revType].key(revDay);
   const findRev = () => reviews.find(r => r.type === revType && r.key === revKey());
   const periodTrades = () => trades.filter(t => REV[revType].has(t, revKey())).sort((a, b) => String(a.date).localeCompare(String(b.date)) || a.id - b.id);
@@ -1295,26 +1315,27 @@ dialog.trade-detail{width:min(900px,94vw);max-height:92vh;overflow:hidden;backgr
   const freeVBag = () => vBag.splice(0).forEach(u => URL.revokeObjectURL(u));
 
   const setRevSeg = initSeg($('revSeg'), 'daily', val => {
-    revType = val; pickId = null; renderReview(); loadRevForm(); pop($('revBody'));
+    revType = val; pickId = null; loadRevForm(); renderReview(); pop($('revBody'));
   });
   $('revDate').addEventListener('change', e => {
     if (!e.target.value) return;
-    revDay = e.target.value; pickId = null; renderReview(); loadRevForm();
+    revDay = e.target.value; pickId = null; loadRevForm(); renderReview();
   });
 
   function loadRevForm() {
     const f = $('revForm').elements, r = findRev() || {};
     f.rating.value = r.rating || ''; f.followed.value = r.followed || '';
     f.well.value = r.well || ''; f.improve.value = r.improve || ''; f.next.value = r.next || '';
+    revOutcomes={...(r.outcomes||{})};
     $('saveRevBtn').textContent = r.id? 'Update review': 'Save review';
   }
   function renderMeta() {
-    const list = periodTrades(), pn = list.map(pnlOf), tot = sum(pn), wins = pn.filter(p => p > 0).length;
-    const meta = $('revMeta'); meta.replaceChildren(h('p', 'period', REV[revType].label(revKey())));
-    const ul = h('ul', 'chips');
-    [[plural(list.length, 'trade'), ''], ['P&L ' + fmt(tot), cls(tot)],
-      [list.length? `Win rate ${Math.round(wins / list.length * 100)}%`: '', '']].filter(c => c[0]).forEach(([text, c]) => ul.appendChild(h('li', 'chip ' + c, text)));
-    meta.appendChild(ul);
+    const list=periodTrades(),pn=list.map(pnlOf),tot=sum(pn);
+    const wins=revType==='daily'?pn.filter(p=>p>0).length:Object.values(revOutcomes).filter(x=>x==='win').length;
+    const count=revType==='daily'?list.length:list.filter(t=>['win','loss','be'].includes(revOutcomes[t.id])).length;
+    const meta=$('revMeta');meta.replaceChildren(h('p','period',REV[revType].label(revKey())));
+    const ul=h('ul','chips'),chips=[[list.length+' trade'+(list.length===1?'':'s'),''],['P&L '+fmt(tot),cls(tot)],[count?'Win rate '+Math.round(wins/count*100)+'% ('+wins+'/'+count+')':'Win rate —','']];
+    chips.filter(c=>c[0]).forEach(([text,c])=>ul.appendChild(h('li','chip '+c,text)));meta.appendChild(ul);
   }
   function renderPick() {
     const list = periodTrades(), box = $('pick');
@@ -1399,10 +1420,11 @@ dialog.trade-detail{width:min(900px,94vw);max-height:92vh;overflow:hidden;backgr
     rows.forEach(r => {
       const card = h('article', 'rev-card' + (r.id === newRevId? ' enter': '')), head = h('div', 'head');
       head.appendChild(h('h3', '', REV[revType].label(r.key)));
+      if(r.type!=='daily'&&r.outcomes){const vals=Object.values(r.outcomes),n=vals.filter(x=>['win','loss','be'].includes(x)).length,w=vals.filter(x=>x==='win').length;if(n){head.appendChild(h('span','badge','Win rate '+Math.round(w/n*100)+'%'));head.appendChild(h('span','badge',w+' wins · '+vals.filter(x=>x==='loss').length+' losses · '+vals.filter(x=>x==='be').length+' B.E.'))}}
       if (r.rating) head.appendChild(h('span', 'badge', `Discipline ${r.rating}/5`));
       if (FOLLOW[r.followed]) head.appendChild(h('span', 'badge ' + FOLLOW[r.followed][1], FOLLOW[r.followed][0]));
       card.appendChild(head);
-      [['What went well', r.well], ['What to improve', r.improve], [REV[revType].next, r.next]].forEach(([k, v]) => {
+      [['What went well', r.well], [r.type==='daily'?'What to improve':'What went wrong', r.improve], [REV[revType].next, r.next]].forEach(([k, v]) => {
         if (v) card.append(h('div', 'k', k), h('p', '', v));
       });
       const act = h('div', 'rev-actions');
@@ -1424,17 +1446,28 @@ dialog.trade-detail{width:min(900px,94vw);max-height:92vh;overflow:hidden;backgr
     });
     newRevId = null;
   }
+  function renderPeriodOutcomes(){
+    const card=$('revOutcomeCard'),box=$('periodOutcomes');card.hidden=revType==='daily';box.replaceChildren();if(revType==='daily')return;
+    const list=periodTrades();if(!list.length){box.appendChild(emptyMsg('No journal trades in this period yet.'));return}
+    list.forEach(t=>{const row=h('div','period-outcome-row'),label=h('div',''),select=document.createElement('select');label.append(h('strong','',t.symbol+' · '+t.side),h('small','',t.date+' · '+fmt(pnlOf(t))));select.setAttribute('aria-label','Outcome for '+t.symbol+' trade on '+t.date);[['','Choose result'],['win','Win'],['loss','Loss'],['be','B.E.']].forEach(([v,l])=>{const o=document.createElement('option');o.value=v;o.textContent=l;select.appendChild(o)});select.value=revOutcomes[t.id]||'';select.addEventListener('change',()=>{if(select.value)revOutcomes[t.id]=select.value;else delete revOutcomes[t.id];renderMeta();$('revMsg').textContent='Outcome changes not saved yet.'});row.append(label,select);box.appendChild(row)});
+  }
+  $('revBulkApply').addEventListener('click',()=>{const outcome=$('revBulkOutcome').value;if(!outcome){$('revBulkOutcome').focus();return}periodTrades().forEach(t=>revOutcomes[t.id]=outcome);renderPeriodOutcomes();renderMeta();$('revMsg').textContent='Bulk outcomes not saved yet.'});
   function renderReview() {
-    const R = REV[revType];
-    $('revDateLbl').textContent = R.lbl; $('revDate').value = revDay;
-    $('revFormTitle').textContent = `${R.name} review`; $('revNextLbl').textContent = R.next;
-    renderMeta(); renderPick(); renderViewer(); renderRevList();
+    const R=REV[revType];$('revDateLbl').textContent=R.lbl;$('revDate').value=revDay;
+    $('revFormTitle').textContent=revType==='daily'?'Daily review':R.name+' recap';$('revNextLbl').textContent=R.next;
+    $('revRatingField').hidden=revType!=='daily';$('revFollowedField').hidden=revType!=='daily';$('revNextField').hidden=revType!=='daily';
+    $('revImproveLabel').textContent=revType==='daily'?'What went wrong / what to improve':'What went wrong';
+    $('saveRevBtn').textContent=revType==='daily'?'Save review':'Save recap';
+    renderMeta();renderPeriodOutcomes();renderPick();renderViewer();renderRevList();
   }
   $('revForm').addEventListener('submit', e => {
     e.preventDefault();
     const f = $('revForm').elements;
-    const data = { rating: f.rating.value, followed: f.followed.value, well: f.well.value.trim(), improve: f.improve.value.trim(), next: f.next.value.trim() };
-    if (!Object.values(data).some(Boolean)) { shake($('saveRevBtn')); say('revMsg', 'Fill in at least one field first.', true); return; }
+    const data = { rating: revType==='daily'?f.rating.value:'', followed: revType==='daily'?f.followed.value:'', well: f.well.value.trim(), improve: f.improve.value.trim(), next: revType==='daily'?f.next.value.trim():'' };
+    const hasNotes=Boolean(data.well||data.improve||(revType==='daily'&&(data.rating||data.followed||data.next)));
+    const hasOutcomes=revType!=='daily'&&Object.values(revOutcomes).some(x=>['win','loss','be'].includes(x));
+    if(!hasNotes&&!hasOutcomes){shake($('saveRevBtn'));say('revMsg','Choose an outcome or write what went right/wrong.',true);return}
+    data.outcomes=revType==='daily'?undefined:{...revOutcomes};
     const old = findRev(), rec = Object.assign(old || { id: nid(), type: revType, key: revKey() }, data, { updated: Date.now() });
     if (!old) reviews.push(rec);
     newRevId = old? null: rec.id;
@@ -1444,7 +1477,7 @@ dialog.trade-detail{width:min(900px,94vw);max-height:92vh;overflow:hidden;backgr
   function openReview(type, key) {
     if (!Object.hasOwn(REV, type)) type = 'daily';
     revType = type; revDay = REV[type].rep(key); pickId = null;
-    setView('review'); setRevSeg(type, true); loadRevForm();
+    setView('review'); setRevSeg(type, true); loadRevForm(); renderReview();
   }
 
   /* ---------- Pre-trade plans ---------- */
@@ -1508,7 +1541,7 @@ dialog.trade-detail{width:min(900px,94vw);max-height:92vh;overflow:hidden;backgr
 
   /* Screen capture is user initiated and composites screen plus optional camera into one saved video. */
   const captureCanvas=$('capturePreview'),captureCtx=captureCanvas.getContext('2d'),screenVideo=document.createElement('video'),faceVideo=document.createElement('video');
-  let screenStream=null,faceStream=null,captureRecorder=null,captureParts=[],captureFrame=0,pendingPlanVideo=null;
+  let screenStream=null,faceStream=null,captureRecorder=null,captureParts=[],captureFrame=0,pendingPlanVideo=null,pendingBacktestVideo=null,captureTarget="plan";
   screenVideo.muted=faceVideo.muted=true;screenVideo.playsInline=faceVideo.playsInline=true;
   const capStatus=t=>{$('captureStatus').textContent=t};
   function drawCapture(){if(!screenStream||screenVideo.readyState<2)return;const w=captureCanvas.width,hc=captureCanvas.height;captureCtx.drawImage(screenVideo,0,0,w,hc);
@@ -1519,45 +1552,36 @@ dialog.trade-detail{width:min(900px,94vw);max-height:92vh;overflow:hidden;backgr
   function releaseCapture(){cancelAnimationFrame(captureFrame);[screenStream,faceStream].filter(Boolean).forEach(st=>st.getTracks().forEach(t=>t.stop()));screenStream=faceStream=null;screenVideo.srcObject=faceVideo.srcObject=null;$('captureStartBtn').disabled=true;$('captureStopBtn').disabled=true;}
   $('facecamSize').addEventListener('input',e=>$('facecamSizeOut').textContent=e.target.value+'%');
   $('capturePreviewBtn').addEventListener('click',async()=>{try{releaseCapture();screenStream=await navigator.mediaDevices.getDisplayMedia({video:{frameRate:30},audio:false});if($('facecamOn').checked)faceStream=await navigator.mediaDevices.getUserMedia({video:true,audio:false});screenVideo.srcObject=screenStream;if(faceStream)faceVideo.srcObject=faceStream;await Promise.all([screenVideo.play(),faceStream?faceVideo.play():Promise.resolve()]);const st=screenStream.getVideoTracks()[0].getSettings();captureCanvas.width=Math.min(st.width||1280,1920);captureCanvas.height=Math.min(st.height||720,1080);captureCanvas.hidden=false;drawCapture();$('captureStartBtn').disabled=false;capStatus('Preview ready. Adjust the facecam, then start recording.');screenStream.getVideoTracks()[0].onended=()=>{if(captureRecorder?.state==='recording')captureRecorder.stop();else releaseCapture()};}catch(err){releaseCapture();capStatus(err.name==='NotAllowedError'?'Screen or camera permission was cancelled.':'Could not start capture: '+err.message)}});
-  $('captureStartBtn').addEventListener('click',()=>{if(!screenStream)return;try{const stream=captureCanvas.captureStream(30),mime=['video/webm;codecs=vp9','video/webm;codecs=vp8','video/webm'].find(t=>MediaRecorder.isTypeSupported(t));captureParts=[];captureRecorder=new MediaRecorder(stream,mime?{mimeType:mime}:undefined);captureRecorder.ondataavailable=e=>{if(e.data.size)captureParts.push(e.data)};captureRecorder.onstop=()=>{pendingPlanVideo=new Blob(captureParts,{type:captureRecorder.mimeType||'video/webm'});releaseCapture();capStatus('Recording attached. Save the plan to keep it in the journal.')};captureRecorder.start(1000);$('captureStartBtn').disabled=true;$('captureStopBtn').disabled=false;capStatus('Recording screen and facecam…')}catch(err){capStatus('Could not record this screen: '+err.message)}});
+  $('captureStartBtn').addEventListener('click',()=>{if(!screenStream)return;captureTarget=currentView==='backtest'?'backtest':'plan';try{const stream=captureCanvas.captureStream(30),mime=['video/webm;codecs=vp9','video/webm;codecs=vp8','video/webm'].find(t=>MediaRecorder.isTypeSupported(t));captureParts=[];captureRecorder=new MediaRecorder(stream,mime?{mimeType:mime}:undefined);captureRecorder.ondataavailable=e=>{if(e.data.size)captureParts.push(e.data)};captureRecorder.onstop=()=>{const blob=new Blob(captureParts,{type:captureRecorder.mimeType||'video/webm'});if(captureTarget==='backtest'){pendingBacktestVideo=blob;capStatus('Recording attached. Save the backtest below to keep it.')}else{pendingPlanVideo=blob;capStatus('Recording attached. Save the plan to keep it in the journal.')}releaseCapture()};captureRecorder.start(1000);$('captureStartBtn').disabled=true;$('captureStopBtn').disabled=false;capStatus('Recording screen and facecam…')}catch(err){capStatus('Could not record this screen: '+err.message)}});
   $('captureStopBtn').addEventListener('click',()=>{if(captureRecorder?.state==='recording')captureRecorder.stop()});
   renderPlanNoteEditor([]);updateRR();
   /* ---------- Backtesting recordings ---------- */
   const btBag = [];
   const freeBtBag = () => btBag.splice(0).forEach(u => URL.revokeObjectURL(u));
-  $('btForm').addEventListener('submit', async e => {
-    e.preventDefault();
-    const bform = e.currentTarget, btn = $('btAddBtn');
-    if (!bform.checkValidity()) { shake(btn); bform.reportValidity(); return; }
-    const f = bform.elements, id = nid(), file = f.video.files[0];
-    const rec = { id, title: f.title.value.trim(), symbol: f.symbol.value.trim().toUpperCase(), tf: f.tf.value.trim().toUpperCase(),
-      notes: f.notes.value.trim(), video: false, created: today() };
-    btn.disabled = true;
-    if (file && await storeVideo('b' + id, file)) rec.video = true;
-    btn.disabled = false;
-    backtests.push(rec); saveBacktests(); bform.reset(); renderBacktests();
-    say('btMsg', file &&!rec.video? 'Recording added without the video.': 'Recording added.');
-  });
-  function renderBacktests() {
-    freeBtBag();
-    const box = $('btList'); box.replaceChildren();
-    if (!backtests.length) { box.appendChild(emptyMsg('No recordings yet.')); return; }
-    [...backtests].sort((a, b) => b.id - a.id).forEach(b => {
-      const card = h('article', 'rev-card'), head = h('div', 'head');
-      const del = h('button', 'btn danger', 'Delete'); del.type = 'button';
-      del.addEventListener('click', () => {
-        if (card.classList.contains('leaving') ||!confirm('Delete this recording and its video?')) return;
-        animateOut(card, () => { backtests = backtests.filter(x => x.id!== b.id); delKey('b' + b.id); saveBacktests(); renderBacktests(); });
-      });
-      head.append(h('h3', '', b.title || 'Untitled'), del); card.appendChild(head);
-      const chips = h('ul', 'chips');
-      [b.symbol, b.tf, b.created && 'Added ' + b.created].filter(Boolean).forEach(x => chips.appendChild(h('li', 'chip', x)));
-      card.appendChild(chips);
-      if (b.notes) card.appendChild(h('p', '', b.notes));
-      card.appendChild(videoPanel('b' + b.id,!!b.video, has => { b.video = has; saveBacktests(); }, btBag));
-      box.appendChild(card);
-    });
+  let activeBacktest=null;
+  const btReader=$('btReader'),btReaderContent=$('btReaderContent');
+  btReader.addEventListener('close',()=>{freeBtBag();activeBacktest=null});
+  $('btReaderClose').addEventListener('click',()=>btReader.close());
+  async function openBacktestReader(b){
+    freeBtBag();activeBacktest=b;btReaderContent.replaceChildren();$('btReaderTitle').textContent=b.title||'Backtest';$('btReaderMeta').textContent=[b.symbol,b.tf,b.created].filter(Boolean).join(' · ');
+    btReaderContent.appendChild(videoPanel('b'+b.id,!!b.video,has=>{b.video=has;saveBacktests();renderBacktests()},btBag));
+    const details=h('section','card');details.appendChild(h('h2','','Test details and rules'));const rules=h('div','bt-rules');
+    [['Starting capital',b.capital],['Max daily loss',b.dailyLoss],['Max total drawdown',b.maxDrawdown],['Profit target',b.profitTarget],['Minimum trading days',b.minDays],['Other rules',b.otherRules]].filter(x=>x[1]!==undefined&&x[1]!==''&&x[1]!==null).forEach(([k,v])=>{const item=h('div','');item.append(h('small','nx-note',k),h('p','',String(v)));rules.appendChild(item)});
+    if(rules.childNodes.length)details.appendChild(rules);if(b.notes)details.append(h('h3','','Notes'),h('p','',b.notes));btReaderContent.appendChild(details);
+    const report=h('section','');report.appendChild(h('h2','','Nexus AI report'));const reportBox=h('div','bt-report',b.report||'No report yet. Select “Run report with Nexus AI” to review this recording.');report.id='btReportSection';reportBox.id='btReportText';report.appendChild(reportBox);btReaderContent.appendChild(report);
+    if(!btReader.open)btReader.showModal();
   }
+  $('btForm').addEventListener('submit', async e => {
+    e.preventDefault();const bform=e.currentTarget,btn=$('btAddBtn');if(!bform.checkValidity()){shake(btn);bform.reportValidity();return}
+    const f=bform.elements,id=nid(),file=f.video.files[0],video=file||pendingBacktestVideo;const rec={id,title:f.title.value.trim(),symbol:f.symbol.value.trim().toUpperCase(),tf:f.tf.value.trim().toUpperCase(),notes:f.notes.value.trim(),capital:f.capital.value?+f.capital.value:null,dailyLoss:f.dailyLoss.value?+f.dailyLoss.value:null,maxDrawdown:f.maxDrawdown.value?+f.maxDrawdown.value:null,profitTarget:f.profitTarget.value?+f.profitTarget.value:null,minDays:f.minDays.value?+f.minDays.value:null,otherRules:f.otherRules.value.trim(),video:false,created:today(),report:''};
+    btn.disabled=true;if(video&&await storeVideo('b'+id,video))rec.video=true;btn.disabled=false;if(pendingBacktestVideo===video)pendingBacktestVideo=null;
+    backtests.push(rec);saveBacktests();bform.reset();renderBacktests();say('btMsg',video&&!rec.video?'Backtest saved without the video.':'Backtest saved.');
+  });
+  function renderBacktests(){freeBtBag();const box=$('btList');box.replaceChildren();if(!backtests.length){box.appendChild(emptyMsg('No backtests saved yet.'));return}
+    [...backtests].sort((a,b)=>b.id-a.id).forEach(b=>{const card=h('article','rev-card'),head=h('div','head');head.append(h('h3','',b.title||'Untitled'));const chips=h('ul','chips');[b.symbol,b.tf,b.created&&'Added '+b.created].filter(Boolean).forEach(x=>chips.appendChild(h('li','chip',x)));card.append(head,chips);if(b.report)card.appendChild(h('p','nx-note','Nexus AI report saved'));const actions=h('div','form-actions'),view=h('button','btn','View backtest'),del=h('button','btn danger','Delete');view.type=del.type='button';view.addEventListener('click',()=>openBacktestReader(b));del.addEventListener('click',()=>{if(!confirm('Delete this backtest and its video?'))return;backtests=backtests.filter(x=>x.id!==b.id);delKey('b'+b.id);saveBacktests();renderBacktests()});actions.append(view,del);card.appendChild(actions);box.appendChild(card)});
+  }
+  async function sampleVideoFrames(blob,maxFrames=6){const url=URL.createObjectURL(blob),video=document.createElement('video');video.muted=true;video.playsInline=true;video.src=url;try{await new Promise((resolve,reject)=>{video.onloadedmetadata=resolve;video.onerror=()=>reject(new Error('The saved video could not be opened in this browser.'))});const duration=video.duration||0;if(!duration)throw new Error('The recording has no readable duration.');const canvas=document.createElement('canvas'),ctx=canvas.getContext('2d'),count=Math.min(maxFrames,Math.max(1,Math.ceil(duration/12))),frames=[];canvas.width=960;for(let i=0;i<count;i++){video.currentTime=Math.min(Math.max(.1,duration*(i+1)/(count+1)),Math.max(.1,duration-.1));await new Promise((resolve,reject)=>{video.onseeked=resolve;video.onerror=()=>reject(new Error('Could not sample a frame from the recording.'))});const ratio=Math.min(1,960/(video.videoWidth||960));canvas.height=Math.round((video.videoHeight||540)*ratio);ctx.drawImage(video,0,0,canvas.width,canvas.height);frames.push(canvas.toDataURL('image/jpeg',.58))}return frames}finally{URL.revokeObjectURL(url)}}
+  $('btChatwaveRun').addEventListener('click',async()=>{const b=activeBacktest;if(!b)return;if(!CHAT_ENDPOINT||!CHAT_TOKEN){alert('Set the Nexus AI Worker URL and token in Settings first.');return}const btn=$('btChatwaveRun');btn.disabled=true;btn.textContent='Nexus AI is reviewing…';try{const blob=await DB.get('b'+b.id);if(!blob)throw new Error('Add or record a video before requesting a report.');const images=await sampleVideoFrames(blob),rules=[['Starting capital',b.capital],['Maximum daily loss',b.dailyLoss],['Maximum total drawdown',b.maxDrawdown],['Profit target',b.profitTarget],['Minimum trading days',b.minDays],['Other firm rules',b.otherRules]].filter(x=>x[1]!==undefined&&x[1]!==''&&x[1]!==null).map(([k,v])=>`${k}: ${v}`).join('\n')||'No prop-firm rules supplied.';const prompt=`You are Nexus AI, a trading journal and backtest review assistant. Review these ${images.length} sampled frames from a recorded chart replay. Do not claim that video frames prove fills or exact performance. Clearly mark any estimate and uncertainty. Give a concise report with: (1) visible strategy/setup and test context, (2) identifiable completed trades and wins/losses/break-evens; if outcomes cannot be confidently read, say so, (3) estimated win rate only when countable, using wins/(wins+losses) and excluding break-evens, (4) compatibility against each supplied prop-firm rule, calculating only where the recording provides sufficient evidence, otherwise mark “not verifiable”, (5) missing data needed for a reliable backtest. Backtest: ${b.title}; symbol ${b.symbol||'unspecified'}; timeframe ${b.tf||'unspecified'}; notes ${b.notes||'none'}. Rules:\n${rules}`;const res=await fetch(CHAT_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+CHAT_TOKEN},body:JSON.stringify({assistant:'Nexus AI',messages:[{role:'user',content:prompt}],images})});if(!res.ok)throw new Error('Nexus AI server returned '+res.status);const data=await res.json();if(typeof data.reply!=='string'||!data.reply.trim())throw new Error('Nexus AI returned an empty report.');b.report=data.reply.trim();b.reportAt=new Date().toISOString();saveBacktests();$('btReportText').textContent=b.report}catch(err){alert('Could not create the report: '+err.message)}finally{btn.disabled=false;btn.textContent='Run report with Nexus AI'}});
 
   /* ---------- Accounts ---------- */
   $('acctForm').addEventListener('submit', e => {
@@ -1654,8 +1678,8 @@ dialog.trade-detail{width:min(900px,94vw);max-height:92vh;overflow:hidden;backgr
 
   /* ---------- Chat window ---------- */
   const CK = { name: 'tradingJournal.chat.name', hist: 'tradingJournal.chat.history' };
-  const chatViews = ['review', 'plan', 'backtest'];
-  let chatName = String(readJSON(CK.name, '') || '').slice(0, 24);
+  const chatViews = ['journal', 'bias', 'review', 'plan', 'backtest'];
+  let chatName = 'Nexus AI';
   let chatHist = loadList(CK.hist).filter(m => (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string').slice(-60);
   let chatOpen = false, chatNaming = false, chatBusy = false, chatImgData = null;
 
@@ -1671,8 +1695,8 @@ dialog.trade-detail{width:min(900px,94vw);max-height:92vh;overflow:hidden;backgr
     $('chatAttach').textContent = data? 'Remove screenshot': 'Add screenshot';
   }
   function drawChat() {
-    const naming =!chatName || chatNaming;
-    $('chatTitle').textContent = chatName || 'Chart assistant';
+    const naming = false;
+    $('chatTitle').textContent = chatName || 'Nexus AI';
     $('chatNameForm').hidden =!naming;
     $('chatMsgs').hidden = $('chatForm').hidden = naming;
     $('chatRename').hidden = $('chatClear').hidden = naming;
@@ -1691,10 +1715,10 @@ dialog.trade-detail{width:min(900px,94vw);max-height:92vh;overflow:hidden;backgr
   function closeChat() {
     if (!chatOpen) return;
     chatOpen = false; chatNaming = false; $('chat').hidden = true;
-    $('chatLaunch').hidden =!chatViews.includes(currentView);
+    $('chatLaunch').hidden =!chatViews.includes(currentView) || currentView==='journal';
     if (!$('chatLaunch').hidden) $('chatLaunch').focus({ preventScroll: true });
   }
-  $('chatLaunch').addEventListener('click', openChat);
+  $('chatLaunch').addEventListener('click', openChat);$('journalAiBtn').addEventListener('click',openChat);
   $('chatClose').addEventListener('click', closeChat);
   $('chat').addEventListener('keydown', e => { if (e.key === 'Escape') closeChat(); });
   $('chatRename').addEventListener('click', () => { chatNaming = true; drawChat(); });
@@ -1747,28 +1771,61 @@ dialog.trade-detail{width:min(900px,94vw);max-height:92vh;overflow:hidden;backgr
   /* ---------- View hook (called by setView in Part 3) ---------- */
   function onView(name) {
     freeVBag(); freeBtBag();
+    const recorder=$('planRecorder');if(recorder){const target=name==='backtest' ? $('backtestRecorderSlot') : $('planRecorderHome');if(target&&recorder.parentElement!==target){target.appendChild(recorder);$('planRecorder').querySelector('p').textContent=name==='backtest'?'Record a chart replay here; the video will be attached to the backtest you save below. Optional facecam is included in the recording.':'Choose the screen or window to capture. Optional facecam is composited into the recording and saved with this plan.'}}
     if (!chatViews.includes(name)) closeChat();
-    $('chatLaunch').hidden =!chatViews.includes(name) || chatOpen;
+    $('chatLaunch').hidden =!chatViews.includes(name) || chatOpen || name==='journal';
     const draw = { dashboard: renderDash, journal: renderJournal, bias: renderBiasSidebar, review: renderReview, plan: renderPlans,
       backtest: renderBacktests, equity: renderEquity, accounts: renderAccounts }[name];
     if (draw) draw();
   }
 
-  let tradeDetailUrl=null;
-  const tradeDetail=$('tradeDetail'), tradeDetailBody=$('tradeDetailBody');
-  tradeDetail.addEventListener('close',()=>{if(tradeDetailUrl)URL.revokeObjectURL(tradeDetailUrl);tradeDetailUrl=null;});
+  let tradeDetailUrls=[];
+  const tradeDetail=$('tradeDetail'),tradeDetailBody=$('tradeDetailBody');
+  tradeDetail.addEventListener('close',()=>{tradeDetailUrls.forEach(URL.revokeObjectURL);tradeDetailUrls=[];freeVBag();tradeDetail.classList.remove('full-screen')});
+  function tradeImageCard(label,key,has,title){
+    const card=h('section','trade-shot-card'),fig=h('figure','trade-hero');card.appendChild(h('h3','',label));fig.appendChild(h('div','shot-empty',has?'Loading screenshot…':'No screenshot saved.'));card.appendChild(fig);
+    if(has)DB.get(key).then(blob=>{if(!blob||!tradeDetail.open||!tradeDetailBody.contains(card))return;const url=URL.createObjectURL(blob);tradeDetailUrls.push(url);const im=document.createElement('img');im.src=url;im.alt=label+' chart for '+title;fig.replaceChildren(im)}).catch(()=>{});
+    return card;
+  }
+  function addTradeShotControl(container,t,label,key,flag){
+    const input=document.createElement('input');input.type='file';input.accept='image/*';input.hidden=true;
+    const button=h('button','btn ghost',(t[flag]?'Replace ':'Add ')+label.toLowerCase());button.type='button';button.addEventListener('click',()=>input.click());
+    input.addEventListener('change',async()=>{const file=input.files&&input.files[0];input.value='';if(!file)return;if(!isImg(file)){alert('Please choose an image file.');return}try{await DB.put(key,await shrink(file));t[flag]=true;saveTrades();renderJournal();renderDash();openTradeDetails(t)}catch{alert('Could not save the screenshot. Browser storage may be full or blocked.')}});
+    container.append(button,input);
+    if(t[flag]){const rm=h('button','btn danger','Remove '+label.toLowerCase());rm.type='button';rm.addEventListener('click',async()=>{if(!confirm('Remove the '+label.toLowerCase()+' screenshot?'))return;await delKey(key);t[flag]=false;saveTrades();openTradeDetails(t)});container.appendChild(rm)}
+  }
+  function openTradeEdit(t){
+    const form=document.createElement('form');form.className='trade-edit-form';form.noValidate=true;
+    const addField=(label,name,type,value,options)=>{const wrap=document.createElement('label');wrap.textContent=label;let el;if(type==='select'){el=document.createElement('select');(options||[]).forEach(([v,txt])=>{const o=document.createElement('option');o.value=v;o.textContent=txt;el.appendChild(o)})}else{el=document.createElement(type==='textarea'?'textarea':'input');if(type!=='textarea')el.type=type}el.name=name;if(type==='number')el.step='any';if(type==='textarea')el.rows=3;el.value=value??'';wrap.appendChild(el);form.appendChild(wrap);return el};
+    addField('Date','date','date',t.date).required=true;addField('Symbol','symbol','text',t.symbol).required=true;addField('Side','side','select',t.side,[['long','Long'],['short','Short']]);addField('Account','accountId','select',t.accountId??'',[['','Unassigned'],...accounts.map(a=>[String(a.id),a.name])]);
+    addField('Entry','entry','number',t.entry).required=true;addField('Exit','exit','number',t.exit).required=true;addField('Size','size','number',t.size).required=true;addField('Fees','fees','number',t.fees||0);addField('Setup','setup','text',t.setup||'');
+    const notes=addField('Trade notes','notes','textarea',t.notes||'');notes.maxLength=2000;notes.closest('label').classList.add('full');
+    const custom=h('section','trade-note-editor full'),customHead=h('div','head'),addNote=h('button','btn ghost','Add custom note');addNote.type='button';customHead.append(h('h3','','Custom notes'),addNote);custom.appendChild(customHead);
+    const rows=Array.isArray(t.customNotes)?t.customNotes.map(n=>({...n})):[];
+    const renderRows=()=>{custom.querySelectorAll('.trade-note-editor-row').forEach(x=>x.remove());rows.forEach((n,i)=>{const row=h('div','trade-note-editor-row'),title=document.createElement('input'),body=document.createElement('textarea'),rm=h('button','btn danger','Remove');title.value=n.heading||'';title.maxLength=60;title.placeholder='Custom heading';title.setAttribute('aria-label','Custom note heading');body.value=n.text||'';body.rows=3;body.maxLength=2000;body.placeholder='Add notes';body.setAttribute('aria-label','Custom note text');title.addEventListener('input',()=>n.heading=title.value);body.addEventListener('input',()=>n.text=body.value);rm.type='button';rm.addEventListener('click',()=>{rows.splice(i,1);renderRows()});row.append(title,body,rm);custom.appendChild(row)})};
+    addNote.addEventListener('click',()=>{rows.push({heading:'',text:''});renderRows()});renderRows();form.appendChild(custom);
+    const acts=h('div','trade-detail-actions full'),save=h('button','btn','Save trade changes'),cancel=h('button','btn ghost','Cancel');save.type='submit';cancel.type='button';cancel.addEventListener('click',()=>openTradeDetails(t));acts.append(save,cancel);form.appendChild(acts);
+    form.addEventListener('submit',e=>{e.preventDefault();if(!form.reportValidity())return;const f=form.elements;t.date=f.date.value;t.symbol=f.symbol.value.trim().toUpperCase();t.side=f.side.value;t.accountId=f.accountId.value?Number(f.accountId.value):null;t.entry=Number(f.entry.value);t.exit=Number(f.exit.value);t.size=Number(f.size.value);t.fees=Number(f.fees.value)||0;t.setup=f.setup.value.trim();t.notes=f.notes.value.trim();t.customNotes=rows.filter(n=>n.heading.trim()||n.text.trim()).map(n=>({heading:n.heading.trim(),text:n.text.trim()}));saveTrades();fillAccountControls();renderJournal();renderDash();openTradeDetails(t)});
+    tradeDetailBody.replaceChildren(h('h2','','Edit trade'),form);tradeDetailBody.scrollTop=0;
+  }
   async function openTradeDetails(t){
-    if(!t)return;if(tradeDetailUrl){URL.revokeObjectURL(tradeDetailUrl);tradeDetailUrl=null;}
-    const pnl=pnlOf(t),title=`${t.symbol||'Trade'} · ${t.side||''}`;
-    const header=h('header','trade-detail-head'),close=h('button','btn ghost','Close');close.type='button';close.addEventListener('click',()=>tradeDetail.close());
-    const heading=h('div');heading.append(h('h2','','Trade details'),h('p','',`${longDate(parseYMD(t.date))} · ${acctName(t.accountId)||'Unassigned account'}`));header.append(heading,h('strong',cls(pnl),fmt(pnl)),close);
-    const hero=h('figure','trade-hero');hero.appendChild(h('div','shot-empty',t.shot?'Loading trade screenshot…':'No screenshot was saved with this trade.'));
+    if(!t)return;tradeDetailUrls.forEach(URL.revokeObjectURL);tradeDetailUrls=[];
+    const pnl=pnlOf(t),title=(t.symbol||'Trade')+' · '+(t.side||''),header=h('header','trade-detail-head');
+    const heading=h('div'),titleNode=h('h2','','Trade details');titleNode.id='tradeDetailTitle';heading.append(titleNode,h('p','',longDate(parseYMD(t.date))+' · '+(acctName(t.accountId)||'Unassigned account')));
+    const fullscreen=h('button','btn ghost','Full screen');fullscreen.type='button';fullscreen.setAttribute('aria-pressed',String(tradeDetail.classList.contains('full-screen')));fullscreen.addEventListener('click',()=>{const on=tradeDetail.classList.toggle('full-screen');fullscreen.textContent=on?'Exit full screen':'Full screen';fullscreen.setAttribute('aria-pressed',String(on))});
+    const close=h('button','btn ghost','Close');close.type='button';close.addEventListener('click',()=>tradeDetail.close());header.append(heading,h('strong',cls(pnl),fmt(pnl)),fullscreen,close);
+    const imageGrid=h('div','trade-image-grid');imageGrid.append(tradeImageCard('Before trade','s'+t.id,!!t.shot,title),tradeImageCard('After trade','sa'+t.id,!!t.afterShot,title));
+    const imageActions=h('div','trade-fullscreen-row');addTradeShotControl(imageActions,t,'Before screenshot','s'+t.id,'shot');addTradeShotControl(imageActions,t,'After screenshot','sa'+t.id,'afterShot');
+    const select=document.createElement('select');select.setAttribute('aria-label','Choose a pre-trade plan screenshot');const empty=document.createElement('option');empty.value='';empty.textContent='Choose a pre-trade screenshot';select.appendChild(empty);
+    const planShots=plans.filter(p=>p.screenshot);planShots.forEach(p=>{const o=document.createElement('option');o.value=String(p.id);o.textContent=(p.date||'Plan')+' · '+(p.symbol||'')+(p.symbol===t.symbol?' · matching symbol':'');select.appendChild(o)});
+    const importBefore=h('button','btn ghost','Use as before screenshot');importBefore.type='button';importBefore.addEventListener('click',async()=>{const p=planShots.find(x=>String(x.id)===select.value);if(!p){select.focus();return}try{const blob=await DB.get('ps'+p.id);if(!blob)throw Error('missing');if(t.shot&&!confirm('Replace the current before screenshot with this pre-trade chart?'))return;await DB.put('s'+t.id,blob);t.shot=true;t.preTradePlanId=p.id;saveTrades();openTradeDetails(t)}catch{alert('Could not load that pre-trade screenshot.')}});
+    const copy=h('div','pretrade-copy');copy.append(select,importBefore);imageActions.appendChild(copy);
     const info=h('section','trade-detail-section'),grid=h('div','trade-info-grid');info.appendChild(h('h3','','Trade information'));
     [['Symbol',t.symbol],['Side',t.side],['Account',acctName(t.accountId)||'Unassigned'],['Entry',t.entry],['Exit',t.exit],['Size',t.size],['Fees',fmt(+t.fees||0)],['Net P&L',fmt(pnl)],['Setup',t.setup||'—']].forEach(([k,v])=>{const i=h('div','trade-info-item');i.append(h('span','',k),h('strong','',String(v??'—')));grid.appendChild(i)});info.appendChild(grid);
     const notes=h('section','trade-detail-section');notes.append(h('h3','','Notes'),h('p','trade-notes',t.notes||'No notes were added for this trade.'));
-    const actions=h('div','trade-detail-actions'),done=h('button','btn ghost','Done');done.type='button';done.addEventListener('click',()=>tradeDetail.close());actions.appendChild(done);
-    tradeDetailBody.replaceChildren(header,hero,info,notes,actions);if(!tradeDetail.open)tradeDetail.showModal();tradeDetailBody.scrollTop=0;
-    if(t.shot){try{const blob=await DB.get('s'+t.id);if(blob&&tradeDetail.open&&tradeDetailBody.contains(hero)){tradeDetailUrl=URL.createObjectURL(blob);const im=document.createElement('img');im.src=tradeDetailUrl;im.alt=`Uploaded screenshot of ${title} on ${t.date}`;hero.replaceChildren(im)}else if(tradeDetail.open&&tradeDetailBody.contains(hero))hero.replaceChildren(h('div','shot-empty','The saved screenshot could not be loaded.'))}catch{if(tradeDetail.open&&tradeDetailBody.contains(hero))hero.replaceChildren(h('div','shot-empty','The saved screenshot could not be loaded.'))}}
+    (Array.isArray(t.customNotes)?t.customNotes:[]).forEach(n=>{if(n.heading||n.text)notes.append(h('h3','',n.heading||'Note'),h('p','trade-notes',n.text||''))});
+    const video=h('section','trade-detail-section');video.append(h('h3','','Trade video'),videoPanel('v'+t.id,!!t.video,has=>{t.video=has;saveTrades()},vBag));const actions=h('div','trade-detail-actions'),edit=h('button','btn','Edit trade'),ask=h('button','btn ghost','Nexus AI'),done=h('button','btn ghost','Done');edit.type=ask.type=done.type='button';edit.addEventListener('click',()=>openTradeEdit(t));ask.addEventListener('click',()=>{tradeDetail.close();openChat()});done.addEventListener('click',()=>tradeDetail.close());actions.append(edit,ask,done);
+    tradeDetailBody.replaceChildren(header,imageGrid,imageActions,info,notes,video,actions);if(!tradeDetail.open)tradeDetail.showModal();tradeDetailBody.scrollTop=0;
   }
   /* ---------- Start ---------- */
   form.elements.date.value = today();
